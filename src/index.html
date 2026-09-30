@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Game Boy video</title>
+<style>
+  @font-face { font-family: 'Mont'; font-weight: 900; src: url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2'); unicode-range: U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116; }
+  @font-face { font-family: 'Mont'; font-weight: 900; src: url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  @font-face { font-family: 'Russo'; src: url('/node_modules/@fontsource/russo-one/files/russo-one-cyrillic-400-normal.woff2') format('woff2'); unicode-range: U+0400-045F; }
+  @font-face { font-family: 'Russo'; src: url('/node_modules/@fontsource/russo-one/files/russo-one-latin-400-normal.woff2') format('woff2'); unicode-range: U+0000-00FF, U+2000-206F; }
+  html, body { margin: 0; background: #000; }
+  canvas { display: block; }
+  #gl { position: absolute; left: 0; top: 0; visibility: hidden; }
+</style>
+<script type="importmap">
+{ "imports": {
+  "three": "/node_modules/three/build/three.module.js",
+  "three/addons/": "/node_modules/three/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<canvas id="out" width="1080" height="1920"></canvas>
+<script type="module" src="/src/main.js"></script>
+</body>
+</html>

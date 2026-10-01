@@ -52,6 +52,19 @@ if (mode === 'stills') {
   if (process.argv.includes('--chunks')) console.log(await page.evaluate(() => window.__chunks()));
   console.log(JSON.stringify(info.shots));
   await browser.close();
+} else if (mode === 'overlaps') {
+  // sample every 0.2 s (or the given range) and print interpenetrating pairs per shot
+  const browser = await chromium.launch({ args: ARGS });
+  const { page, info } = await openPage(browser);
+  const a = Number(process.argv[3] || 0), b = Number(process.argv[4] || info.duration);
+  const seen = new Map();
+  for (let t = a; t < b; t += 0.2) {
+    const [id, res] = await page.evaluate((tt) => window.__overlaps(tt), t);
+    for (const r of res) { const k = id + ': ' + r.replace(/ \(.*\)$/, ''); const v = seen.get(k) || { first: t, last: t, max: r }; v.last = t; if (parseInt(r.match(/\((\d+)cm\)/)[1]) > parseInt(v.max.match(/\((\d+)cm\)/)[1])) v.max = r; seen.set(k, v); }
+  }
+  if (!seen.size) console.log('NO OVERLAPS');
+  for (const [k, v] of seen) console.log(`${k}  t=${v.first.toFixed(1)}–${v.last.toFixed(1)}  max ${v.max.match(/\(.*\)/)[0]}`);
+  await browser.close();
 } else if (mode === 'video') {
   const workers = Number(process.argv[3] || 2);
   const dir = path.join(ROOT, FRAMES); fs.mkdirSync(dir, { recursive: true });

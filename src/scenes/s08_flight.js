@@ -20,7 +20,7 @@ export const ll2v = (lat, lon, rad = 1) => {
   return V(Math.cos(l) * Math.cos(p) * rad, Math.sin(p) * rad, -Math.sin(l) * Math.cos(p) * rad);
 };
 
-function earthTex() {
+export function earthTex() {
   return canvasTex('earth', 2048, 1024, (g, w, h) => {
     const oc = g.createLinearGradient(0, 0, 0, h); oc.addColorStop(0, '#1d5a8f'); oc.addColorStop(0.5, '#1f6aa8'); oc.addColorStop(1, '#1d5a8f');
     g.fillStyle = oc; g.fillRect(0, 0, w, h);

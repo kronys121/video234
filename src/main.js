@@ -5,6 +5,7 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { loadFonts } from './lib/text3d.js';
+import { checkOverlaps } from './lib/overlap.js';
 import { clamp, inv, easeInCubic, easeOutCubic } from './lib/util.js';
 const PROJ = new URLSearchParams(location.search).get('p') || '1';
 let SHOTS = [], CHUNKS = [];
@@ -156,7 +157,7 @@ function makeChunks(ws) {
     if (grp.map((w) => w.w).join(' ') !== c) throw new Error('chunk mismatch: ' + c + ' vs ' + grp.map((w) => w.w).join(' '));
     res.push(grp); k += n;
   }
-  if (k !== ws.length) throw new Error('unused words ' + k + '/' + ws.length);
+  if (CHUNKS.length && k !== ws.length) throw new Error('unused words ' + k + '/' + ws.length);
   return res.map((c, i) => ({ words: c, s: c[0].s, e: res[i + 1] ? Math.min(res[i + 1][0].s, c[c.length - 1].e + 0.6) : 99 }));
 }
 const fmt = (w) => w.replace(/^"/, '«').replace(/"(?=[.,]?$)/, '»').replace(/[,.]$/, '').replace(/[,.]»$/, '»').replace(/»\.$/, '»');
@@ -204,4 +205,5 @@ window.__init = init;
 window.__frame = (f, quality = 0.95) => { drawFrame(f / FPS); return out.toDataURL('image/jpeg', quality); };
 window.__time = (t, quality = 0.95) => { drawFrame(t); return out.toDataURL('image/jpeg', quality); };
 window.__chunks = () => chunks.map((c) => [c.s.toFixed(2), c.e.toFixed(2), c.words.map((w) => w.w).join(' ')]);
+window.__overlaps = (t) => { const i = shotAt(t); const inst = getShot(i); inst.update(t - SHOTS[i].start, t); inst.scene.updateMatrixWorld(true); return [SHOTS[i].id, checkOverlaps(inst.scene)]; };
 window.__ready = true;

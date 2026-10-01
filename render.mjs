@@ -18,7 +18,11 @@ const server = http.createServer((req, res) => {
   fs.createReadStream(f).pipe(res);
 });
 await new Promise((r) => server.listen(0, r));
-const URL_ = `http://127.0.0.1:${server.address().port}/`;
+const PROJ = process.env.PROJECT || '1';
+const AUDIO = process.env.AUDIO || 'audio.mp3';
+const OUT = process.env.OUT || 'gameboy_1991.mp4';
+const FRAMES = process.env.FRAMES || 'frames';
+const URL_ = `http://127.0.0.1:${server.address().port}/?p=${PROJ}`;
 
 const ARGS = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--disable-gpu-vsync', '--js-flags=--max-old-space-size=4096'];
 
@@ -42,7 +46,7 @@ if (mode === 'stills') {
   for (const t of times) {
     const t0 = Date.now();
     const b64 = await page.evaluate((tt) => window.__time(tt, 0.92), t);
-    save(b64, path.join(ROOT, 'tmp', `still_${t.toFixed(2)}.jpg`));
+    save(b64, path.join(ROOT, 'tmp', `still${PROJ === '1' ? '' : PROJ}_${t.toFixed(2)}.jpg`));
     console.log(`t=${t} ${(Date.now() - t0)}ms`);
   }
   if (process.argv.includes('--chunks')) console.log(await page.evaluate(() => window.__chunks()));
@@ -50,10 +54,10 @@ if (mode === 'stills') {
   await browser.close();
 } else if (mode === 'video') {
   const workers = Number(process.argv[3] || 2);
-  const dir = path.join(ROOT, 'frames'); fs.mkdirSync(dir, { recursive: true });
+  const dir = path.join(ROOT, FRAMES); fs.mkdirSync(dir, { recursive: true });
   const browser0 = await chromium.launch({ args: ARGS });
   const { info } = await openPage(browser0); await browser0.close();
-  const audioDur = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path.join(ROOT, 'audio.mp3')]).toString());
+  const audioDur = Number(execFileSync('ffprobe', ['-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', path.join(ROOT, AUDIO)]).toString());
   const total = Math.ceil(audioDur * 30);
   console.log('frames', total, 'shots end', info.duration);
   const todo = []; for (let f = 0; f < total; f++) if (!fs.existsSync(path.join(dir, `f${String(f).padStart(5, '0')}.jpg`))) todo.push(f);
@@ -72,9 +76,9 @@ if (mode === 'stills') {
     await browser.close();
   }));
   fs.mkdirSync(path.join(ROOT, 'out'), { recursive: true });
-  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', '30', '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(ROOT, 'audio.mp3'),
+  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', '30', '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(ROOT, AUDIO),
     '-c:v', 'libx264', '-preset', 'slow', '-crf', '17', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
-    '-c:a', 'aac', '-b:a', '192k', '-shortest', path.join(ROOT, 'out', 'gameboy_1991.mp4')], { stdio: 'inherit' });
+    '-c:a', 'aac', '-b:a', '192k', '-shortest', path.join(ROOT, 'out', OUT)], { stdio: 'inherit' });
   console.log('done', ((Date.now() - t0) / 1000).toFixed(0), 's');
 }
 server.close();

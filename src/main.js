@@ -6,7 +6,8 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { loadFonts } from './lib/text3d.js';
 import { clamp, inv, easeInCubic, easeOutCubic } from './lib/util.js';
-import { SHOTS } from './scenes/index.js';
+const PROJ = new URLSearchParams(location.search).get('p') || '1';
+let SHOTS = [], CHUNKS = [];
 
 const W = 1080, H = 1920, FPS = 30;
 const out = document.getElementById('out');
@@ -18,7 +19,9 @@ const built = new Map();
 async function init() {
   await Promise.all([document.fonts.load('900 80px Mont', 'АБВabc'), document.fonts.load('80px Russo', 'АБВabc')]);
   await loadFonts();
-  words = (await (await fetch('/src_words.json')).json()).words;
+  const mod = await import(PROJ === '1' ? './scenes/index.js' : `./scenes${PROJ}/index.js`);
+  SHOTS = mod.SHOTS; CHUNKS = mod.CHUNKS;
+  words = (await (await fetch(PROJ === '1' ? '/src_words.json' : `/src_words${PROJ}.json`)).json()).words;
   chunks = makeChunks(words);
   renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(1);
@@ -144,15 +147,7 @@ function vignette() {
 }
 
 // ---------- subtitles ----------
-// hand-authored 2–3 word groups (must match the narration word order)
-const CHUNKS = ['Во время войны', 'в Персидском заливе', 'в 1991 году', 'американский солдат', 'оставил свой', 'Game Boy', 'в казарме,',
-  'которая позже', 'попала под авиаудар', 'и полностью выгорела.', 'Приставку нашли', 'спустя несколько дней', 'среди обгоревшего', 'мусора',
-  'расплавленный,', 'покорёженный,', 'почерневший', 'от копоти корпус.', 'Внутри всё ещё', 'торчал картридж', 'с игрой.',
-  'Солдат отправил', 'приставку обратно', 'в Nintendo', 'с просьбой посмотреть,', 'можно ли', 'хоть что-то спасти.',
-  'К удивлению', 'инженеров компании,', 'после чистки', 'экран', 'и материнская плата', 'оказались', 'полностью рабочими',
-  'сгорел только', 'отсек с батарейками,', 'и то не критично.', 'С тех пор', 'эта обгоревшая', 'приставка стоит', 'в штаб-квартире',
-  'Nintendo', 'как живое', 'доказательство', 'легендарной прочности', 'оригинального', 'Game Boy,', 'и историю', 'до сих пор',
-  'рассказывают,', 'когда речь заходит', 'о том, почему', 'старую технику', 'иногда собирали', '"на совесть".'];
+// 2–3 word groups come from the project's scenes/index.js (must match the narration word order)
 function makeChunks(ws) {
   const res = []; let k = 0;
   for (const c of CHUNKS) {

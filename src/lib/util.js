@@ -251,3 +251,12 @@ export function path(points, t) {
   const c = (a, b, c2, d) => 0.5 * ((2 * b) + (-a + c2) * u + (2 * a - 5 * b + 4 * c2 - d) * u * u + (-a + 3 * b - 3 * c2 + d) * u * u * u);
   return V(c(p0.x, p1.x, p2.x, p3.x), c(p0.y, p1.y, p2.y, p3.y), c(p0.z, p1.z, p2.z, p3.z));
 }
+
+// keyframed camera: frames = [[t, [px,py,pz], [lx,ly,lz], fov?, roll?], ...] smooth-stepped between neighbours
+export function kf(t, frames) {
+  let i = 0; while (i < frames.length - 2 && t >= frames[i + 1][0]) i++;
+  const a = frames[i], b = frames[Math.min(i + 1, frames.length - 1)];
+  const k = a === b ? 0 : smooth(inv(a[0], b[0], t));
+  const L = (x, y) => lerp(x, y, k);
+  return { pos: V(L(a[1][0], b[1][0]), L(a[1][1], b[1][1]), L(a[1][2], b[1][2])), look: V(L(a[2][0], b[2][0]), L(a[2][1], b[2][1]), L(a[2][2], b[2][2])), fov: L(a[3] ?? 50, b[3] ?? 50), roll: L(a[4] ?? 0, b[4] ?? 0) };
+}

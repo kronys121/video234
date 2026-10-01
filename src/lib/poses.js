@@ -22,3 +22,7 @@ export const TALK_A = { lSh: [-35, 0, 25], rSh: [-20, 0, -15], lEl: [-70, 30, 0]
 export const TALK_B = { lSh: [-15, 0, 12], rSh: [-45, 0, -30], lEl: [-45, 10, 0], rEl: [-80, -30, 0], lCurl: 0.3, rCurl: 0.05, rSpread: 1 };
 export const CROSS = { lSh: [-25, 0, 18], rSh: [-25, 0, -18], lEl: [-105, -50, 0], rEl: [-105, 50, 0], lCurl: 0.5, rCurl: 0.5 };
 export const POINT_R = { rSh: [-80, 0, -10], rEl: [-5, 0, 0], rCurl: 0.8, rThumb: 0.8 };
+// seated at a desk, typing / gaming
+export const TYPE = { ...SIT, lSh: [-24, 0, 8], rSh: [-24, 0, -8], lEl: [-82, 0, 0], rEl: [-82, 0, 0], lCurl: 0.45, rCurl: 0.45, spine: [8, 0, 0], head: [6, 0, 0] };
+export const SHRUG = { lSh: [-20, 0, 35], rSh: [-20, 0, -35], lEl: [-70, 40, 0], rEl: [-70, -40, 0], lCurl: 0.1, rCurl: 0.1, lSpread: 1, rSpread: 1 };
+export const FACEPALM = { rSh: [-100, 0, -10], rEl: [-130, 0, 0], rCurl: 0.2, head: [20, 0, 0] };

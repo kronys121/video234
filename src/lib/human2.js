@@ -90,8 +90,9 @@ export function human2(opts = {}) {
     const w = (y) => { const t = (y0 - y) / len; if (t < 0.44) return [[sh, 1]]; if (t < 0.58) { const k = sm(0.44, 0.58, t); return [[sh, 1 - k], [el, k]]; } if (t > 0.97) return [[wr, 1]]; return [[el, 1]]; };
     const ring = (t, extra = 0) => ({ y: y0 - t * len, x, rx: prof(t) + extra, rz: prof(t) + extra });
     if (sleeveTo > 0) {
-      const dome = [[-0.13, 0.25], [-0.115, 0.6], [-0.09, 0.82], [-0.06, 0.95], [-0.03, 1.0]].map(([t, k]) => { const r = ring(t, 0.012); r.rx *= k; r.rz *= k; return r; });
-      const rs = [...dome, ring(0, 0.012)]; for (let i = 1; i <= 8; i++) rs.push(ring(sleeveTo * i / 8, 0.012));
+      const ex = o.v3 ? 0.006 : 0.012, dk = o.v3 ? 0.82 : 1;
+      const dome = [[-0.13, 0.25], [-0.115, 0.6], [-0.09, 0.82], [-0.06, 0.95], [-0.03, 1.0]].map(([t, k]) => { const r = ring(t, ex); r.rx *= k * dk; r.rz *= k * dk; return r; });
+      const rs = [...dome, ring(0, ex)]; for (let i = 1; i <= 8; i++) rs.push(ring(sleeveTo * i / 8, ex));
       add(skinTube(rs, bones, w, topMat, { capBottom: false, capTop: true }));
     }
     if (sleeveTo < 0.98) { const rs = []; if (sleeveTo === 0) [[-0.13, 0.25], [-0.115, 0.6], [-0.09, 0.82], [-0.06, 0.95], [-0.03, 1.0]].forEach(([t, k]) => { const r = ring(t); r.rx *= k; r.rz *= k; rs.push(r); }); const a = Math.max(0, sleeveTo - 0.05); for (let i = 0; i <= 10; i++) rs.push(ring(a + (1.0 - a) * i / 10)); add(skinTube(rs, bones, w, skin, { capBottom: true, capTop: sleeveTo === 0 })); }

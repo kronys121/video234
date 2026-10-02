@@ -4,6 +4,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+import { GTAOPass } from 'three/addons/postprocessing/GTAOPass.js';
 import { loadFonts } from './lib/text3d.js';
 import { checkOverlaps } from './lib/overlap.js';
 import { clamp, inv, easeInCubic, easeOutCubic } from './lib/util.js';
@@ -14,7 +15,7 @@ const W = 1080, H = 1920, FPS = 30;
 const out = document.getElementById('out');
 const ox = out.getContext('2d');
 
-let renderer, composer, renderPass, bloom, words, chunks, envTex;
+let renderer, composer, renderPass, bloom, gtao, words, chunks, envTex;
 const built = new Map();
 
 async function init() {
@@ -40,7 +41,11 @@ async function init() {
   composer = new EffectComposer(renderer, rt);
   renderPass = new RenderPass(new THREE.Scene(), new THREE.PerspectiveCamera());
   bloom = new UnrealBloomPass(new THREE.Vector2(W / 2, H / 2), 0.35, 0.45, 0.88);
-  composer.addPass(renderPass); composer.addPass(bloom); composer.addPass(new OutputPass());
+  // ambient occlusion (opt-in per shot via inst.ao); sprites, transparent planes and noAO objects stay out of the G-buffer
+  gtao = new GTAOPass(new THREE.Scene(), new THREE.PerspectiveCamera(), W, H);
+  gtao.overrideVisibility = function () { const cache = this._visibilityCache; this.scene.traverse((o) => { cache.set(o, o.visible); if (o.isPoints || o.isLine || o.isSprite || o.userData.noAO || (o.material && !Array.isArray(o.material) && o.material.transparent)) o.visible = false; }); };
+  gtao.enabled = false;
+  composer.addPass(renderPass); composer.addPass(gtao); composer.addPass(bloom); composer.addPass(new OutputPass());
   return { duration: SHOTS[SHOTS.length - 1].end, shots: SHOTS.map((s) => [s.id, s.start, s.end, s.trans]) };
 }
 
@@ -68,6 +73,8 @@ function renderShot(i, t, { yaw = 0, pitch = 0, exposure = 1 } = {}) {
   bloom.strength = inst.bloom ?? 0.35;
   bloom.threshold = inst.bloomThreshold ?? 0.88;
   renderPass.scene = inst.scene; renderPass.camera = cam;
+  gtao.enabled = !!inst.ao;
+  if (inst.ao) { gtao.scene = inst.scene; gtao.camera = cam; gtao.blendIntensity = inst.ao; if (!inst._aoSet) { gtao.updateGtaoMaterial({ radius: inst.aoRadius ?? 0.35, distanceExponent: 1, thickness: 1, scale: 1, samples: 16 }); gtao.updatePdMaterial({ lumaPhi: 10, depthPhi: 2, normalPhi: 3, radius: 6, rings: 2, samples: 16 }); } }
   composer.render();
   return renderer.domElement;
 }

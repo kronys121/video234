@@ -172,7 +172,7 @@ export const TEX = {
 
 // text label texture (for signs, stencils, plaques). Returns texture + aspect.
 export function labelTex(text, { font = 'Russo', size = 120, color = '#fff', bg = null, pad = 40, stroke = null, strokeW = 0, w = null, h = null, lines = null, weight = '', align = 'center', grunge = 0, border = null } = {}) {
-  const key = 'lbl|' + [text, font, size, color, bg, pad, stroke, strokeW, w, h, weight, grunge, border].join('|');
+  const key = 'lbl|' + [text, font, size, color, bg, pad, stroke, strokeW, w, h, weight, grunge, border, lines ? lines.join('~') : ''].join('|');
   const ls = lines || [text];
   const mc = document.createElement('canvas').getContext('2d');
   mc.font = `${weight} ${size}px ${font}`;

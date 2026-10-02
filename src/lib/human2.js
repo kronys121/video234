@@ -162,7 +162,7 @@ export function human2(opts = {}) {
   const up = new THREE.Mesh(new THREE.CapsuleGeometry(0.0055, 0.03, 4, 8), lipMat); up.rotation.z = Math.PI / 2; up.position.y = 0.004; mouth.add(up); J.upLip = up;
   const lo = new THREE.Mesh(new THREE.CapsuleGeometry(0.0062, 0.026, 4, 8), lipMat); lo.rotation.z = Math.PI / 2; lo.position.y = -0.005; mouth.add(lo); J.loLip = lo;
   const hairMat = M.col(o.hair, 0.85);
-  if (o.hairStyle !== 'bald' && !o.helmet) {
+  if (o.hairStyle !== 'bald' && !o.helmet && !o.balaclava) {
     const capH = new THREE.Mesh(new THREE.SphereGeometry(0.121, 28, 18, 0, Math.PI * 2, 0, o.hairStyle === 'buzz' ? Math.PI * 0.42 : Math.PI * 0.52), hairMat);
     capH.scale.set(0.95, 1.08, 1.04); capH.position.set(0, 0.085, -0.006); capH.rotation.x = -0.32; hg.add(capH);
     if (o.hairStyle !== 'buzz') { const back = new THREE.Mesh(new THREE.SphereGeometry(0.116, 20, 14), hairMat); back.scale.set(0.95, 0.92, 0.88); back.position.set(0, 0.07, -0.03); hg.add(back); }
@@ -180,6 +180,13 @@ export function human2(opts = {}) {
     for (const s of [-1, 1]) { const ring = new THREE.Mesh(new THREE.TorusGeometry(0.027, 0.0035, 6, 22), gm); ring.scale.y = 0.82; ring.position.set(0.041 * s, 0.092, 0.112); hg.add(ring); const arm = new THREE.Mesh(new THREE.BoxGeometry(0.003, 0.003, 0.1), gm); arm.position.set(0.106 * s, 0.096, 0.06); hg.add(arm); }
     const br = new THREE.Mesh(new THREE.BoxGeometry(0.024, 0.004, 0.004), gm); br.position.set(0, 0.098, 0.115); hg.add(br);
   }
+  if (o.helmet === 'tactical') {
+    const shellM = M.col('#2a3240', 0.5, 0.2);
+    const shell = new THREE.Mesh(new THREE.SphereGeometry(0.135, 26, 16, 0, Math.PI * 2, 0, Math.PI * 0.5), shellM); shell.scale.set(0.97, 0.95, 1.06); shell.position.set(0, 0.1, -0.008); hg.add(shell);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.13, 0.01, 6, 30), shellM); rim.rotation.x = Math.PI / 2; rim.scale.set(0.97, 1.06, 1); rim.position.set(0, 0.105, -0.008); hg.add(rim);
+    const gog = new THREE.Mesh(new THREE.BoxGeometry(0.15, 0.04, 0.03), M.col('#111', 0.3, 0.4)); gog.position.set(0, 0.2, 0.07); gog.rotation.x = -0.5; hg.add(gog);
+    for (const s of [-1, 1]) { const strap = new THREE.Mesh(new THREE.BoxGeometry(0.008, 0.1, 0.014), M.col('#1a1e26', 0.8)); strap.position.set(0.1 * s, 0.03, 0.01); hg.add(strap); }
+  }
   if (o.helmet === 'horned') {
     const metal = M.col('#8a8f96', 0.35, 0.85), horn = M.col('#e8dcc0', 0.5);
     const shell = new THREE.Mesh(new THREE.SphereGeometry(0.132, 26, 16, 0, Math.PI * 2, 0, Math.PI * 0.55), metal); shell.scale.set(0.98, 1.0, 1.05); shell.position.set(0, 0.095, -0.006); hg.add(shell);
@@ -189,7 +196,7 @@ export function human2(opts = {}) {
   }
   root.traverse((m) => { if (m.isMesh && !m.isSkinnedMesh) { m.castShadow = true; m.receiveShadow = true; } });
   root.scale.setScalar(o.height);
-  const H = { root, J, opts: o, meshes, skel };
+  const H = { root, J, opts: o, meshes, skel, skinMat: skin, topMat };
   H.pose = (p) => applyPose(H, p);
   H.face = (f) => applyFace(H, f);
   applyPose(H, {}); applyFace(H, {});

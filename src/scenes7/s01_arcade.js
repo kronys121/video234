@@ -121,8 +121,8 @@ export function buildLicense() {
   // tin can with a plain label
   const can = new THREE.Group(); const c = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.2, 24), new THREE.MeshStandardMaterial({ map: canvasTex('can7', 512, 160, (g, w, h) => { g.fillStyle = '#2a8a3a'; g.fillRect(0, 0, w, h); g.fillStyle = '#ffffff'; g.font = '54px Russo'; g.textAlign = 'center'; g.fillText('ШПИНАТ', w / 2, h * 0.6); }, { repeat: [1, 1] }), roughness: 0.4, metalness: 0.3 })); c.position.y = 0.1; can.add(c); for (const y of [0, 0.2]) { const r = new THREE.Mesh(new THREE.TorusGeometry(0.08, 0.006, 6, 24), M.col('#c8c8cc', 0.3, 0.9)); r.rotation.x = Math.PI / 2; r.position.y = y; can.add(r); } can.position.set(0.48, 0.75, -1.3); scene.add(shadows(can));
   const lamp = ceilingLamp(scene, 0, -1.2, 2.8);
-  const key = new THREE.SpotLight('#fff0dc', 16, 8, 0.7, 0.6, 1.2); key.position.set(1.2, 2.6, 0.6); key.target.position.set(0, 0.75, -1.2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0005; scene.add(key, key.target);
-  const t1 = sign('НЕТ ЛИЦЕНЗИИ', { width: 1.0, color: '#ffffff', bg: '#d4213a', size: 100, pad: 20, border: '#ffffff' }); scene.add(t1);
+  const key = new THREE.SpotLight('#fff0dc', 9, 8, 0.7, 0.6, 1.2); key.position.set(1.2, 2.6, 0.6); key.target.position.set(0, 0.75, -1.2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0005; scene.add(key, key.target);
+  const t1 = sign('НЕТ ЛИЦЕНЗИИ', { width: 0.7, color: '#ffffff', bg: '#d4213a', size: 100, pad: 20, border: '#ffffff' }); scene.add(t1);
   const camera = new THREE.PerspectiveCamera(48, 1080 / 1920, 0.03, 60);
   const HIT = 1.55;
   function update(lt) {

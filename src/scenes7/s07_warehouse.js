@@ -29,10 +29,10 @@ export function buildBook() {
     const lift = smooth(inv(0.3, 1.2, lt));
     bk.position.set(0, lerp(0.81, 1.15, lift), lerp(-1.0, -0.95, lift)); bk.rotation.set(lerp(-Math.PI / 2, -0.25, lift), Math.sin(lt * 1.2) * 0.12 * lift, 0);
     const k = easeOutElastic(inv(1.95, 2.55, lt)); yr.scale.setScalar(Math.max(0.001, k)); yr.visible = lt > 1.93;
-    pop(v1, lt, 0.05, 0.3); pop(t2, lt, 1.1, 0.3);
+    popOut(v1, lt, 0.05, 1.0); pop(t2, lt, 1.1, 0.3);
     const f = kf(lt, [[0, [0.9, 1.7, 0.8], [0, 0.9, -1.0], 48, 0.03], [4.35, [-0.3, 1.4, 0.6], [0, 1.25, -1.0], 44, -0.02]]);
     setCam(camera, f.pos.add(shake(lt, 0.003, 5, 2)), f.look, f.roll, f.fov);
-    hud(v1, camera, 2.4, 0, 0.78); hud(t2, camera, 2.4, 0, 0.55);
+    hud(v1, camera, 2.4, 0, 0.78); hud(t2, camera, 2.4, 0, -0.28);
   }
   return { scene, camera, update, exposure: 1.0, bloom: 0.3, bloomThreshold: 0.9, envIntensity: 0.22, ao: 1.0 };
 }

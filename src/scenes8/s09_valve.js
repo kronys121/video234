@@ -22,7 +22,7 @@ export function matchDraw(g, w, h, t) {
 // office with three devs playing at their desks (back wall), seated facing -z
 function valveOffice(scene) {
   scene.background = new THREE.Color('#0a0a0e');
-  room6(scene, { w: 7, d: 6, h: 3, wall: '#c8c4b8', floor: M.std({ map: TEX.carpet([5, 5], '#4a4e58'), roughness: 1 }), windowAt: { wall: 'back', rect: [2.4, 1.7, 1.4, 1.2] }, open: ['front'] });
+  room6(scene, { w: 7, d: 6, h: 3, wall: '#7a7a74', floor: M.std({ map: TEX.carpet([5, 5], '#4a4e58'), roughness: 1 }), windowAt: { wall: 'back', rect: [2.4, 1.7, 1.4, 1.2] }, open: ['front'] });
   scene.add(new THREE.HemisphereLight('#f0f0ff', '#2a2420', 0.55));
   const devs = [cast8.dev1('d1'), cast8.dev2('d2'), cast8.exec('d3')];
   devs.forEach((H, i) => {
@@ -32,7 +32,7 @@ function valveOffice(scene) {
     const ch = chair6('#2a2a30'); ch.position.set(x, 0, -1.55); scene.add(solid(ch, 'chair' + i, ['d' + (i + 1)]));
     H.root.position.set(x, 0, -1.58); H.root.rotation.y = Math.PI; scene.add(H.root); H.root.userData.allow = ['chair' + i];
   });
-  const logo = sign('VALVE', { width: 1.4, color: '#ff8a2a', size: 140, pad: 14, emissive: 0.5 }); logo.position.set(-0.6, 2.4, -2.98); scene.add(logo);
+  const logo = sign('VALVE', { width: 1.4, color: '#ff8a2a', size: 140, pad: 14, emissive: 0.5 }); logo.position.set(-1.1, 2.4, -2.98); scene.add(logo);
   ceilingLamp(scene, -1.0, -1.6, 3); ceilingLamp(scene, 1.2, -1.6, 3);
   const key = new THREE.SpotLight('#fff0dc', 22, 11, 0.8, 0.6, 1.2); key.position.set(1.5, 2.9, 1.5); key.target.position.set(0, 1, -2); key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0005; scene.add(key, key.target);
   return { devs };
@@ -40,7 +40,7 @@ function valveOffice(scene) {
 // 21.85–25.85  «К 2009 году сотрудники Valve сами играли в DotA,»
 export function buildValve() {
   const scene = new THREE.Scene(); const O = valveOffice(scene);
-  const yr = text3d('2009', { family: 'mont', size: 0.34, depth: 0.09, bevel: 0.013, color: '#ffffff', side: '#c86a1a', emissive: '#ff8a2a', emissiveIntensity: 0.3 }); yr.position.set(0.8, 2.45, -2.6); scene.add(yr);
+  const yr = text3d('2009', { family: 'mont', size: 0.34, depth: 0.09, bevel: 0.013, color: '#ffffff', side: '#c86a1a', emissive: '#ff8a2a', emissiveIntensity: 0.3 }); yr.position.set(0.5, 2.45, -2.6); scene.add(yr);
   const t1 = sign('VALVE ИГРАЕТ В DOTA', { width: 1.4, color: '#ffffff', bg: '#c86a1a', size: 100, pad: 22, border: '#ffffff' }); scene.add(t1);
   const camera = new THREE.PerspectiveCamera(54, 1080 / 1920, 0.05, 60);
   function update(lt) {
@@ -51,7 +51,7 @@ export function buildValve() {
     setCam(camera, f.pos.add(shake(lt, 0.004, 5, 2)), f.look, f.roll, f.fov);
     hud(t1, camera, 2.8, 0, -0.5);
   }
-  return { scene, camera, update, exposure: 1.0, bloom: 0.3, bloomThreshold: 0.9, envIntensity: 0.25, ao: 1.0 };
+  return { scene, camera, update, exposure: 0.88, bloom: 0.25, bloomThreshold: 0.92, envIntensity: 0.25, ao: 1.0 };
 }
 
 // 25.85–29.35  «и компания наняла IceFrog делать отдельную игру.»
@@ -237,8 +237,8 @@ export function buildForty() {
   function update(lt) {
     bars.forEach((g, i) => { const k = smooth(inv(0.1 + i * 0.2, 0.5 + i * 0.2, lt)); const h = Math.max(0.001, g.userData.h * k); g.userData.b.scale.y = h; g.userData.b.position.y = h / 2; });
     panel.userData.set(fmt(40000000 * Math.pow(smooth(inv(0.3, 2.4, lt)), 0.8)), '#ffc83a'); pop(panel, lt, 0.05, 0.3);
-    const k = easeOutElastic(inv(0.35, 0.95, lt)); yr.scale.setScalar(Math.max(0.001, k)); yr.visible = lt > 0.33; yr.position.set(1.64, 3.75, -0.5);
-    const f = kf(lt, [[0, [-0.4, 1.9, 5.8], [0, 1.6, -0.5], 54, 0.03], [3.75, [0.5, 2.2, 6.0], [0, 1.8, -0.5], 54, -0.03]]);
+    const k = easeOutElastic(inv(0.35, 0.95, lt)); yr.scale.setScalar(Math.max(0.001, k)); yr.visible = lt > 0.33; yr.position.set(1.15, 3.85, -0.5);
+    const f = kf(lt, [[0, [-0.4, 2.0, 6.8], [0, 1.7, -0.5], 54, 0.03], [3.75, [0.5, 2.3, 7.0], [0, 1.9, -0.5], 54, -0.03]]);
     setCam(camera, f.pos.add(shake(lt, 0.003, 4, 2)), f.look, f.roll, f.fov);
     hud(panel, camera, 3.0, 0, 1.0);
   }

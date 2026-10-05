@@ -192,7 +192,7 @@ export function plots(houses,n,y0,y1,opt={}){
     if(riverDist(x,z)<5||heightAt(x,z)<0.7)continue;
     if(K.slopeOK(x,z,3.4,2.6,ry,0.9)===null)continue;
     const rc=K.rect(x,z,1.9,1.5,ry),hit=K.collide(rc,0.2);
-    if(hit.some(o=>!o.house||o.newer))continue;
+    if(hit.some(o=>!o.house||(o.gen??0)>=2))continue;
     let after=B(y0);for(const o of hit)if(o.house){const hh=o.house;if(hh.td===NO&&hh.tb<=0.01)after=NO;else if(hh.td!==NO)after=Math.max(after,hh.td+0.5)}
     if(after===NO)continue;
     K.reg(Object.assign(rc,{plot:1}));

@@ -1,6 +1,6 @@
 import * as E from './engine.js';
 import * as K from './city.js';
-const {THREE,add,frame,B,heightAt,riverDist,xr,marshAt,rotTo,rotXZ,clamp,lerp,smooth,hash2,mulberry,NO,C,hooks,scene}=E;
+const {THREE,add,frame,B,heightAt,riverDist,xr,marshAt,rotTo,rotXZ,clamp,lerp,smooth,hash2,mulberry,NO,C,hooks,scene,fbm}=E;
 const {STONE,MARBLE,TRAV,BRICK,DARK,TERRA,temple,basilica,triumphalArch,reg,rect,circ}=K;
 const darker=(c,k=0.8)=>new THREE.Color(c).multiplyScalar(k);
 
@@ -176,10 +176,10 @@ export function bridge(z,year,stone,die){
 }
 /* ---------- walls with towers, merlons and gates ---------- */
 export function wallRing(R,year,spread,h,thick,col,towerCol,gateAngles,opt={}){
-  const N=Math.round(R*2.8),b0=B(year),o={dur:0.7},od=opt.die?{d:B(opt.die)}:{};
+  const N=Math.round(R*2.8),b0=B(year),o={dur:0.7},odf=th=>{const y=opt.dieFn?opt.dieFn(th):opt.die;return y?{d:B(y)}:{}};
   const near=(th)=>gateAngles.some(g=>{let d=Math.abs(th-g);d=Math.min(d,Math.PI*2-d);return d<2.0/R});
   for(let i=0;i<N;i++){
-    const th=i/N*Math.PI*2,x=C[0]+R*Math.cos(th),z=C[1]+R*Math.sin(th);
+    const th=i/N*Math.PI*2,x=C[0]+R*Math.cos(th),z=C[1]+R*Math.sin(th),od=odf(th);
     if(riverDist(x,z)<5.2||heightAt(x,z)<0.45||near(th))continue;
     const tx=-Math.sin(th),tz=Math.cos(th),len=R*Math.PI*2/N*1.06,ry=rotTo(tx,tz),gy=heightAt(x,z);
     const b=b0+((th/(Math.PI*2)+0.25)%1)*spread;
@@ -192,7 +192,7 @@ export function wallRing(R,year,spread,h,thick,col,towerCol,gateAngles,opt={}){
       for(const [dx,dz] of [[1,1],[-1,1],[1,-1],[-1,-1]]){const [ox,oz]=rotXZ(dx*thick*0.8,dz*thick*0.8,ry);add('box',x+ox,gy+h+1.0,z+oz,ry,0.3,0.28,0.3,towerCol,b+0.15,{...o,...od})}}
   }
   for(const th of gateAngles){
-    const x=C[0]+R*Math.cos(th),z=C[1]+R*Math.sin(th),gy=heightAt(x,z),tx=-Math.sin(th),tz=Math.cos(th),ry=rotTo(tx,tz),b=b0+0.3;
+    const od=odf(th),x=C[0]+R*Math.cos(th),z=C[1]+R*Math.sin(th),gy=heightAt(x,z),tx=-Math.sin(th),tz=Math.cos(th),ry=rotTo(tx,tz),b=b0+0.3;
     if(riverDist(x,z)<5.5)continue;
     for(const sg of [1,-1]){const [ox,oz]=rotXZ(sg*1.45,0,ry);
       add('cyl',x+ox,gy-0.5,z+oz,0,thick*2.1,h+1.6,thick*2.1,towerCol,b,{...o,...od});add('cyl',x+ox,gy+h+1.1,z+oz,0,thick*2.4,0.25,thick*2.4,darker(towerCol,1.1),b+0.1,{...o,...od})}
@@ -257,13 +257,13 @@ export function buildRome(opt={}){
   const mains=[];
   angles.forEach((a,k)=>{
     const th=a*Math.PI/180,pts=[];
-    for(let r=2;r<=50;r+=3){const th2=th+0.14*Math.sin(r*0.17+k*1.3);pts.push([Fc[0]+r*Math.cos(th2),Fc[1]+r*Math.sin(th2)])}
-    mains.push(K.makeRoad(pts,1.5,-640+k*5,11,'main'));
+    for(let r=2;r<=190;r+=(r<50?3:10)){const th2=th+0.14*Math.sin(r*0.17+k*1.3)+0.0007*(r>50?(r-50):0)*Math.sin(k*2.1);pts.push([Fc[0]+r*Math.cos(th2),Fc[1]+r*Math.sin(th2)])}
+    const mr=K.makeRoad(pts,1.5,-640+k*5,11,'main',1.8);mr.growth2=0.9;mains.push(mr);
   });
   const minors=[];
   for(const m of mains){
     let flip=1;
-    for(let s=8;s<m.arc[m.arc.length-1]-6;s+=9+rr()*4){
+    for(let s=8;s<Math.min(m.arc[m.arc.length-1]-6,46);s+=9+rr()*4){
       let i=0;while(i<m.arc.length-2&&m.arc[i+1]<s)i++;
       const [x0,z0]=m.p[i],[x1,z1]=m.p[i+1],tl=Math.hypot(x1-x0,z1-z0),tx=(x1-x0)/tl,tz=(z1-z0)/tl;
       for(const side of [flip,-flip]){
@@ -319,15 +319,16 @@ export function buildRome(opt={}){
   houses.push(...clones);
   K.emitRoads();
   wallRing(26,-378,0.9,1.5,0.7,'#c9bb97','#b8a982',gates26,{die:mon.servian});
-  wallRing(38,271,0.7,2.2,0.9,'#b9744e','#a4623f',gates38);
+  wallRing(38,271,0.7,2.2,0.9,'#b9744e','#a4623f',gates38,{dieFn:mon.aurelianDie});
   return {houses,gates26,gates38,mains,minors,yearOfFrac};
 }
 
 /* ---------- trees (appear where the land is free, vanish when built over) ---------- */
 export function scatterTrees(houses,opt={}){
   const rt=mulberry(21),res=[],greens=['#2f6d2b','#3a7b2c','#2a5f2a','#4a8a30','#5a9a34'];let tries=0;
-  while(res.length<(opt.n??1300)&&tries<16000){tries++;
-    const x=C[0]+(rt()-0.5)*250,z=C[1]+(rt()-0.5)*250,dc=Math.hypot(x-C[0],z-C[1]);
+  while(res.length<(opt.n??1300)&&tries<(opt.n??1300)*10){tries++;
+    const sp=opt.span??250,x=C[0]+(rt()-0.5)*sp,z=C[1]+(rt()-0.5)*sp,dc=Math.hypot(x-C[0],z-C[1]);
+    if(opt.clusters&&fbm(x*0.03+3,z*0.03+9)<0.5&&rt()<0.85)continue;
     if(dc<38&&rt()<0.12)continue;
     const h=heightAt(x,z);if(h<0.55||riverDist(x,z)<4.2||(opt.marsh&&marshAt(x,z)>0.25))continue;
     if(K.collide(rect(x,z,0.45,0.45,0),0.5).length)continue;

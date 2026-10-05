@@ -35,25 +35,30 @@ export function B(y){                        // time (s) at which the clock reac
   return DUR+50;
 }
 
-/* ---------- world layout (shared by both episodes) ---------- */
+/* ---------- world layout (the whole of Latium) ---------- */
 export const C=[2,6];
-export const xr=z=>-44+8*Math.sin(0.05*z+0.6)+0.0012*z*z;       // Tiber centre line
-export const HILLS=[[-12,-4,4.6,5],[4,10,4.2,5.2],[-10,21,4.4,5],[19,18,3.8,5],[23,2,3.6,5.5],[12,-11,3.4,5],[3,-21,3.6,5],[-62,-24,3.2,6],[-60,16,5,7]];
+const xrBase=z=>-44+8*Math.sin(0.05*z+0.6)+(z>0?0.0012:0.0003)*z*z;
+export const xr=z=>xrBase(z)+smooth(30,85,z)*(-1.12)*(z-30);       // Tiber centre line, running on to the sea
+const xrSlope=z=>(xr(z+1)-xr(z-1))/2;
+export const coastX=z=>-140+7*Math.sin(z*0.035+1);
+export const HILLS=[[-12,-4,4.6,5],[4,10,4.2,5.2],[-10,21,4.4,5],[19,18,3.8,5],[23,2,3.6,5.5],[12,-11,3.4,5],[3,-21,3.6,5],[-62,-24,3.2,6],[-60,16,5,7],
+  [150,150,15,30],[172,128,9,18],[125,172,8,16],[-30,-120,5,14],[-70,-60,4,12],[40,-70,6,16],[210,-40,16,34],[260,60,18,40]];
 export const MARSH=[[-4,4,3.4],[-2,16,2.9],[-24,-14,5.4]];
-export const FLAT=[[-3,15.5,7,13,0.95],[14,3,10,15,1.15],[-12,-16,5,8,1.1],[14,29,7,11,1.1],[-62,-24,9,14,1.2]];
+export const FLAT=[[-3,15.5,7,13,0.95],[14,3,10,15,1.15],[-12,-16,5,8,1.1],[14,29,7,11,1.1],[-62,-24,9,14,1.2],[-15,-95,9,16,1.3],[-132,122,8,14,0.9],[135,-45,7,13,1.4]];
 export function marshAt(x,z){let m=0;for(const [mx,mz,s] of MARSH){const d2=(x-mx)**2+(z-mz)**2;m=Math.max(m,Math.exp(-d2/(2*s*s)))}return m}
 export function heightAt(x,z){
   let h=1.1+0.8*fbm(x*0.03+10,z*0.03);
   const d=Math.hypot(x-C[0],z-C[1]);
-  h+=smooth(60,150,d)*(9*fbm(x*0.018+50,z*0.018+7));
+  h+=smooth(90,200,d)*(8*fbm(x*0.016+50,z*0.016+7));
   for(const [hx,hz,hh,s] of HILLS)h+=hh*Math.exp(-((x-hx)**2+(z-hz)**2)/(2*s*s));
   for(const [fx,fz,r0,r1,fh] of FLAT){const m=1-smooth(r0,r1,Math.hypot(x-fx,z-fz));h=lerp(h,fh,m)}
-  const dr=Math.abs(x-xr(z));
-  h-=3.4*Math.exp(-((dr/4.4)**2));
+  const dr=Math.abs(x-xr(z))/Math.sqrt(1+xrSlope(z)**2),wid=4.4+smooth(40,125,z)*3.2;
+  h-=3.4*Math.exp(-((dr/wid)**2));
   h=lerp(h,0.3,smooth(0.15,0.6,marshAt(x,z)));
+  const cx=coastX(z);h-=9*smooth(cx+18,cx-6,x);                       // the Tyrrhenian Sea
   return h;
 }
-export const riverDist=(x,z)=>Math.abs(x-xr(z));
+export const riverDist=(x,z)=>Math.abs(x-xr(z))/Math.sqrt(1+xrSlope(z)**2);
 
 /* ---------- renderer / scene ---------- */
 export const BG=new THREE.Color('#e9dcb9');
@@ -62,11 +67,11 @@ renderer.setSize(W,H);renderer.setPixelRatio(1);
 renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
 document.getElementById('gl').appendChild(renderer.domElement);
-export const scene=new THREE.Scene();scene.background=BG;scene.fog=new THREE.Fog(BG,190,470);
-export const camera=new THREE.PerspectiveCamera(32,W/H,1,900);
+export const scene=new THREE.Scene();scene.background=BG;scene.fog=new THREE.Fog(BG,320,980);
+export const camera=new THREE.PerspectiveCamera(32,W/H,1,1800);
 scene.add(new THREE.HemisphereLight(0xdfeeff,0x7a8a46,1.15));
 export const sun=new THREE.DirectionalLight(0xffe0ae,3.0);
-sun.position.set(-70,62,45);sun.castShadow=true;sun.shadow.mapSize.set(3072,3072);
+sun.position.set(-70,62,45);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
 Object.assign(sun.shadow.camera,{left:-75,right:75,top:75,bottom:-75,near:10,far:280});
 sun.shadow.bias=-0.0005;sun.shadow.normalBias=0.04;
 scene.add(sun,sun.target);
@@ -147,49 +152,56 @@ export const meshes={};
 export function buildInst(){
   for(const k of Object.keys(KINDS)){
     const arr=items[k],m=new THREE.InstancedMesh(KINDS[k].g,KINDS[k].m,Math.max(1,arr.length));
-    arr.forEach((it,i)=>m.setColorAt(i,it.col));
-    if(arr.length===0)m.count=0;
+    m.setColorAt(0,new THREE.Color('#fff'));m.count=0;
     m.castShadow=true;m.receiveShadow=true;m.frustumCulled=false;scene.add(m);meshes[k]=m;
   }
 }
+const mtmp=new THREE.Matrix4();
 export function updateInst(t){
   dummy.rotation.order='YXZ';
   for(const k of Object.keys(KINDS)){
-    const arr=items[k],m=meshes[k];let touched=false;
+    const arr=items[k],m=meshes[k],ma=m.instanceMatrix.array,ca=m.instanceColor.array;let n=0;
     for(let i=0;i<arr.length;i++){
-      const it=arr[i];if(it.done)continue;touched=true;
-      const s=scaleAt(it,t);
-      dummy.position.set(it.x,it.y,it.z);dummy.rotation.set(it.rx,it.ry,it.rz);
-      const e=s<0.002?0:s;dummy.scale.set(it.sx*e,it.sy*e,it.sz*e);dummy.updateMatrix();m.setMatrixAt(i,dummy.matrix);
-      if(it.d===NO&&t>=it.b+it.dur)it.done=true;
-      else if(it.d!==NO&&it.r!=null&&t>=it.r+it.dur)it.done=true;
-      else if(it.d!==NO&&it.r==null&&t>=it.d+0.4)it.done=true;
+      const it=arr[i];
+      if(t<it.b-0.001)continue;                                   // not built yet
+      if(it.d!==NO&&it.r==null&&t>=it.d+0.4)continue;             // gone for good
+      if(it.settled){ma.set(it.mat,n*16)}
+      else{
+        const s=scaleAt(it,t);if(s<0.002)continue;
+        dummy.position.set(it.x,it.y,it.z);dummy.rotation.set(it.rx,it.ry,it.rz);
+        dummy.scale.set(it.sx*s,it.sy*s,it.sz*s);dummy.updateMatrix();dummy.matrix.toArray(ma,n*16);
+        if(s===1&&((it.d===NO&&t>=it.b+it.dur)||(it.r!=null&&t>=it.r+it.dur))){it.settled=true;it.mat=new Float32Array(16);dummy.matrix.toArray(it.mat)}
+      }
+      ca[n*3]=it.col.r;ca[n*3+1]=it.col.g;ca[n*3+2]=it.col.b;n++;
     }
-    if(touched)m.instanceMatrix.needsUpdate=true;
+    m.count=n;m.instanceMatrix.needsUpdate=true;m.instanceColor.needsUpdate=true;
   }
 }
 
 /* ---------- terrain / water ---------- */
 export let marshPatches=[],marshDry0=0,marshDry1=0,waterMesh;
 export function buildTerrain(){
-  const g=new THREE.PlaneGeometry(360,360,224,224);g.rotateX(-Math.PI/2);
+  const g=new THREE.PlaneGeometry(680,680,420,420);g.rotateX(-Math.PI/2);
   const p=g.attributes.position,col=new Float32Array(p.count*3),c=new THREE.Color();
   const grassLow=new THREE.Color('#7fa83c'),grassHi=new THREE.Color('#5d9a35'),dry=new THREE.Color('#a3a554'),mud=new THREE.Color('#6d7a3c'),sand=new THREE.Color('#c9b878'),rock=new THREE.Color('#8a9460');
   const marsh=CFG.marsh;
   for(let i=0;i<p.count;i++){
     const x=p.getX(i),z=p.getZ(i),h=heightAt(x,z);p.setY(i,h);
-    const n=fbm(x*0.12,z*0.12);
+    const n=fbm(x*0.12,z*0.12),d0=Math.hypot(x-C[0],z-C[1]),cxc=coastX;
     c.copy(grassLow).lerp(grassHi,clamp((h-1)/3)).lerp(dry,clamp(n*1.3-0.35)*(CFG.dryness??0.6));
     c.lerp(rock,smooth(6,10,h)*0.6);
     if(marsh)c.lerp(mud,smooth(0.25,0.7,marshAt(x,z)));
     c.lerp(sand,(1-smooth(0.5,1.4,h))*0.55*(riverDist(x,z)<8?1:0));
+    c.lerp(sand,smooth(1.3,0.4,h)*smooth(cxc(z)+30,cxc(z)-2,x)*0.9);
+    c.lerp(rock,smooth(8,20,h)*0.55*smooth(120,260,d0));
+    c.lerp(dry,smooth(80,220,d0)*0.25);
     c.offsetHSL((hash2(i,7)-0.5)*0.015,0,(hash2(i,3)-0.5)*0.05);
     col.set([c.r,c.g,c.b],i*3);
   }
   g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();
   const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:1}));
   m.receiveShadow=true;scene.add(m);
-  waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(360,360).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:'#1d6aa5',roughness:0.28,flatShading:true}));
+  waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(1400,1400).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:'#1d6aa5',roughness:0.28,flatShading:true}));
   waterMesh.position.y=0.15;waterMesh.receiveShadow=true;scene.add(waterMesh);
   if(marsh){
     const mm=new THREE.MeshStandardMaterial({color:'#4f8a86',roughness:0.4,flatShading:true});
@@ -222,7 +234,7 @@ const cOr=new THREE.Color('#ff7a1c'),cYe=new THREE.Color('#ffc43a'),cGr=new THRE
 function updateFire(t){
   let light=0,lx=0,lz=0;
   FIRES.forEach((f,fi)=>{
-    const I=smooth(f.t0,f.t0+0.4,t)*(1-smooth(f.t0+f.dur,f.t0+f.dur+1.6,t));
+    const I=smooth(f.t0,f.t0+0.4,t)*(1-smooth(f.t0+f.dur,f.t0+f.dur+0.7,t));
     const sm=smooth(f.t0,f.t0+0.4,t)*(1-smooth(f.t0+f.dur+0.2,f.t0+f.dur+1.7,t));
     if(I>light){light=I;lx=f.x;lz=f.z}
     for(let j=0;j<NS;j++){
@@ -284,9 +296,27 @@ function updateUI(t){
   $('card').style.transform=`translateY(${(1-fin)*8}px)`;
 }
 
+/* ---------- map labels (projected from 3D) ---------- */
+const labels=[];
+export function addLabel(text,posFn,t0,t1,cls='place',color){
+  const el=document.createElement('div');el.className='lbl '+cls;el.textContent=text;if(color)el.style.setProperty('--c',color);
+  el.style.opacity=0;document.getElementById('stage').appendChild(el);labels.push({el,posFn,t0,t1});
+}
+const lv=new THREE.Vector3();
+function updateLabels(t){
+  for(const l of labels){
+    const a=clamp((t-l.t0)/0.6)*clamp((l.t1-t)/0.6),p=a>0.01?l.posFn(t):null;
+    if(!p){l.el.style.opacity=0;continue}
+    lv.set(p[0],p[1],p[2]).project(camera);
+    if(lv.z>1||Math.abs(lv.x)>1.02||Math.abs(lv.y)>1.02){l.el.style.opacity=0;continue}
+    l.el.style.transform=`translate(${(lv.x*0.5+0.5)*W}px,${(-lv.y*0.5+0.5)*H}px) translate(-50%,-100%)`;l.el.style.opacity=a;
+  }
+}
+
 /* ---------- frame ---------- */
 export const hooks={update:[]};
 export function start(fires){
+  window.__dur=DUR;
   buildTerrain();buildClouds();buildInst();buildFire(fires||[]);
   window.renderFrame=function(t){
     t=clamp(t,0,DUR);
@@ -294,7 +324,7 @@ export function start(fires){
     updateInst(t);updateFire(t);
     clouds.forEach((c,i)=>{c.g.position.x=((i*61-130+t*c.sp*3)%280+280)%280-140});
     for(const f of hooks.update)f(t);
-    setCamera(t);updateUI(t);renderer.render(scene,camera);
+    setCamera(t);camera.updateMatrixWorld();updateLabels(t);updateUI(t);renderer.render(scene,camera);
   };
   document.fonts.ready.then(()=>{window.renderFrame(0);window.__ready=true});
 }

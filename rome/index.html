@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Rome timelapse</title>
+<style>
+@font-face{font-family:Cinzel;font-weight:600;src:url(node_modules/@fontsource/cinzel/files/cinzel-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Cinzel;font-weight:400;src:url(node_modules/@fontsource/cinzel/files/cinzel-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Cormorant;font-weight:600;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Cormorant;font-weight:600;font-style:italic;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-italic.woff2) format("woff2")}
+html,body{margin:0;background:#000;width:1280px;height:720px;overflow:hidden}
+#stage{position:relative;width:1280px;height:720px;overflow:hidden}
+canvas{display:block}
+.ov{position:absolute;pointer-events:none;color:#f6ecd2;text-shadow:0 1px 6px rgba(0,0,0,.75),0 0 2px rgba(0,0,0,.6)}
+#shade{inset:0;background:
+  linear-gradient(to bottom,rgba(10,8,4,.45),rgba(0,0,0,0) 16%),
+  linear-gradient(to top,rgba(10,8,4,.62),rgba(0,0,0,0) 34%),
+  radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 62%,rgba(0,0,0,.35) 100%)}
+#polity{left:20px;top:14px;display:flex;align-items:center;gap:10px;font:600 17px Cinzel,serif;letter-spacing:.5px}
+#polity svg{width:26px;height:30px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+#pop{right:22px;top:16px;display:flex;align-items:center;gap:7px;font:600 18px Cinzel,serif;letter-spacing:.5px}
+#pop svg{width:14px;height:18px}
+#year{left:22px;bottom:16px;font:600 54px Cinzel,serif;letter-spacing:1px;line-height:1}
+#year small{font-size:22px;margin-left:8px;opacity:.85}
+#card{right:26px;bottom:20px;text-align:right;max-width:640px}
+#title{font:600 34px Cinzel,serif;letter-spacing:1.5px;text-transform:uppercase;line-height:1.1}
+#sub{font:italic 600 17px Cormorant,serif;margin-top:6px;opacity:.95;line-height:1.25}
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="gl"></div>
+  <div class="ov" id="shade"></div>
+  <div class="ov" id="polity"><span id="crest"></span><span id="polname"></span></div>
+  <div class="ov" id="pop"><svg viewBox="0 0 14 18"><circle cx="7" cy="4.2" r="3.4" fill="#f6ecd2"/><path d="M1 17c0-5 2.5-8 6-8s6 3 6 8z" fill="#f6ecd2"/></svg><span id="popn">0</span></div>
+  <div class="ov" id="year"><span id="yn">753</span><small id="ye">BC</small></div>
+  <div class="ov" id="card"><div id="title"></div><div id="sub"></div></div>
+</div>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script>
+<script type="module" src="main.js"></script>
+</body>
+</html>

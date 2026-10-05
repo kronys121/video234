@@ -7,7 +7,7 @@ export const popOut = (o, lt, t0, t1, d = 0.3, base = 1) => { const k = easeOutB
 export const fwd = (cam) => { const f = new THREE.Vector3(); cam.getWorldDirection(f); return f; };
 // HUD signs: unlit (no blow-out from nearby lights) and shrunk to fit inside the frame width
 export function hud(o, cam, dist, x, y) {
-  const f = fwd(cam), r = new THREE.Vector3().crossVectors(f, cam.up).normalize(); o.position.copy(cam.position).addScaledVector(f, dist).addScaledVector(r, x).add(V(0, y, 0)); o.quaternion.copy(cam.quaternion);
+  cam.updateMatrixWorld(); const f = fwd(cam), r = new THREE.Vector3().crossVectors(f, cam.up).normalize(), u = new THREE.Vector3().crossVectors(r, f); o.position.copy(cam.position).addScaledVector(f, dist).addScaledVector(r, x).addScaledVector(u, y); o.quaternion.copy(cam.quaternion);
   if (o.isMesh && !o.userData.flat && o.material.map) { o.userData.flat = true; o.material = new THREE.MeshBasicMaterial({ map: o.material.map, color: new THREE.Color(0.92, 0.92, 0.92), transparent: o.material.transparent, depthTest: false }); o.renderOrder = 20; }
   const w0 = (o.geometry && o.geometry.parameters && o.geometry.parameters.width) || o.userData.width; if (w0) { const lim = 2 * halfW(dist, cam.fov) * (o.isMesh ? 0.86 : 0.76) - 2 * Math.abs(x); if (w0 * o.scale.x > lim) o.scale.multiplyScalar(lim / (w0 * o.scale.x)); }
 }

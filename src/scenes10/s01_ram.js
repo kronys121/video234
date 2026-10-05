@@ -74,7 +74,7 @@ export function buildCut() {
 // 7.30–11.55  «Студия Naughty Dog хотела сделать большие красивые 3D-уровни,»
 export function buildStudio() {
   const scene = new THREE.Scene(); officeDev(scene);
-  const nm = sign('NAUGHTY DOG', { width: 1.6, color: '#ffffff', bg: '#c8282a', size: 120, pad: 18 }); nm.position.set(0, 2.3, -2.78); scene.add(nm);
+  const nm = sign('NAUGHTY DOG', { width: 1.25, color: '#ffffff', bg: '#c8282a', size: 120, pad: 18 }); nm.position.set(0, 2.02, -2.78); scene.add(nm);
   const tb = rbox(2.2, 0.08, 1.2, 0.02, M.col('#3a2418', 0.5), 0, 0.74, -1.3, scene); void tb; for (const x of [-1.0, 1.0]) for (const z of [-1.8, -0.8]) box(0.06, 0.72, 0.06, M.col('#1a1a1e', 0.5), x, 0.36, z, scene);
   const dio = new THREE.Group(); const chunks = []; for (let i = 0; i < 8; i++) { const ch = levelChunk(i + 3, 0.26); ch.position.set(-0.85 + (i % 4) * 0.27 + (i > 3 ? 0.27 * 2.2 : 0), 0.78 + 0.13, -1.3 + (i > 3 ? -0.15 : 0.15) + (i % 4 === 3 ? 0.1 : 0)); dio.add(ch); chunks.push(ch); } scene.add(dio);
   const D1 = cast10.dev('d1'), D2 = cast10.dev2('d2'); D1.root.position.set(-0.8, 0, -0.35); D1.root.rotation.y = Math.PI - 0.3; D2.root.position.set(0.8, 0, -0.35); D2.root.rotation.y = Math.PI + 0.3; scene.add(D1.root, D2.root);
@@ -83,7 +83,7 @@ export function buildStudio() {
   function update(lt) {
     chunks.forEach((c, i) => { const k = easeOutBack(inv(1.0 + i * 0.12, 1.4 + i * 0.12, lt), 2.2); c.scale.setScalar(0.26 * Math.max(0.001, k)); });
     [D1, D2].forEach((H, i) => { H.pose({ ...STAND, [i ? 'lSh' : 'rSh']: [-50, 0, i ? 20 : -20], [i ? 'lEl' : 'rEl']: [-40, 0, 0], head: [16, 0, 0], spine: [8, 0, 0] }); idle3(H, lt, i * 4, 0.3); H.face({ blink: 0, smile: 0.6, brows: 0.4 }); });
-    pop(t1, lt, 3.3, 0.3);
+    pop(t1, lt, 3.3, 0.3); popOut(nm, lt, -1, 1.15);
     const f = kf(lt, [[0, [0, 2.0, 1.8], [0, 1.5, -2.5], 52, 0.02], [2.0, [1.2, 2.1, 1.0], [0, 0.95, -1.3], 52, 0.03], [4.25, [-1.1, 2.0, 0.9], [0, 0.95, -1.3], 52, -0.03]]);
     setCam(camera, f.pos.add(shake(lt, 0.003, 4, 2)), f.look, f.roll, f.fov);
     hud(t1, camera, 2.6, 0, 0.92);

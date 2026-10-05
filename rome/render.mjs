@@ -18,7 +18,7 @@ const browser = await chromium.launch({
 const page = await browser.newPage({viewport: {width: 1280, height: 720}});
 page.on('console', m => console.log('[page]', m.text()));
 page.on('pageerror', e => console.log('[pageerror]', e.message));
-await page.goto(`http://localhost:${port}/index.html`);
+await page.goto(`http://localhost:${port}/index.html?part=${process.env.PART||1}&cam=${process.env.CAM||''}`);
 await page.waitForFunction('window.__ready===true', null, {timeout: 120000});
 fs.mkdirSync(outDir, {recursive: true});
 let jobs = [];

@@ -298,3 +298,82 @@ export function infill(tries,inCity,opts={}){
   return out;
 }
 export const OBS_DEBUG=()=>[...OBS].sort((a,b)=>b.rad-a.rad);
+
+/* =========================================================
+   quality checks and urban ground
+   ========================================================= */
+export const footRect=(h,m=0)=>rect(h.x,h.z,h.w/2+m,h.d/2+m,h.ry);
+export function inFoot(h,x,z,m=0){const c=Math.cos(h.ry),s=Math.sin(h.ry),dx=x-h.x,dz=z-h.z,lx=dx*c-dz*s,lz=dx*s+dz*c;return Math.abs(lx)<=h.w/2+m&&Math.abs(lz)<=h.d/2+m}
+/** houses whose footprints overlap while both stand (lifetimes from h.tb / h.td); monuments that overlap each other */
+export function auditOverlaps(lives,minOverlapT=0.15){
+  const g=new Map(),C2=6,bad=[];
+  const key=(i,j)=>i+','+j;
+  lives.forEach((h,idx)=>{if(h.tb===undefined||!(h.td>h.tb))return;const r=Math.hypot(h.w,h.d)/2,x0=Math.floor((h.x-r)/C2),x1=Math.floor((h.x+r)/C2),z0=Math.floor((h.z-r)/C2),z1=Math.floor((h.z+r)/C2);
+    for(let i=x0;i<=x1;i++)for(let j=z0;j<=z1;j++){const k=key(i,j);if(!g.has(k))g.set(k,[]);g.get(k).push(idx)}});
+  const seen=new Set();
+  for(const arr of g.values())for(let a=0;a<arr.length;a++)for(let b=a+1;b<arr.length;b++){
+    const i=arr[a],j=arr[b],k=i<j?i+'_'+j:j+'_'+i;if(seen.has(k))continue;seen.add(k);
+    const A=lives[i],Bh=lives[j],t0=Math.max(A.tb,Bh.tb),t1=Math.min(A.td,Bh.td);
+    if(t1-t0<minOverlapT)continue;
+    if(sat(footRect(A),footRect(Bh),-0.02))bad.push([A,Bh,t1-t0]);
+  }
+  const mons=OBS.filter(o=>o.mon&&o.road===undefined&&!o.wallSeg&&!o.house);
+  const monBad=[];
+  for(let a=0;a<mons.length;a++)for(let b=a+1;b<mons.length;b++){const A=mons[a],Bm=mons[b];
+    if(Math.hypot(A.x-Bm.x,A.z-Bm.z)>A.rad+Bm.rad)continue;
+    const hit=A.t==='o'&&Bm.t==='o'?sat(A,Bm,-0.05):A.t==='o'?rectCirc(A,Bm.x,Bm.z,Bm.r,-0.05):Bm.t==='o'?rectCirc(Bm,A.x,A.z,A.r,-0.05):Math.hypot(A.x-Bm.x,A.z-Bm.z)<A.r+Bm.r-0.05;
+    if(hit)monBad.push([A.name||'?',Bm.name||'?',+A.x.toFixed(1),+A.z.toFixed(1),+Bm.x.toFixed(1),+Bm.z.toFixed(1)]);
+  }
+  return {houses:bad.length,examples:bad.slice(0,6).map(([A,Bh,dt])=>[+A.x.toFixed(1),+A.z.toFixed(1),Math.round(A.b),Math.round(Bh.b),+dt.toFixed(2)]),monuments:monBad};
+}
+/** paved ground under built-up modern blocks: terrain-following tiles that appear with the first building on them */
+export function urbanGround(lives,fromYear,col='#8e8b84',S=3){
+  const tiles=new Map();
+  for(const h of lives){if(h.b<fromYear||h.tb===undefined||!(h.td>h.tb))continue;
+    const r=Math.hypot(h.w,h.d)/2+1.2;
+    for(let x=Math.floor((h.x-r)/S);x<=Math.floor((h.x+r)/S);x++)for(let z=Math.floor((h.z-r)/S);z<=Math.floor((h.z+r)/S);z++){
+      const cx=(x+0.5)*S,cz=(z+0.5)*S;if(!inFoot(h,cx,cz,1.6))continue;
+      const k=x+','+z,t=tiles.get(k);if(!t||h.tb<t.b)tiles.set(k,{cx,cz,b:h.tb});
+    }}
+  for(const {cx,cz,b} of tiles.values()){
+    if(riverDist(cx,cz)<4.4)continue;
+    const h00=heightAt(cx-S/2,cz-S/2),h10=heightAt(cx+S/2,cz-S/2),h01=heightAt(cx-S/2,cz+S/2),h11=heightAt(cx+S/2,cz+S/2),hc=heightAt(cx,cz);
+    const y=Math.max(hc,(h00+h10+h01+h11)/4)-0.02,rz=Math.atan2(((h10+h11)-(h00+h01))/2,S),rx=-Math.atan2(((h01+h11)-(h00+h10))/2,S);
+    const c=new THREE.Color(col);c.offsetHSL(0,0,(hash2(Math.round(cx),Math.round(cz))-0.5)*0.05);
+    add('box',cx,y,cz,0,S*1.02,0.06,S*1.02,c,b-0.2,{dur:0.6,rx,rz});
+  }
+  return tiles.size;
+}
+/** short local streets (born only when houses line them) covering a ring of the city */
+export function localStreets(cx,cz,R0,R1,o={}){
+  const r=mulberry(o.seed??7),made=[];
+  const cell=o.cell??16;
+  for(let gx=-R1;gx<=R1;gx+=cell)for(let gz=-R1;gz<=R1;gz+=cell){
+    const x0=cx+gx+(r()-0.5)*cell*0.5,z0=cz+gz+(r()-0.5)*cell*0.5,d=Math.hypot(x0-cx,z0-cz);
+    if(d<R0||d>R1)continue;
+    const radial=Math.atan2(z0-cz,x0-cx),ang=radial+(r()<0.5?0:Math.PI/2)+(r()-0.5)*0.3;
+    const ux=Math.cos(ang),uz=Math.sin(ang),vx=-uz,vz=ux,L=o.len??15,sp=o.spacing??6;
+    for(let k=-1;k<=1;k++){
+      const ox=x0+vx*k*sp,oz=z0+vz*k*sp,pts=[];
+      for(let s=-L/2;s<=L/2+0.01;s+=L/4)pts.push([ox+ux*s,oz+uz*s]);
+      const rd=makeRoad(pts,o.w??0.95,99999,0,'minor');if(rd.segs.length)made.push(rd);
+    }
+  }
+  return made;
+}
+/** when two buildings would stand on the same spot at once, the older one is pulled down as the newer one starts */
+export function resolveOverlaps(lives,endOf){
+  const g=new Map(),C2=6;let fixed=0;
+  lives.forEach((h,idx)=>{const r=Math.hypot(h.w,h.d)/2,x0=Math.floor((h.x-r)/C2),x1=Math.floor((h.x+r)/C2),z0=Math.floor((h.z-r)/C2),z1=Math.floor((h.z+r)/C2);
+    for(let i=x0;i<=x1;i++)for(let j=z0;j<=z1;j++){const k=i+','+j;if(!g.has(k))g.set(k,[]);g.get(k).push(idx)}});
+  for(let pass=0;pass<3;pass++){const seen=new Set();
+    for(const arr of g.values())for(let a=0;a<arr.length;a++)for(let b=a+1;b<arr.length;b++){
+      const i=arr[a],j=arr[b],k=i<j?i+'_'+j:j+'_'+i;if(seen.has(k))continue;seen.add(k);
+      const A=lives[i],Bh=lives[j];
+      if(Math.min(endOf(A),endOf(Bh))-Math.max(A.b,Bh.b)<=0.01)continue;
+      if(!sat(footRect(A),footRect(Bh),-0.02))continue;
+      const old=A.b<=Bh.b?A:Bh,nw=old===A?Bh:A,y=nw.b-0.3;
+      old.dieY=Math.min(old.dieY??Infinity,y);if(old.fire)old.fire=null;fixed++;
+    }}
+  return fixed;
+}

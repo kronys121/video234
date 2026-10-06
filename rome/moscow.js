@@ -108,7 +108,7 @@ function wallPath(pts,closed,year,die,sty,o={}){
       if(o.gaps&&o.gaps.some(([gx,gz])=>Math.hypot(gx-x,gz-z)<2.2))continue;
       const gy=H(x,z),b=b0+(k++%40)*0.02;
       add('box',x,gy-0.4,z,ry,L/m*1.04,S.h+0.4,S.t,S.col,b,{dur:0.6,...od});
-      if(!o.noReg)K.reg(K.rect(x,z,L/m/2,S.t/2+0.3,ry,{mon:1}));
+      if(!o.noReg)K.reg(K.rect(x,z,L/m/2,S.t/2+0.3,ry,{mon:1,wallSeg:1}));
       if(sty==='brick')for(const q of [-0.3,0,0.3]){const [ox,oz]=rotXZ(q*L/m,0,ry);add('box',x+ox,gy+S.h,z+oz,ry,0.22,0.32,S.t*0.7,'#9c3a2a',b+0.1,{dur:0.5,...od})}
     }
   }
@@ -138,7 +138,7 @@ function stBasil(x,z,year){
 }
 function monastery(x,z,year,o={}){
   const s=o.s??1,R=3.4*s,pts=[[x-R,z-R],[x+R,z-R],[x+R,z+R],[x-R,z+R]];
-  K.reg(K.rect(x,z,R+0.6,R+0.6,0,{mon:1,late:year}));
+  K.reg(K.rect(x,z,R+0.6,R+0.6,0,{mon:1,late:year,wallSeg:1}));
   wallPath(pts,true,year+20,null,o.wall??'white',{noReg:true});
   church(x,z+0.5,0,year,{domes:5,s:0.9*s,dome:o.dome??GOLD,noReg:true});
   church(x+1.6*s,z-2.0*s,0,year+60,{s:0.55*s,bell:true,tent:o.tent});
@@ -183,24 +183,24 @@ function ostankino(x,z,year){
    4. LANDMARKS (registered before any house)
    ===================================================================== */
 const KR=[[-9,6],[9,6],[-1.5,-10]];                       // Kremlin triangle
-const kremlinRect=K.reg(K.rect(-0.5,0.6,8.6,7.0,0,{mon:1}));
+const kremlinRect=K.reg(K.rect(-0.5,0.6,8.6,7.0,0,{mon:1,wallSeg:1}));
 wallPath(KR,true,1156,1339,'wood');
 wallPath(KR,true,1339,1367,'wood');
 wallPath(KR,true,1367,1485,'white');
 wallPath(KR,true,1485,null,'brick',{tentDie:null,stars:1935,noReg:true});
 // inside the Kremlin
-church(0.2,-1.0,-Math.PI/2,1479,{domes:5,s:1.15,noReg:true});            // Assumption
-church(2.6,1.8,-Math.PI/2,1508,{domes:5,s:1.0,dome:'#cfd3d6',noReg:true}); // Archangel
-church(-2.4,1.6,-Math.PI/2,1489,{domes:5,s:0.85,noReg:true});           // Annunciation
-bellTowerIvan(2.4,-2.2,1508);
-palace(-3.2,4.0,0,1849,7.0,2.0,3,'#efe1c2',{roof:'#5f7d5a'});             // Grand Kremlin Palace
-palace(1.6,-6.2,0.55,1787,4.6,1.8,3,'#e8cf86',{dome:true,domeCol:'#4f7a5a'}); // Senate
+church(-1.2,-1.4,-Math.PI/2,1479,{domes:5,s:1.0,noReg:true});            // Assumption
+church(2.8,2.0,-Math.PI/2,1508,{domes:5,s:1.0,dome:'#cfd3d6',noReg:true}); // Archangel
+church(-4.0,1.3,-Math.PI/2,1489,{domes:5,s:0.8,noReg:true});           // Annunciation
+bellTowerIvan(1.8,-2.4,1508);
+palace(-2.5,4.2,0,1849,7.0,2.0,3,'#efe1c2',{roof:'#5f7d5a'});             // Grand Kremlin Palace
+palace(-1.3,-5.6,0,1787,3.0,1.5,3,'#e8cf86',{dome:true,domeCol:'#4f7a5a'}); // Senate
 // Red Square, St Basil's, GUM, Historical Museum, Mausoleum
 const rsAng=rotTo(-10.5,-16),[rsx,rsz]=[3.75+0.84*4.2,-2-0.55*4.2];
 K.reg(K.rect(rsx,rsz,7.4,2.3,rsAng,{mon:1,late:1493}));
 add('box',rsx,H(rsx,rsz)-0.05,rsz,rsAng,14.5,0.12,4.2,'#a39282',B(1493),{dur:1.2});
 stBasil(10.8,3.6,1561);
-{const gx=rsx+0.84*3.4,gz=rsz-0.55*3.4;palace(gx,gz,rsAng,1893,9.5,2.0,3,'#dccbb0',{roof:'#8a9aa0'})}
+{const gx=rsx+0.84*3.9,gz=rsz-0.55*3.9;palace(gx,gz,rsAng,1893,9.5,2.0,3,'#dccbb0',{roof:'#8a9aa0'})}
 palace(-4.0,-11.6,rsAng+Math.PI/2*0,1883,3.2,2.0,3,'#a8402f',{roof:'#4f7a5a'});
 {const mx=rsx-0.84*1.4,mz=rsz+0.55*1.4,f=frame(mx,H(mx,mz),mz,rsAng,B(1930),1.0);f.a('box',0,-0.2,0,2.2,0.6,1.4,'#5a2622',0);f.a('box',0,0.4,0,1.5,0.5,1.0,'#6a2a26',0.2);f.a('box',0,0.9,0,0.8,0.4,0.6,'#5a2622',0.4)}
 // Kitai-gorod, White City, Earth City walls -> later boulevards and the Garden Ring
@@ -226,7 +226,7 @@ church(-14.2,8,0,2000,{domes:5,s:2.1,noReg:true});                              
 stalinTower(-34,66,1953,13,3.2,{wings:true});    // Moscow State University
 stalinTower(-38,-8,1957,8,2.4);                  // Hotel Ukraina
 stalinTower(20,9,1952,7.5,2.6,{wings:true,ry:0.6});// Kotelnicheskaya
-stalinTower(-19,4,1953,8,2.4);                   // Foreign Ministry
+stalinTower(-22,0,1953,8,2.4);                   // Foreign Ministry
 stalinTower(21,-24,1954,7,2.0);                  // Leningradskaya
 stalinTower(-25,-10,1954,7.4,2.4);               // Kudrinskaya
 stalinTower(18,-14,1953,6.8,2.4);                // Red Gates
@@ -256,6 +256,7 @@ ring(16,Math.PI*0.93,Math.PI*2.03,1820,1.6);           // Boulevard Ring
 ring(25,0,Math.PI*2,1830,2.0);                          // Garden Ring
 ring(52,0,Math.PI*2,2003,2.2,'#4a4a50');                // Third Ring
 ring(118,0,Math.PI*2,1962,2.6,'#46464c');               // MKAD
+const LOCAL=K.localStreets(0,0,20,124,{cell:15,len:16,spacing:6.2,seed:11});
 
 /* =====================================================================
    6. HOUSES, generation by generation
@@ -333,14 +334,14 @@ for(const h of g0){const dd=Math.hypot(h.x-2,h.z+2);if(dd<28&&rr()<0.78&&h.b<181
 // stone Moscow after the fire, 1813-1870
 generation({gen:2,R0:0,R1:30,Rlim:()=>30,tries:7000,roads:mains,demolish:0.3,noise:8,w:[1.5,0.7],d:[1.3,0.4],y0:1813,y1:1870,built:[[1813,0],[1830,0.5],[1870,1]]});
 // apartment houses, 1870-1930
-generation({gen:3,R0:0,R1:46,Rlim:()=>46,tries:9000,roads:mains,demolish:0.45,noise:10,w:[1.7,0.8],d:[1.5,0.5],y0:1870,y1:1930,built:[[1870,0],[1900,0.5],[1930,1]]});
+generation({gen:3,R0:0,R1:46,Rlim:()=>46,tries:9000,maxD:30,roads:[...mains,...LOCAL],demolish:0.45,noise:10,w:[1.7,0.8],d:[1.5,0.5],y0:1870,y1:1930,built:[[1870,0],[1900,0.5],[1930,1]]});
 // Stalin blocks along the avenues, 1930-1956
-generation({gen:4,R0:8,R1:60,Rlim:()=>60,tries:2500,roads:mains,demolish:0.6,noise:14,w:[3,1.4],d:[2,0.6],y0:1930,y1:1956,built:[[1930,0],[1956,1]]});
+generation({gen:4,R0:8,R1:60,Rlim:()=>60,tries:2500,maxD:14,roads:[...mains,...LOCAL],demolish:0.6,noise:14,w:[3,1.4],d:[2,0.6],y0:1930,y1:1956,built:[[1930,0],[1956,1]]});
 // Soviet panel districts, 1956-1991
 const Rlim5=h=>{const a=Math.atan2(h.z,h.x);return 100+22*fbm(Math.cos(a)*1.6+4,Math.sin(a)*1.6+4)};
-generation({gen:5,R0:30,R1:125,Rlim:Rlim5,tries:60000,demolish:0.5,noise:22,w:[3.2,2.4],d:[1.4,0.4],y0:1956,y1:1991,built:[[1956,0],[1972,0.55],[1991,1]],maxD:900});
+generation({gen:5,R0:30,R1:125,Rlim:Rlim5,tries:60000,roads:LOCAL,demolish:0.5,noise:22,w:[3.2,2.4],d:[1.4,0.4],y0:1956,y1:1991,built:[[1956,0],[1972,0.55],[1991,1]],maxD:14});
 // new Moscow, 1991-2026
-generation({gen:6,R0:6,R1:125,Rlim:()=>125,tries:9000,demolish:0.5,noise:60,w:[2.2,1.2],d:[2.2,1.0],y0:1991,y1:2026,built:[[1991,0],[2026,1]],maxD:900});
+generation({gen:6,R0:6,R1:125,Rlim:()=>125,tries:9000,roads:LOCAL,demolish:0.5,noise:60,w:[2.2,1.2],d:[2.2,1.0],y0:1991,y1:2026,built:[[1991,0],[2026,1]],maxD:14});
 // villages around: Kolomenskoye, Tushino, Kuntsevo, Izmailovo ... later swallowed by the city
 for(let [x,z,n,b0] of [[70,92,14,1400],[-70,-60,12,1500],[-75,8,12,1450],[70,-20,12,1500],[30,-95,10,1550],[-30,-95,10,1500],[90,40,10,1600]]){
   for(let i=0;i<n*6&&n>0;i++){const a=rr()*Math.PI*2,r=Math.sqrt(rr())*6,hx=x+Math.cos(a)*r,hz=z+Math.sin(a)*r,w=1.2+rr()*0.4,d=1.1+rr()*0.3,ry=rr()*0.5;
@@ -354,13 +355,15 @@ for(let [x,z,n,b0] of [[70,92,14,1400],[-70,-60,12,1500],[-75,8,12,1450],[70,-20
    7. EMIT
    ===================================================================== */
 K.emitRoads();
+const nFixed=K.resolveOverlaps(lives,h=>endY(h));
 for(const h of lives)emitM(h);
+const nTiles=K.urbanGround(lives,1870,'#8f8c85');
 R.scatterTrees(lives,{marsh:false,n:9000,span:600,clusters:true});
-const SITES=[['Wooden Kremlin',1156,0,-2],['White-stone Kremlin',1367,0,-2],['Red brick walls',1485,0,-2],['Assumption Cathedral',1479,0.2,-1],['Ivan the Great Bell Tower',1508,2.4,-2.2],
+const SITES=[['Wooden Kremlin',1156,0,-2],['White-stone Kremlin',1367,0,-2],['Red brick walls',1485,0,-2],['Assumption Cathedral',1479,-1.2,-1.4],['Ivan the Great Bell Tower',1508,1.8,-2.4],
  ["St. Basil's Cathedral",1555,10.8,3.6],['Kitai-gorod wall',1538,14,-13],['Novodevichy Convent',1524,-21,22],['Bolshoi Theatre',1825,4,-17],['Cathedral of Christ the Saviour',1860,-14,8],
- ['Grand Kremlin Palace',1849,-3,4],['GUM',1893,9,-3],['Lenin Mausoleum',1930,5,-1],['Moscow State University',1949,-34,66],['Luzhniki',1956,-19,33],['MKAD',1962,0,-118],
+ ['Grand Kremlin Palace',1849,-2.5,4.2],['GUM',1893,9,-3],['Lenin Mausoleum',1930,5,-1],['Moscow State University',1949,-34,66],['Luzhniki',1956,-19,33],['MKAD',1962,0,-118],
  ['Ostankino Tower',1963,4,-82],['Christ the Saviour, rebuilt',1995,-14,8],['Moscow City',2003,-52,-12],['Third Ring',2003,0,-52]];
 for(const [n,y,x,z] of SITES)E.addLabel(n,()=>[x,H(x,z)+6,z],B(y),B(y)+2.6,'site');
 E.start(FIRES);
 window.__cards=CARDS;
-window.__dbg=()=>({lives:lives.length,items:Object.fromEntries(Object.entries(E.items).map(([k,v])=>[k,v.length]))});
+window.__dbg=()=>({audit:K.auditOverlaps(lives),nFixed,tiles:nTiles,local:LOCAL.length,lives:lives.length,items:Object.fromEntries(Object.entries(E.items).map(([k,v])=>[k,v.length]))});

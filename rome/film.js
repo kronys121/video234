@@ -222,14 +222,15 @@ const accept3=h=>{
   h.pend=[];
   for(const s of h.soft||[]){if(endYear(s)===Infinity){if(rr()<0.6)h.pend.push(s);else return false}}
   return true};
+const LOCAL3=K.localStreets(C[0],C[1],34,140,{cell:15,len:16,spacing:6.2,seed:5});
 const gen3=[];
-for(const m of city.mains){
+for(const m of [...city.mains,...LOCAL3]){
   const s=K.houseSlots(m,{soft:true,gen:3,accept:accept3,minH:0.28,marsh:1,skip:0.08,wmin:1.8,wvar:1.1,dmin:1.5,dvar:0.8,start:36});
   gen3.push(...s);
 }
 {
   const inMod=h=>Math.hypot(h.x-C[0],h.z-C[1])<=150;
-  gen3.push(...K.infill(160000,inMod,{soft:true,gen:3,accept:accept3,R:150,R0:10,minH:0.28,marsh:1,wmin:1.7,wvar:1.2,dmin:1.4,dvar:0.9,maxD:400}));
+  gen3.push(...K.infill(160000,inMod,{soft:true,gen:3,accept:accept3,R:150,R0:10,minH:0.28,marsh:1,wmin:1.7,wvar:1.2,dmin:1.4,dvar:0.9,maxD:14}));
 }
 const BUILT3=[[1850,0],[1880,0.07],[1911,0.2],[1930,0.33],[1945,0.4],[1960,0.65],[1975,0.88],[2000,0.97],[2026,1.0]];
 const yearOf3=f=>{for(let i=0;i<BUILT3.length-1;i++){const [y0,f0]=BUILT3[i],[y1,f1]=BUILT3[i+1];if(f<=f1)return lerp(y0,y1,(f-f0)/(f1-f0+1e-9))}return 2026};
@@ -254,7 +255,9 @@ for(const h of gen3){
    ===================================================================== */
 K.emitRoads();
 const all=[...roman,...towns,...lives2,...lives3];
+const nFixed=K.resolveOverlaps(all,h=>h.dieY??(h.fire?FIRES[h.fire.i].year:Infinity));
 for(const h of all)K.emitHouse(h,FIRES);
+K.urbanGround(all.filter(h=>h.gen===3),1870,'#8f8c85');
 R.scatterTrees(all,{marsh:true,n:7000,span:520,clusters:true});
 
 /* =====================================================================
@@ -294,5 +297,5 @@ const T=y=>B(y);
 pl('VATICAN',-62,-24,T(1000)-3,T(1000));pl('OSTIA',-196,214,T(1960),T(1990));pl('FIUMICINO',-196,186,T(1965),T(1995));pl('TIVOLI',250,-90,T(1965),T(1995));pl('ALBAN HILLS',140,155,T(1965),T(1995));
 pl('ROME',2,8,T(1995),DURATION);pl('TYRRHENIAN SEA',-280,120,T(2005),DURATION);
 E.start(FIRES);
-window.__dbg=()=>({alive10:all.filter(h=>h.tb<=10&&h.td>10).map(h=>[Math.round(h.x),Math.round(h.z),Math.round(h.b),h.hut?1:0]).slice(0,30),n10:all.filter(h=>h.tb<=10&&h.td>10).length,huts:city.houses.filter(h=>h.hut).length,hutsB:city.houses.filter(h=>h.hut).slice(0,8).map(h=>[Math.round(h.b),Math.round(h.x),Math.round(h.z),h.dieY|0]),early:city.houses.filter(h=>h.b<-600).length,lives:all.length,gen2:lives2.length,gen3:lives3.length,towns:towns.length,dur:DURATION,items:Object.fromEntries(Object.entries(E.items).map(([k,v])=>[k,v.length]))});
+window.__dbg=()=>({audit:K.auditOverlaps(all),nFixed,alive10:all.filter(h=>h.tb<=10&&h.td>10).map(h=>[Math.round(h.x),Math.round(h.z),Math.round(h.b),h.hut?1:0]).slice(0,30),n10:all.filter(h=>h.tb<=10&&h.td>10).length,huts:city.houses.filter(h=>h.hut).length,hutsB:city.houses.filter(h=>h.hut).slice(0,8).map(h=>[Math.round(h.b),Math.round(h.x),Math.round(h.z),h.dieY|0]),early:city.houses.filter(h=>h.b<-600).length,lives:all.length,gen2:lives2.length,gen3:lives3.length,towns:towns.length,dur:DURATION,items:Object.fromEntries(Object.entries(E.items).map(([k,v])=>[k,v.length]))});
 window.__cards=CARDS;

@@ -158,7 +158,7 @@ export function aqueduct(p0,p1,year,t0,t1,die){
   const b0=B(year),L=Math.hypot(p1[0]-p0[0],p1[1]-p0[1]),n=Math.round(L/2.0),tx=(p1[0]-p0[0])/L,tz=(p1[1]-p0[1])/L,ry=rotTo(tx,tz),o=die?{d:B(die)}:{};
   for(let i=0;i<n;i++){
     const s=(i+0.5)/n,x=lerp(p0[0],p1[0],s),z=lerp(p0[1],p1[1],s),g=heightAt(x,z),top=lerp(t0,t1,s),bt=b0+(1-s)*0.8,len=L/n;
-    reg(rect(x,z,len/2,0.8,ry,{mon:1}));
+    reg(rect(x,z,len/2,0.8,ry,{mon:1,wallSeg:1}));
     const H=Math.max(0.7,top-g+0.3);
     add('box',x,g-0.3,z,ry,len,H,0.8,'#d9c9a2',bt,{dur:0.5,...o});
     add('arch',x,g-0.3,z,ry,len*0.62,Math.max(0.5,H-0.45),0.86,'#2c2219',bt+0.04,{dur:0.5,...o});
@@ -184,7 +184,7 @@ export function wallRing(R,year,spread,h,thick,col,towerCol,gateAngles,opt={}){
     const tx=-Math.sin(th),tz=Math.cos(th),len=R*Math.PI*2/N*1.06,ry=rotTo(tx,tz),gy=heightAt(x,z);
     const b=b0+((th/(Math.PI*2)+0.25)%1)*spread;
     add('box',x,gy-0.5,z,ry,len,h+0.5,thick,col,b,{...o,...od});
-    reg(rect(x,z,len/2,thick/2+0.2,ry,{mon:1}));
+    reg(rect(x,z,len/2,thick/2+0.2,ry,{mon:1,wallSeg:1}));
     for(const k of [-0.28,0.28]){const [ox,oz]=rotXZ(k*len,0,ry);add('box',x+ox,gy+h,z+oz,ry,len*0.3,0.28,thick*0.7,darker(col,0.92),b+0.1,{...o,...od})}
     add('box',x,gy+h-0.05,z,ry,len,0.08,thick+0.1,darker(col,1.08),b+0.05,{...o,...od});
     if(i%5===0){add('box',x,gy-0.5,z,ry,thick*1.9,h+1.3,thick*1.9,towerCol,b+0.05,{...o,...od});
@@ -299,7 +299,7 @@ export function buildRome(opt={}){
     for(let k=0;k<n*6&&made<n;k++){
       const a=rr()*Math.PI*2,r=0.8+rr()*R0,x=hx+Math.cos(a)*r,z=hz+Math.sin(a)*r,ry=rr()*Math.PI*2,w=1.15,d=1.05;
       const sl=K.slopeOK(x,z,w,d,ry,1.3);if(!sl)continue;
-      const rc=rect(x,z,w/2,d/2,ry),hits=K.collide(rc,0.3);if(hits.some(o=>o.road===undefined&&!o.house))continue;
+      const rc=rect(x,z,w/2,d/2,ry),hits=K.collide(rc,0.3);if(hits.some(o=>(o.road===undefined&&!o.house)||(o.house&&o.house.hut)))continue;
       const h={x,z,ry,w,d,...sl,road:-1,s:0,soft:[],hut:true,onRoad:hits.some(o=>o.road!==undefined),overHouses:hits.filter(o=>o.house).map(o=>o.house),hutYear:y0+made*(3+rr()*4)};reg(Object.assign(rc,{house:h}));huts.push(h);made++;
     }
   }
@@ -339,7 +339,7 @@ export function scatterTrees(houses,opt={}){
     res.push([x,z,h,rt(),rt()]);
   }
   for(const [x,z,h,r1,r2] of res){
-    const near=houses.filter(hh=>(hh.x-x)**2+(hh.z-z)**2<7);
+    const near=houses.filter(hh=>Math.abs(hh.x-x)<7&&Math.abs(hh.z-z)<7&&K.inFoot(hh,x,z,0.9));
     let b=-10,skip=false;
     for(const hh of near)if(hh.tb<=0.01){if(hh.td===NO){skip=true;break}b=Math.max(b,hh.td+0.3)}
     if(skip)continue;

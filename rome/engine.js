@@ -239,9 +239,10 @@ export function buildFire(fires){
   if(!FIRES.length){smoke.count=0;flames.count=0}
 }
 const cOr=new THREE.Color('#ff7a1c'),cYe=new THREE.Color('#ffc43a'),cGr=new THREE.Color('#6b635b'),cG2=new THREE.Color('#b0a79d'),tmpC=new THREE.Color();
-function updateFire(t){
+function updateFire(ts,tv){
   let light=0,lx=0,lz=0;
-  FIRES.forEach((f,fi)=>{
+  const t=CFG.fireVideo?tv:ts;
+  FIRES.forEach((f0,fi)=>{const f=CFG.fireVideo?{...f0,t0:f0.t0v??-1000,dur:f0.durv??f0.dur}:f0;
     const I=smooth(f.t0,f.t0+0.4,t)*(1-smooth(f.t0+f.dur,f.t0+f.dur+0.7,t));
     const sm=smooth(f.t0,f.t0+0.4,t)*(1-smooth(f.t0+f.dur+0.2,f.t0+f.dur+1.7,t));
     if(I>light){light=I;lx=f.x;lz=f.z}
@@ -347,7 +348,7 @@ export function start(fires){
     if(t<lastTau-1e-6)for(const k of Object.keys(items))for(const it of items[k])it.settled=false;   // time ran backwards
     lastTau=t;
     if(CFG.marsh){const dr=smooth(marshDry0,marshDry1,t);marshPatches.forEach(m=>{m.position.y=lerp(0.45,-1.4,dr);m.visible=dr<0.995})}
-    updateInst(t);updateFire(t);
+    updateInst(t);updateFire(t,tv);
     clouds.forEach((c,i)=>{c.g.position.x=((i*61-130+tv*c.sp*3)%280+280)%280-140;c.g.visible=!CFG.noClouds});
     for(const f of hooks.update)f(t);
     setCamera(CFG.camVideo?tv:t);camera.updateMatrixWorld();

@@ -158,7 +158,7 @@ function palace(x,z,ry,year,len,wid,floors,col,o={}){
   if(o.dome){f.a('cyl8',0,0.2+hh,0,1.6,0.6,1.6,col,0.6,od);f.a('dome',0,0.8+hh,0,1.6,1.4,1.6,o.domeCol??'#4f7a5a',0.7,od)}
 }
 function stalinTower(x,z,year,h,w,o={}){
-  const y=H(x,z),b=B(year-4),f=frame(x,y,z,o.ry??0,b,1.6),col=o.col??'#d8c7a2';
+  const y=H(x,z),b=B(year-4),f=frame(x,y,z,o.ry??0,b,0.8),col=o.col??'#d8c7a2';
   K.reg(K.rect(x,z,w*0.9+(o.wings?w:0),w*0.9,o.ry??0,{mon:1,late:year}));
   if(o.wings)for(const sg of [1,-1]){f.a('box',sg*w*1.1,-0.3,0,w*1.2,h*0.32,w*0.9,col,0.1);f.a('box',sg*w*1.1,h*0.32-0.3,0,w*0.5,h*0.12,w*0.5,col,0.3)}
   f.a('box',0,-0.3,0,w,h*0.5,w,col,0.2);f.a('box',0,h*0.5-0.3,0,w*0.72,h*0.22,w*0.72,col,0.5);f.a('box',0,h*0.72-0.3,0,w*0.5,h*0.12,w*0.5,col,0.8);
@@ -166,7 +166,7 @@ function stalinTower(x,z,year,h,w,o={}){
   f.a('cone',0,h*0.84-0.3,0,w*0.32,h*0.24,w*0.32,'#c9b78e',1.0);f.a('box',0,h*1.08-0.3,0,0.1,0.5,0.1,GOLD,1.2);f.a('box',0,h*1.13-0.3,0,0.4,0.4,0.1,'#c4262b',1.3);
 }
 function glassTower(x,z,year,w,d,h,col,o={}){
-  const y=H(x,z),b=B(year-3),f=frame(x,y,z,o.ry??0,b,1.8);K.reg(K.rect(x,z,w/2+0.3,d/2+0.3,o.ry??0,{mon:1,late:year}));
+  const y=H(x,z),b=B(year-3),f=frame(x,y,z,o.ry??0,b,0.9);K.reg(K.rect(x,z,w/2+0.3,d/2+0.3,o.ry??0,{mon:1,late:year}));
   f.a('box',0,-0.3,0,w,h,d,col,0);
   for(let k=1;k<h/1.6;k++)f.a('box',0,-0.3+k*1.6,0,w+0.04,0.05,d+0.04,darker(col,1.15),0.4);
   if(o.spire)f.a('cone',0,h-0.3,0,w*0.5,o.spire,d*0.5,darker(col,1.1),1.0);else f.a('box',0,h-0.3,0,w*0.7,0.5,d*0.7,darker(col,0.9),1.0);
@@ -234,8 +234,8 @@ MD.stadium(-19,33,0.8,1956);                     // Luzhniki
 ostankino(4,-82,1967);
 {const x=14,z=-90,f=frame(x,H(x,z),z,0,B(1939),1.2);K.reg(K.rect(x,z,3,4,0,{mon:1}));f.a('box',0,-0.2,0,4,0.3,6,'#d8d0c0',0);f.a('box',0,0.1,-1.5,2.4,2.4,1.6,'#efe3c2',0.2);f.a('cone',0,2.5,-1.5,0.6,3.2,0.6,GOLD,0.5);f.a('cyl',0,0.1,1.6,1.8,0.3,1.8,'#5aa0c8',0.4)} // VDNKh
 // Moscow City
-[[-52,-12,2.4,2.4,30,2016,'#6d8aa8',4],[-49,-8,2.6,2.2,24,2015,'#8aa3b8'],[-55,-6,2.2,2.2,22,2007,'#a7b6c2'],[-46,-14,2.0,2.0,18,2010,'#7d93a8'],
- [-56,-15,2.2,2.6,26,2014,'#5f7d98'],[-50,-17,2.0,2.0,15,2005,'#b8c4cc'],[-45,-7,1.8,1.8,12,2003,'#c8d0d4'],[-59,-10,2.0,2.0,19,2019,'#7790a8']]
+[[-52,-12,2.6,2.6,48,2016,'#4f7fae',5],[-49,-8,2.8,2.4,38,2015,'#6f9cc4'],[-55,-6,2.4,2.4,34,2007,'#8fb3cf'],[-46,-14,2.2,2.2,28,2010,'#5d88b3'],
+ [-56,-15,2.4,2.8,42,2014,'#3f6f9e',4],[-50,-17,2.2,2.2,24,2005,'#a5c2d8'],[-45,-7,2.0,2.0,20,2003,'#b8cfe0'],[-59,-10,2.2,2.2,31,2019,'#5f8db8']]
   .forEach(([x,z,w,d,h,y,c,sp])=>glassTower(x,z,y,w,d,h,c,{spire:sp}));
 // bridges
 function bridgeAt(seg,u,year,col){const s=SEGS[seg],x=lerp(s.ax,s.bx,u),z=lerp(s.az,s.bz,u),ry=rotTo(-(s.bz-s.az),s.bx-s.ax),f=frame(x,0,z,ry,B(year),1.0);
@@ -268,13 +268,13 @@ const KITS={
   stalin: {fh:0.72,floors:[7,8,10],wall:['#d9c9a8','#c9b48e','#d6bf98','#e0d4bb'],roof:['#8a8780'],flat:true,win:'rows'},
   panel5: {fh:0.6,floors:[5,5,5],wall:['#dcdcd6','#c8ccd0','#e2dccf','#d4d0c4'],roof:['#7f8084'],flat:true,win:'rows'},
   panel16:{fh:0.6,floors:[9,12,16],wall:['#e4e2dc','#cfd4d8','#e8e0d0','#d0cfc6','#c9d3d9'],roof:['#7f8084'],flat:true,win:'rows'},
-  modern: {fh:0.6,floors:[17,22,30],wall:['#7d93a8','#b8c4cc','#e2d6c0','#c9b8a6','#9fb2c0','#e8e4dc'],roof:['#6a6c70'],flat:true,win:'rows'},
+  modern: {fh:0.6,floors:[12,16,22],wall:['#7d93a8','#b8c4cc','#e2d6c0','#c9b8a6','#9fb2c0','#e8e4dc'],roof:['#6a6c70'],flat:true,win:'rows'},
 };
 const kitOf=y=>y<1700?'izba':y<1812?'posad':y<1870?'classic':y<1930?'dohod':y<1956?'stalin':y<1972?'panel5':y<1991?'panel16':'modern';
 const pick=a=>a[Math.floor(rr()*a.length)];
 function dressM(h){const k=KITS[h.kit],c=new THREE.Color(pick(k.wall));c.offsetHSL((rr()-0.5)*0.02,(rr()-0.5)*0.08,(rr()-0.5)*0.06);h.wall=c;h.roof=new THREE.Color(pick(k.roof));h.fl=pick(k.floors);h.seed=rr();
   if(h.lod===undefined)h.lod=Math.hypot(h.x,h.z)>42?0:1}
-const FIRES=[{year:1812.7,x:2,z:-2,r:28,dur:2.4,rebuild:false}].map(f=>({...f,t0:B(f.year)}));
+const FIRES=[{year:1812.7,x:2,z:-2,r:28,dur:(window.__SHORTCFG?0.08:2.4),rebuild:false,...(window.__SHORTCFG?.fire||{})}].map(f=>({...f,t0:B(f.year)}));
 function emitM(h){
   const k=KITS[h.kit],f=frame(h.x,0,h.z,h.ry,B(h.b),0.8);
   let dT=NO;if(h.fire){const fr=FIRES[0];dT=fr.t0+h.fire.frac*fr.dur*0.7}else if(h.dieY!=null)dT=B(h.dieY);
@@ -342,7 +342,7 @@ generation({gen:5,R0:30,R1:125,Rlim:Rlim5,tries:60000,demolish:0.5,noise:22,w:[3
 // new Moscow, 1991-2026
 generation({gen:6,R0:6,R1:125,Rlim:()=>125,tries:9000,demolish:0.5,noise:60,w:[2.2,1.2],d:[2.2,1.0],y0:1991,y1:2026,built:[[1991,0],[2026,1]],maxD:900});
 // villages around: Kolomenskoye, Tushino, Kuntsevo, Izmailovo ... later swallowed by the city
-for(const [x,z,n,b0] of [[70,92,14,1400],[-70,-60,12,1500],[-75,8,12,1450],[70,-20,12,1500],[30,-95,10,1550],[-30,-95,10,1500],[90,40,10,1600]]){
+for(let [x,z,n,b0] of [[70,92,14,1400],[-70,-60,12,1500],[-75,8,12,1450],[70,-20,12,1500],[30,-95,10,1550],[-30,-95,10,1500],[90,40,10,1600]]){
   for(let i=0;i<n*6&&n>0;i++){const a=rr()*Math.PI*2,r=Math.sqrt(rr())*6,hx=x+Math.cos(a)*r,hz=z+Math.sin(a)*r,w=1.2+rr()*0.4,d=1.1+rr()*0.3,ry=rr()*0.5;
     const sl=K.slopeOK(hx,hz,w,d,ry,1.3);if(!sl||riverDist(hx,hz)<5)continue;const rc=K.rect(hx,hz,w/2,d/2,ry);const hit=K.collide(rc,0.2);if(hit.length)continue;
     const h={x:hx,z:hz,ry,w,d,...sl,soft:[],b:b0+rr()*150,kit:'izba',lod:0};dressM(h);

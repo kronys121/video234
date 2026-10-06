@@ -46,8 +46,12 @@ export const HILLS=[[-12,-4,4.6,5],[4,10,4.2,5.2],[-10,21,4.4,5],[19,18,3.8,5],[
   [140,155,16,32],[165,130,10,20],[115,180,9,18],[-30,-120,5,14],[-80,-70,4,12],[40,-70,6,16],[270,-40,18,40],[290,90,20,44],[230,-110,10,22]];
 export const MARSH=[[-4,4,3.4],[-2,16,2.9],[-24,-14,5.4]];
 export const FLAT=[[-3,15.5,7,13,0.95],[14,3,10,15,1.15],[-12,-16,5,8,1.1],[14,29,7,11,1.1],[-62,-24,9,14,1.2],[-62,-150,9,16,1.3],[-192,228,8,14,0.9],[250,-90,7,13,4.5],[-188,160,13,18,0.9]];
-export function marshAt(x,z){let m=0;for(const [mx,mz,s] of MARSH){const d2=(x-mx)**2+(z-mz)**2;m=Math.max(m,Math.exp(-d2/(2*s*s)))}return m}
+/* another city can replace the terrain, rivers and marshes */
+let WORLD=null;
+export function setWorld(w){WORLD=w}
+export function marshAt(x,z){if(WORLD)return WORLD.marshAt?WORLD.marshAt(x,z):0;let m=0;for(const [mx,mz,s] of MARSH){const d2=(x-mx)**2+(z-mz)**2;m=Math.max(m,Math.exp(-d2/(2*s*s)))}return m}
 export function heightAt(x,z){
+  if(WORLD)return WORLD.heightAt(x,z);
   let h=1.1+0.8*fbm(x*0.03+10,z*0.03);
   const d=Math.hypot(x-C[0],z-C[1]);
   h+=smooth(90,200,d)*(8*fbm(x*0.016+50,z*0.016+7));
@@ -59,7 +63,7 @@ export function heightAt(x,z){
   const cx=coastX(z);h-=9*smooth(cx+18,cx-6,x);                       // the Tyrrhenian Sea
   return h;
 }
-export const riverDist=(x,z)=>Math.abs(x-xr(z))/Math.sqrt(1+xrSlope(z)**2);
+export const riverDist=(x,z)=>WORLD?WORLD.riverDist(x,z):Math.abs(x-xr(z))/Math.sqrt(1+xrSlope(z)**2);
 
 /* ---------- renderer / scene ---------- */
 export const BG=new THREE.Color('#e9dcb9');
@@ -111,6 +115,8 @@ function archGeom(){
   const g=new THREE.ExtrudeGeometry(s,{depth:1,bevelEnabled:false,curveSegments:8});g.translate(0,0,-0.5);return g;
 }
 const matPlain=new THREE.MeshStandardMaterial({flatShading:true,roughness:0.9});
+const matMetal=new THREE.MeshStandardMaterial({flatShading:true,roughness:0.35,metalness:0.35});
+function onionGeom(){const p=[[0.001,0],[0.34,0],[0.47,0.18],[0.5,0.36],[0.42,0.56],[0.22,0.74],[0.08,0.86],[0.05,0.94],[0.001,1.0]].map(([r,y])=>new THREE.Vector2(r,y));return new THREE.LatheGeometry(p,12)}
 const matPlaster=new THREE.MeshStandardMaterial({flatShading:true,roughness:0.9,map:plasterTex});
 const matTile=new THREE.MeshStandardMaterial({flatShading:true,roughness:0.8,map:tileTex});
 const matDouble=new THREE.MeshStandardMaterial({flatShading:true,roughness:0.85,map:plasterTex,side:THREE.DoubleSide});
@@ -125,6 +131,7 @@ const KINDS={
   dome:{g:new THREE.SphereGeometry(0.5,20,10,0,Math.PI*2,0,Math.PI/2),m:matDouble},
   tri:{g:triGeom(),m:matDouble},
   arch:{g:archGeom(),m:matPlain},
+  onion:{g:onionGeom(),m:matMetal},
 };
 export const items={};for(const k of Object.keys(KINDS))items[k]=[];
 const growth=u=>{if(u<=0)return 0;if(u>=1)return 1;const c1=1.15,c3=c1+1;return 1+c3*Math.pow(u-1,3)+c1*Math.pow(u-1,2)};

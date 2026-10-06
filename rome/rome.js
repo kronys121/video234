@@ -215,7 +215,7 @@ export const FIRES_DEF=[
   {year:64,x:-2,z:14,r:17,dur:2.0,rebuild:true},
   {year:410,x:12,z:-12,r:15,dur:1.6,rebuild:false,shift:-6},
 ];
-const BUILT=[[-753,0],[-700,0.012],[-600,0.03],[-509,0.06],[-390,0.1],[-312,0.16],[-146,0.38],[-27,0.62],[64,0.84],[126,0.96],[200,1.0]];
+const BUILT=[[-753,0],[-700,0.02],[-600,0.06],[-509,0.11],[-390,0.17],[-312,0.23],[-146,0.42],[-27,0.64],[64,0.84],[126,0.96],[200,1.0]];
 const yearOfFrac=f=>{for(let i=0;i<BUILT.length-1;i++){const [y0,f0]=BUILT[i],[y1,f1]=BUILT[i+1];if(f<=f1)return lerp(y0,y1,(f-f0)/(f1-f0+1e-9))}return 200};
 const rr=mulberry(4242);
 
@@ -292,20 +292,24 @@ export function buildRome(opt={}){
   let houses=slots.filter(inCity);
   for(let row=0;row<3;row++){const more=[];for(const h of houses.filter(q=>(q.back||0)===row)){const n=K.backRow(h);if(n&&inCity(n))more.push(n)}houses.push(...more)}
   houses.push(...K.infill(26000,inCity,{wmin:1.15,wvar:0.7,dmin:1.0,dvar:0.4}));
-  /* huts on the Palatine, the very first village */
+  /* the first villages: huts on the Palatine, then on the other hills */
   const P=[2,9],huts=[];
-  for(let k=0;k<40&&huts.length<10;k++){
-    const a=rr()*Math.PI*2,r=1.2+rr()*3.2,x=P[0]+Math.cos(a)*r,z=P[1]+Math.sin(a)*r,ry=rr()*Math.PI*2,w=1.15,d=1.05;
-    const sl=K.slopeOK(x,z,w,d,ry,1.2);if(!sl)continue;
-    const rc=rect(x,z,w/2,d/2,ry);if(K.collide(rc,0.35).length)continue;
-    const h={x,z,ry,w,d,...sl,road:-1,s:0,soft:[],hut:true};reg(Object.assign(rc,{house:h}));huts.push(h);
+  for(const [hx,hz,y0,n,R0] of [[2,9,-753,14,4.6],[-12,-4,-738,8,3.6],[3,-21,-724,12,4.6],[23,2,-708,9,4.2],[12,-11,-696,8,3.8],[19,18,-684,8,4],[-10,21,-672,7,3.8]]){
+    let made=0;
+    for(let k=0;k<n*6&&made<n;k++){
+      const a=rr()*Math.PI*2,r=0.8+rr()*R0,x=hx+Math.cos(a)*r,z=hz+Math.sin(a)*r,ry=rr()*Math.PI*2,w=1.15,d=1.05;
+      const sl=K.slopeOK(x,z,w,d,ry,1.3);if(!sl)continue;
+      const rc=rect(x,z,w/2,d/2,ry),hits=K.collide(rc,0.3);if(hits.some(o=>o.road===undefined&&!o.house))continue;
+      const h={x,z,ry,w,d,...sl,road:-1,s:0,soft:[],hut:true,onRoad:hits.some(o=>o.road!==undefined),overHouses:hits.filter(o=>o.house).map(o=>o.house),hutYear:y0+made*(3+rr()*4)};reg(Object.assign(rc,{house:h}));huts.push(h);made++;
+    }
   }
   houses.push(...huts);
   /* build order → year */
   for(const h of houses){const mf=marshAt(h.x,h.z);h.score=h.hut?-6+rr()*2:Math.hypot(h.x-P[0],h.z-P[1])*1.0+(rr()-0.5)*5+(mf>0.12?8:0)}
   houses.sort((a,b)=>a.score-b.score);
   const N=houses.length;
-  houses.forEach((h,i)=>{h.b=yearOfFrac((i+0.5)/N);h.frac=(i+0.5)/N;if(h.hut)h.b=-753+i*4.5});
+  houses.forEach((h,i)=>{h.b=yearOfFrac((i+0.5)/N);h.frac=(i+0.5)/N;if(h.hut)h.b=h.hutYear});
+  for(const h of huts)for(const hh of h.overHouses)if(!hh.hut&&hh.b!==undefined)h.capY=Math.min(h.capY??Infinity,hh.b-0.5);
   houses=houses.filter(h=>!(h.clear!==undefined&&h.b>=h.clear-1));
   houses.forEach(h=>{
     K.dress(h);
@@ -315,7 +319,7 @@ export function buildRome(opt={}){
     else if(!h.fire&&h.frac>0.35&&rr()<0.75)h.dieY=405+rr()*71;
   });
   const clones=[];
-  for(const h of houses)if(K.styleOf(h.b)==='hut'&&!h.fire&&h.clear===undefined){h.dieY=-330+rr()*220;const c={...h,b:h.dieY+1.5,dieY:null,fire:null};K.dress(c);if(c.b<476&&!c.dieY&&rr()<0.5)c.dieY=null;clones.push(c)}
+  for(const h of houses)if(K.styleOf(h.b)==='hut'&&!h.fire&&h.clear===undefined){h.dieY=-330+rr()*220;if(h.capY!==undefined){h.dieY=Math.min(h.dieY,h.capY);continue}if(h.onRoad)continue;const c={...h,b:h.dieY+1.5,dieY:null,fire:null};K.dress(c);if(c.b<476&&!c.dieY&&rr()<0.5)c.dieY=null;clones.push(c)}
   houses.push(...clones);
   K.emitRoads();
   wallRing(26,-378,0.9,1.5,0.7,'#c9bb97','#b8a982',gates26,{die:mon.servian});
@@ -328,10 +332,10 @@ export function scatterTrees(houses,opt={}){
   const rt=mulberry(21),res=[],greens=['#2f6d2b','#3a7b2c','#2a5f2a','#4a8a30','#5a9a34'];let tries=0;
   while(res.length<(opt.n??1300)&&tries<(opt.n??1300)*10){tries++;
     const sp=opt.span??250,x=C[0]+(rt()-0.5)*sp,z=C[1]+(rt()-0.5)*sp,dc=Math.hypot(x-C[0],z-C[1]);
-    if(opt.clusters&&fbm(x*0.03+3,z*0.03+9)<0.5&&rt()<0.85)continue;
+    if(opt.clusters&&fbm(x*0.03+3,z*0.03+9)<0.5&&rt()<0.6)continue;
     if(dc<38&&rt()<0.12)continue;
     const h=heightAt(x,z);if(h<0.55||riverDist(x,z)<4.2||(opt.marsh&&marshAt(x,z)>0.25))continue;
-    if(K.collide(rect(x,z,0.45,0.45,0),0.5).length)continue;
+    if(K.collide(rect(x,z,0.45,0.45,0),0.5).some(o=>!o.house))continue;
     res.push([x,z,h,rt(),rt()]);
   }
   for(const [x,z,h,r1,r2] of res){

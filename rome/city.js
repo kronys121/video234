@@ -115,7 +115,7 @@ export function emitHouse(h,fires){
   let dT=NO,rT=null;
   if(h.fire){const fr=fires[h.fire.i];dT=fr.t0+h.fire.frac*fr.dur*0.7;rT=h.fire.rebuild?fr.t0+fr.dur+0.6+h.fire.rd*2.4:null}
   else if(h.dieY!=null)dT=B(h.dieY);
-  const o={d:dT,r:rT,dur:0.5+hash2(Math.round(h.x*7),Math.round(h.z*7))*0.35};
+  const o={d:dT,r:rT,dur:0.9+hash2(Math.round(h.x*7),Math.round(h.z*7))*0.6};
   h.tb=B(h.b);h.td=(dT!==NO&&rT==null)?dT:NO;
   if(dT<=-5&&rT==null)return;
   const base=h.ymax+0.12,{w,d}=h;
@@ -127,7 +127,7 @@ export function emitHouse(h,fires){
   else f.a('box',0,h.ymin-0.25,0,w,base-(h.ymin-0.25),d,'#9a9183',-0.05,o);
   f.a('box',0,base,0,w,wh,d,wall,0,o);
   if(st==='postwar'){
-    f.a('box',0,base+wh,0,w+0.08,0.1,d+0.08,'#8a8780',0.1,o);
+    f.a('box',0,base+wh,0,w+0.08,0.1,d+0.08,'#8a8780',0.5,o);
     if(!lod0){f.a('box',0,base+wh+0.1,0,w*0.5,0.28,d*0.5,'#9b9890',0.15,o);
       for(let k=0;k<fl;k++)f.a('box',0,base+k*fh+fh*0.35,0,w*0.86,0.17,d+0.05,'#34383f',0.12+k*0.01,o);}
     return;
@@ -135,7 +135,7 @@ export function emitHouse(h,fires){
   if(!lod0&&(fl>=2||st==='baroque')){f.a('box',0,base+wh-0.09,0,w+0.1,0.09,d+0.1,darker(wall,1.08),0.05,o);
     for(let k=1;k<fl;k++)f.a('box',0,base+k*fh-0.03,0,w+0.05,0.06,d+0.05,darker(wall,0.9),0.04,o)}
   const P=st==='hut'?d*0.62:st==='medieval'?d*0.62:st==='baroque'?d*0.26:st==='umbertino'?d*0.2:d*0.34+(fl>2?0:0.05);
-  gableRoof(f,0,base+wh,0,w,d,P,st==='hut'?'#a8863e':roof,wall,0.1,o,{ovh:st==='hut'?0.2:0.13});
+  gableRoof(f,0,base+wh,0,w,d,P,st==='hut'?'#a8863e':roof,wall,0.45,o,{ovh:st==='hut'?0.2:0.13});
   if(lod0)return;
   const dx=w>1.55?-w*0.2:0;
   f.a('box',dx,base,0,st==='hut'?0.26:0.3,st==='hut'?0.46:0.52,d+0.07,st==='hut'?'#4a3320':'#4a331f',0.15,o);
@@ -145,8 +145,8 @@ export function emitHouse(h,fires){
       for(let i=0;i<n;i++){
         const xx=k===0?w*0.22:(n===1?(dx!==0?w*0.2:0):-w/2+(w)*(i+0.5)/n);
         const wy=base+k*fh+fh*0.34;
-        f.a('box',xx,wy,0,0.17,0.24,d+0.06,'#2b2219',0.18+k*0.02,o);
-        f.a('box',xx,wy-0.035,0,0.27,0.04,d+0.075,darker(wall,0.85),0.2+k*0.02,o);
+        f.a('box',xx,wy,0,0.17,0.24,d+0.06,'#2b2219',0.5+k*0.04,o);
+        f.a('box',xx,wy-0.035,0,0.27,0.04,d+0.075,darker(wall,0.85),0.52+k*0.04,o);
       }
     }
     if(st==='medieval'&&rseed>0.45)f.a('box',w/2-0.25,base+wh+P*0.35,-0.15,0.2,P*0.9,0.2,'#8a7a66',0.3,o);
@@ -208,12 +208,13 @@ export function emitRoads(){
       if(base>9000)continue;                       // a street nobody built on never appears
       let yr=base+(r.growth2!==undefined?Math.min(sg.s,50)*r.growth+Math.max(0,sg.s-50)*r.growth2:sg.s*r.growth);
       if(r.fixed!==undefined)yr=r.fixed;
+      const segHits=collide(rect(sg.mx,sg.mz,sg.len/2,r.w/2,rotTo(sg.x1-sg.x0,sg.z1-sg.z0)),0),lt=segHits.filter(q=>q.late);
+      for(const q of segHits)if(q.house&&q.house.hut&&q.house.dieY!=null)yr=Math.max(yr,q.house.dieY+1);
       const b=B(yr),st=styleOf(yr);
       const h0=heightAt(sg.x0,sg.z0),h1=heightAt(sg.x1,sg.z1),hm=heightAt(sg.mx,sg.mz);
       const yb=Math.max(hm,(h0+h1)/2)+0.03+(r.kind==='main'?0.02:0);
       const ry=rotTo(sg.x1-sg.x0,sg.z1-sg.z0),rz=Math.atan2(h1-h0,sg.len);
       const dirt=yr<-420,col=r.col??(dirt?'#a89268':st==='roman'?(r.kind==='main'?'#a8a298':'#9b9078'):st==='medieval'?'#8f8574':st==='baroque'?'#8f8b83':st==='umbertino'?'#7d7a74':'#4f4f55');
-      const lt=collide(rect(sg.mx,sg.mz,sg.len/2,r.w/2,rotTo(sg.x1-sg.x0,sg.z1-sg.z0)),0).filter(q=>q.late);
       const o={dur:0.5,rz};if(lt.length)o.d=B(Math.min(...lt.map(q=>q.late))-0.5);
       add('box',sg.mx,yb,sg.mz,ry,sg.len,0.07,r.w,col,b,o);
       if(r.kind==='main'&&!dirt)add('box',sg.mx,yb+0.035,sg.mz,ry,sg.len,0.05,r.w*(st==='postwar'?0.06:0.55),st==='postwar'?'#cfc9b4':'#bcb6aa',b+0.05,o);

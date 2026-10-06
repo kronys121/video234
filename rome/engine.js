@@ -40,11 +40,11 @@ export const C=[2,6];
 const xrBase=z=>-44+8*Math.sin(0.05*z+0.6)+(z>0?0.0012:0.0003)*z*z;
 export const xr=z=>xrBase(z)+smooth(30,85,z)*(-1.12)*(z-30);       // Tiber centre line, running on to the sea
 const xrSlope=z=>(xr(z+1)-xr(z-1))/2;
-export const coastX=z=>-140+7*Math.sin(z*0.035+1);
+export const coastX=z=>-215+7*Math.sin(z*0.035+1);
 export const HILLS=[[-12,-4,4.6,5],[4,10,4.2,5.2],[-10,21,4.4,5],[19,18,3.8,5],[23,2,3.6,5.5],[12,-11,3.4,5],[3,-21,3.6,5],[-62,-24,3.2,6],[-60,16,5,7],
-  [150,150,15,30],[172,128,9,18],[125,172,8,16],[-30,-120,5,14],[-70,-60,4,12],[40,-70,6,16],[210,-40,16,34],[260,60,18,40]];
+  [140,155,16,32],[165,130,10,20],[115,180,9,18],[-30,-120,5,14],[-80,-70,4,12],[40,-70,6,16],[270,-40,18,40],[290,90,20,44],[230,-110,10,22]];
 export const MARSH=[[-4,4,3.4],[-2,16,2.9],[-24,-14,5.4]];
-export const FLAT=[[-3,15.5,7,13,0.95],[14,3,10,15,1.15],[-12,-16,5,8,1.1],[14,29,7,11,1.1],[-62,-24,9,14,1.2],[-15,-95,9,16,1.3],[-132,122,8,14,0.9],[135,-45,7,13,1.4]];
+export const FLAT=[[-3,15.5,7,13,0.95],[14,3,10,15,1.15],[-12,-16,5,8,1.1],[14,29,7,11,1.1],[-62,-24,9,14,1.2],[-62,-150,9,16,1.3],[-192,228,8,14,0.9],[250,-90,7,13,4.5],[-188,160,13,18,0.9]];
 export function marshAt(x,z){let m=0;for(const [mx,mz,s] of MARSH){const d2=(x-mx)**2+(z-mz)**2;m=Math.max(m,Math.exp(-d2/(2*s*s)))}return m}
 export function heightAt(x,z){
   let h=1.1+0.8*fbm(x*0.03+10,z*0.03);
@@ -169,7 +169,7 @@ export function updateInst(t){
       else{
         const s=scaleAt(it,t);if(s<0.002)continue;
         dummy.position.set(it.x,it.y,it.z);dummy.rotation.set(it.rx,it.ry,it.rz);
-        dummy.scale.set(it.sx*s,it.sy*s,it.sz*s);dummy.updateMatrix();dummy.matrix.toArray(ma,n*16);
+        const sh=k==='slab'?s:Math.min(1,s*2.4);dummy.scale.set(it.sx*sh,it.sy*s,it.sz*sh);dummy.updateMatrix();dummy.matrix.toArray(ma,n*16);
         if(s===1&&((it.d===NO&&t>=it.b+it.dur)||(it.r!=null&&t>=it.r+it.dur))){it.settled=true;it.mat=new Float32Array(16);dummy.matrix.toArray(it.mat)}
       }
       ca[n*3]=it.col.r;ca[n*3+1]=it.col.g;ca[n*3+2]=it.col.b;n++;
@@ -199,7 +199,7 @@ export function buildTerrain(){
     col.set([c.r,c.g,c.b],i*3);
   }
   g.setAttribute('color',new THREE.BufferAttribute(col,3));g.computeVertexNormals();
-  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,roughness:1}));
+  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:false,roughness:1}));
   m.receiveShadow=true;scene.add(m);
   waterMesh=new THREE.Mesh(new THREE.PlaneGeometry(1400,1400).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({color:'#1d6aa5',roughness:0.28,flatShading:true}));
   waterMesh.position.y=0.15;waterMesh.receiveShadow=true;scene.add(waterMesh);

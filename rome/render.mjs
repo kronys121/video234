@@ -15,10 +15,11 @@ const browser = await chromium.launch({
   executablePath: '/opt/pw-browsers/chromium-1194/chrome-linux/chrome',
   args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist'],
 });
-const page = await browser.newPage({viewport: {width: 1280, height: 720}});
+const VW = +(process.env.W || 1280), VH = +(process.env.H || 720);
+const page = await browser.newPage({viewport: {width: VW, height: VH}});
 page.on('console', m => { const t = m.text(); if (!t.includes('404')) console.log('[page]', t); });
 page.on('pageerror', e => console.log('[pageerror]', e.message));
-await page.goto(`http://localhost:${port}/index.html?part=${process.env.PART||'full'}&cam=${process.env.CAM||''}`);
+await page.goto(`http://localhost:${port}/index.html?part=${process.env.PART||'full'}&cam=${process.env.CAM||''}&w=${VW}&h=${VH}`);
 await page.waitForFunction('window.__ready===true', null, {timeout: 900000});
 fs.mkdirSync(outDir, {recursive: true});
 const dur = await page.evaluate(() => window.__dur);

@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 export {THREE};
-export const W = 1280, H = 720;
+const QS=new URLSearchParams(location.search);
+export const W = +(QS.get('w')||1280), H = +(QS.get('h')||720);
 
 /* ---------- utils ---------- */
 export function mulberry(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
@@ -24,7 +25,7 @@ export function kf(keys,t){
 
 /* ---------- timeline (set by each episode) ---------- */
 export let CFG=null,CARDS=[],DUR=30,Y0=0;
-export function setup(cfg){CFG=cfg;CARDS=cfg.cards;DUR=CARDS[CARDS.length-1].t1;Y0=CARDS[0].y0}
+export function setup(cfg){CFG=Object.assign(cfg,window.__SHORTCFG||{});CARDS=cfg.cards;DUR=CARDS[CARDS.length-1].t1;Y0=CARDS[0].y0}
 export function yearAt(t){
   if(t<=0)return CARDS[0].y0;if(t>=DUR)return CARDS[CARDS.length-1].y1;
   for(const c of CARDS)if(t<=c.t1)return lerp(c.y0,c.y1,(t-c.t0)/(c.t1-c.t0));
@@ -68,7 +69,7 @@ renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
 renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;
 document.getElementById('gl').appendChild(renderer.domElement);
 export const scene=new THREE.Scene();scene.background=BG;scene.fog=new THREE.Fog(BG,320,980);
-export const camera=new THREE.PerspectiveCamera(32,W/H,1,1800);
+export const camera=new THREE.PerspectiveCamera(H>W?52:32,W/H,1,1800);
 scene.add(new THREE.HemisphereLight(0xdfeeff,0x7a8a46,1.15));
 export const sun=new THREE.DirectionalLight(0xffe0ae,3.0);
 sun.position.set(-70,62,45);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
@@ -279,9 +280,22 @@ export function popAt(y){
     if(y<=b){const s=clamp((y-a)/(b-a));return Math.exp(lerp(Math.log(pa),Math.log(pb),s))}}
   return P[P.length-1][1];
 }
+let vt=0;
+const p0=y=>{let p=0;CFG.polities.forEach((pp,i)=>{if(y>=pp.from)p=i});return p};
+let lastTitle=null;
+function updateShortUI(y,p){
+  const pv=popAt(y),q=pv>10000?100:10;$('popn').textContent=(Math.round(pv/q)*q).toLocaleString('en-US');
+  if(p!==lastPol){$('crest').innerHTML=CFG.polities[p].svg;$('polname').textContent=CFG.polities[p].name;lastPol=p}
+  const T=CFG.titleAt(vt);
+  if(!T){$('card').style.opacity=0;return}
+  if(T.text!==lastTitle){$('title').textContent=T.text;$('sub').textContent='';lastTitle=T.text}
+  const fin=clamp((vt-T.t0)/0.25),fout=clamp((T.t1-vt)/0.2);
+  $('card').style.opacity=fin*fout;$('card').style.transform=`translateY(${(1-fin)*14}px) scale(${0.92+0.08*fin})`;
+}
 function updateUI(t){
   const y=yearAt(t),yr=Math.max(1,Math.round(Math.abs(y)));
   $('yn').textContent=yr;$('ye').textContent=y<0?'BC':'AD';
+  if(CFG.titleAt){updateShortUI(y,p0(y));return}
   const pv=popAt(y),q=pv>10000?100:10;
   $('popn').textContent=(Math.round(pv/q)*q).toLocaleString('en-US');
   let p=0;CFG.polities.forEach((pp,i)=>{if(y>=pp.from)p=i});
@@ -316,15 +330,22 @@ function updateLabels(t){
 /* ---------- frame ---------- */
 export const hooks={update:[]};
 export function start(fires){
-  window.__dur=DUR;
+  window.__dur=CFG.videoDur??DUR;
   buildTerrain();buildClouds();buildInst();buildFire(fires||[]);
-  window.renderFrame=function(t){
+  let lastTau=-1e9;
+  window.renderFrame=function(tv){
+    vt=tv;
+    let t=CFG.timeMap?CFG.timeMap(tv):tv;
     t=clamp(t,0,DUR);
+    if(t<lastTau-1e-6)for(const k of Object.keys(items))for(const it of items[k])it.settled=false;   // time ran backwards
+    lastTau=t;
     if(CFG.marsh){const dr=smooth(marshDry0,marshDry1,t);marshPatches.forEach(m=>{m.position.y=lerp(0.45,-1.4,dr);m.visible=dr<0.995})}
     updateInst(t);updateFire(t);
-    clouds.forEach((c,i)=>{c.g.position.x=((i*61-130+t*c.sp*3)%280+280)%280-140});
+    clouds.forEach((c,i)=>{c.g.position.x=((i*61-130+tv*c.sp*3)%280+280)%280-140;c.g.visible=!CFG.noClouds});
     for(const f of hooks.update)f(t);
-    setCamera(t);camera.updateMatrixWorld();updateLabels(t);updateUI(t);renderer.render(scene,camera);
+    setCamera(CFG.camVideo?tv:t);camera.updateMatrixWorld();
+    if(CFG.labelsFrom!==undefined&&tv<CFG.labelsFrom)for(const l of labels)l.el.style.opacity=0;else updateLabels(t);
+    updateUI(t);renderer.render(scene,camera);
   };
   document.fonts.ready.then(()=>{window.renderFrame(0);window.__ready=true});
 }

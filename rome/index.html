@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Rome timelapse</title>
+<style>
+@font-face{font-family:Cinzel;font-weight:600;src:url(node_modules/@fontsource/cinzel/files/cinzel-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Cinzel;font-weight:400;src:url(node_modules/@fontsource/cinzel/files/cinzel-latin-400-normal.woff2) format("woff2")}
+@font-face{font-family:Cormorant;font-weight:600;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2) format("woff2")}
+@font-face{font-family:Cormorant;font-weight:600;font-style:italic;src:url(node_modules/@fontsource/cormorant-garamond/files/cormorant-garamond-latin-600-italic.woff2) format("woff2")}
+html,body{margin:0;background:#000;width:var(--w,1280px);height:var(--h,720px);overflow:hidden}
+#stage{position:relative;width:var(--w,1280px);height:var(--h,720px);overflow:hidden}
+canvas{display:block}
+.ov{position:absolute;pointer-events:none;color:#f6ecd2;text-shadow:0 1px 6px rgba(0,0,0,.75),0 0 2px rgba(0,0,0,.6)}
+#shade{inset:0;background:
+  linear-gradient(to bottom,rgba(10,8,4,.45),rgba(0,0,0,0) 16%),
+  linear-gradient(to top,rgba(10,8,4,.62),rgba(0,0,0,0) 34%),
+  radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 62%,rgba(0,0,0,.35) 100%)}
+#polity{left:20px;top:14px;display:flex;align-items:center;gap:10px;font:600 17px Cinzel,serif;letter-spacing:.5px}
+#polity svg{width:26px;height:30px;filter:drop-shadow(0 1px 3px rgba(0,0,0,.6))}
+#pop{right:22px;top:16px;display:flex;align-items:center;gap:7px;font:600 18px Cinzel,serif;letter-spacing:.5px}
+#pop svg{width:14px;height:18px}
+#year{left:22px;bottom:16px;font:600 54px Cinzel,serif;letter-spacing:1px;line-height:1}
+#year small{font-size:22px;margin-left:8px;opacity:.85}
+#card{right:26px;bottom:20px;text-align:right;max-width:640px}
+#title{font:600 34px Cinzel,serif;letter-spacing:1.5px;text-transform:uppercase;line-height:1.1}
+#sub{font:italic 600 17px Cormorant,serif;margin-top:6px;opacity:.95;line-height:1.25}
+.lbl{position:absolute;left:0;top:0;pointer-events:none;white-space:nowrap;color:#fff3d0;font:600 13px Cinzel,serif;letter-spacing:.8px;text-shadow:0 1px 4px #000,0 0 2px #000;will-change:transform}
+.lbl.army{padding:2px 8px 2px 7px;background:rgba(12,9,5,.55);border-left:3px solid var(--c,#fff);border-radius:2px}
+.lbl.place{font-weight:400;font-style:normal;font-size:12px;opacity:.9;letter-spacing:1.5px}
+.lbl.site{font-size:14px;padding:2px 9px 2px 8px;background:rgba(12,9,5,.55);border-left:3px solid #e8c34a;border-radius:2px;letter-spacing:1px}
+/* vertical shorts layout */
+.portrait #year{left:0;right:0;top:118px;bottom:auto;text-align:center;font-size:104px}
+.portrait #year small{display:block;font-size:30px;margin:6px 0 0;letter-spacing:4px}
+.portrait #polity{left:0;right:0;top:34px;justify-content:center;font-size:22px}
+.portrait #polity svg{width:30px;height:35px}
+.portrait #pop{left:0;right:0;top:300px;justify-content:center;font-size:30px}
+.portrait #pop svg{width:20px;height:26px}
+.portrait #card{left:28px;right:28px;top:auto;bottom:250px;max-width:none;text-align:center}
+.portrait #title{font-size:60px;letter-spacing:2px;line-height:1.05}
+.portrait #sub{display:none}
+.portrait #shade{background:linear-gradient(to bottom,rgba(10,8,4,.62),rgba(0,0,0,0) 34%),linear-gradient(to top,rgba(10,8,4,.66),rgba(0,0,0,0) 38%)}
+.portrait .lbl.site{font-size:21px;padding:3px 12px 3px 10px}
+</style>
+<script>{const q=new URLSearchParams(location.search),w=+(q.get('w')||1280),h=+(q.get('h')||720);document.documentElement.style.setProperty('--w',w+'px');document.documentElement.style.setProperty('--h',h+'px');if(h>w)document.documentElement.classList.add('portrait')}</script>
+</head>
+<body>
+<div id="stage">
+  <div id="gl"></div>
+  <div class="ov" id="shade"></div>
+  <div class="ov" id="polity"><span id="crest"></span><span id="polname"></span></div>
+  <div class="ov" id="pop"><svg viewBox="0 0 14 18"><circle cx="7" cy="4.2" r="3.4" fill="#f6ecd2"/><path d="M1 17c0-5 2.5-8 6-8s6 3 6 8z" fill="#f6ecd2"/></svg><span id="popn">0</span></div>
+  <div class="ov" id="year"><span id="yn">753</span><small id="ye">BC</small></div>
+  <div class="ov" id="card"><div id="title"></div><div id="sub"></div></div>
+</div>
+<script type="importmap">{"imports":{"three":"./node_modules/three/build/three.module.js"}}</script>
+<script type="module">const p=new URLSearchParams(location.search).get("part")||"1";import(p==="full"?"./full.js":p==="film"?"./film.js":p==="short"?"./short.js":p==="moscow"?"./moscow.js":p==="mshort"?"./mshort.js":"./part"+p+".js");</script>
+</body>
+</html>

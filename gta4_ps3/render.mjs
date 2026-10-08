@@ -69,7 +69,7 @@ if (mode === 'stills') {
     await browser.close();
   }));
   fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
-  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', String(30 * SUB), '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(HERE, 'audio.mp3'),
+  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', String(30 * SUB), '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(HERE, process.env.AUDIO || 'audio.mp3'),
     ...(SUB > 1 ? ['-vf', `tmix=frames=${SUB},fps=30`] : []),
     '-t', String(dur), '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-maxrate', '12M', '-bufsize', '24M', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
     '-af', `afade=t=out:st=${(dur - 0.25).toFixed(2)}:d=0.25`, '-c:a', 'aac', '-b:a', '192k', path.join(HERE, 'out', process.env.OUT || 'gta4_ps3.mp4')], { stdio: 'inherit' });

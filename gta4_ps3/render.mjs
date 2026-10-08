@@ -53,7 +53,8 @@ if (mode === 'stills') {
   await browser0.close();
   const dir = path.join(HERE, 'frames'); fs.mkdirSync(dir, { recursive: true });
   const SUB = Number(process.env.SUB || 1); // подкадры для размытия в движении
-  const total = Math.round(dur * 30 * SUB);
+  const FPS = Number(process.env.FPS || 30);
+  const total = Math.round(dur * FPS * SUB);
   const name = (f) => path.join(dir, `f${String(f).padStart(5, '0')}.jpg`);
   const todo = []; for (let f = 0; f < total; f++) if (!fs.existsSync(name(f))) todo.push(f);
   console.log('frames', total, 'todo', todo.length);
@@ -63,15 +64,15 @@ if (mode === 'stills') {
     const page = await openPage(browser);
     const per = Math.ceil(todo.length / workers);
     for (const f of todo.slice(w * per, (w + 1) * per)) {
-      await shot(page, f / (30 * SUB), name(f));
+      await shot(page, f / (FPS * SUB), name(f));
       if (++done % 60 === 0) { const el = (Date.now() - t0) / 1000; console.log(`${done}/${todo.length} ${el.toFixed(0)}s eta ${(el / done * (todo.length - done)).toFixed(0)}s`); }
     }
     await browser.close();
   }));
   fs.mkdirSync(path.join(HERE, 'out'), { recursive: true });
-  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', String(30 * SUB), '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(HERE, process.env.AUDIO || 'audio.mp3'),
-    ...(SUB > 1 ? ['-vf', `tmix=frames=${SUB},fps=30`] : []),
-    '-t', String(dur), '-c:v', 'libx264', '-preset', 'slow', '-crf', '20', '-maxrate', '12M', '-bufsize', '24M', '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
+  execFileSync('ffmpeg', ['-y', '-v', 'error', '-framerate', String(FPS * SUB), '-i', path.join(dir, 'f%05d.jpg'), '-i', path.join(HERE, process.env.AUDIO || 'audio.mp3'),
+    ...(SUB > 1 ? ['-vf', `tmix=frames=${SUB},fps=${FPS}`] : []),
+    '-t', String(dur), '-c:v', 'libx264', '-preset', 'slow', '-crf', process.env.CRF || '20', '-maxrate', process.env.MAXRATE || '12M', '-bufsize', '24M', '-r', String(FPS), '-pix_fmt', 'yuv420p', '-profile:v', 'high', '-movflags', '+faststart',
     '-af', `afade=t=out:st=${(dur - 0.25).toFixed(2)}:d=0.25`, '-c:a', 'aac', '-b:a', '192k', path.join(HERE, 'out', process.env.OUT || 'gta4_ps3.mp4')], { stdio: 'inherit' });
   console.log('done', ((Date.now() - t0) / 1000).toFixed(0), 's');
 }

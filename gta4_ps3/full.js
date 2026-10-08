@@ -241,21 +241,21 @@ beat(87.5, (g) => {
 // 14 · девкиты = компьютеры Apple (Power Mac G5)
 beat(99.74, (g) => {
   g.cap('APPLE?!', 120, 102.78, -470, -350, { cps: 14, until: 107.0 });
-  g.el('width:300px;height:400px', G5, 102.9, -470, 60, { from: [0, 140] });
+  g.prop('powermac_g5.png', 440, 102.9, -470, 60, { from: [0, 140] });
   g.cap('POWER MAC G5', 76, 108.38, -470, 340, { cps: 22, until: 113.9 });
-  g.el('width:330px;height:330px;border-radius:26px;padding:10px;background:linear-gradient(135deg,#f4f4f6,#b9bcc4 45%,#eceef2 60%,#9fa3ab)', `<img src="${A('cell_chip.png')}" style="width:310px;height:310px;display:block;border-radius:18px">`, 110.6, 300, 40, { from: [140, 0], ry0: -50, ry: -10 });
+  g.el('width:330px;height:330px;border-radius:26px;padding:10px;background:linear-gradient(135deg,#f4f4f6,#b9bcc4 45%,#eceef2 60%,#9fa3ab)', `<img src="${A('cell_chip.png')}" style="width:310px;height:310px;display:block;border-radius:18px">`, 110.6, 300, 40, { from: [140, 0], ry0: -50, ry: -10, t1: 114.3 });
   g.cap('≈', 200, 111.4, -70, 30, { cps: 4, until: 113.9 });
   g.cap('POWERPC', 70, 112.0, 300, 300, { cps: 20, until: 113.9 });
   // «закупила партию» — ещё два корпуса
-  g.el('width:300px;height:400px', G5, 114.6, -170, 70, { from: [0, 140], s: 0.92 });
-  g.el('width:300px;height:400px', G5, 115.2, 130, 80, { from: [0, 140], s: 0.86 });
+  g.prop('powermac_g5.png', 440, 114.6, -170, 70, { from: [0, 140], s: 0.92 });
+  g.prop('powermac_g5.png', 440, 115.2, 130, 80, { from: [0, 140], s: 0.86 });
   g.prop('rockstar.png', 170, 116.6, 560, -180, { r: 6 });
   g.cap('ПОКА PS3 ЕЩЁ НЕТ', 76, 119.5, 0, -400, { cps: 24 });
 }, { z: 0.92 });
 
 // 15 · глючные версии, ×10
 beat(123.42, (g) => {
-  g.el('width:300px;height:400px', G5, 123.5, -560, 40, { from: [-120, 80] });
+  g.prop('powermac_g5.png', 440, 123.5, -560, 40, { from: [-120, 80] });
   g.card({ w: 720, h: 405, clip: 'ps3_gameplay_lowres', n: 1008, off: 9 }, 124.0, 120, -20, {
     from: [0, 160], r: 2, upd: (t, c) => { const g_ = t < 128.5 && fr(t * 3.1) < 0.18; c.style.filter = g_ ? `hue-rotate(${Math.floor(rnd(Math.floor(t * 30), 2) * 360)}deg) saturate(3) contrast(1.6)` : 'none'; c.style.marginLeft = g_ ? `${(rnd(Math.floor(t * 30), 1) - 0.5) * 50}px` : '0'; } });
   g.cap('ГЛЮКИ', 96, 125.75, 120, -330, { cps: 16, until: 128.4 });
@@ -266,7 +266,7 @@ beat(123.42, (g) => {
 
 // 16 · предсказание производительности 4 мс → 0,4 мс
 beat(139.82, (g) => {
-  g.el('width:300px;height:400px', G5, 139.9, -520, 40, { from: [-120, 60], s: 0.85 });
+  g.prop('powermac_g5.png', 440, 139.9, -520, 40, { from: [-120, 60], s: 0.85 });
   g.prop('ps3_fat.png', 400, 140.4, 520, 40, { from: [120, 60] });
   g.card({ w: 420, h: 236, clip: 'crash1', n: 68 }, 143.66, 0, -280, { from: [0, -120], r: -2 });
   g.cap('4 МС', 110, 145.66, -520, -340, { cps: 12 });
@@ -452,7 +452,7 @@ beat(441.59, (g) => {
 
 // 35 · через что прошли разработчики
 beat(460.32, (g) => {
-  g.el('width:300px;height:400px', G5, 460.4, -600, 30, { from: [-120, 80], s: 0.85 });
+  g.prop('powermac_g5.png', 440, 460.4, -600, 30, { from: [-120, 80], s: 0.85 });
   g.cap('2 ГОДА', 90, 465.04, -600, -330, { cps: 14, until: 470.2 });
   g.el('width:1000px;height:110px;border-radius:24px;background:' + RED, `<div style="font-family:Osw;font-weight:700;font-size:60px;color:#fff;text-align:center;line-height:110px">+180 МБ</div>`, 470.48, 120, -250, { s: 0.6, r: -3 });
   g.cap('ЕЩЁ 2 ГОДА', 90, 474.5, 120, -60, { cps: 16, until: 478.6 });

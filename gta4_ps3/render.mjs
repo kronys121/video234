@@ -18,7 +18,7 @@ const server = http.createServer((req, res) => {
   fs.createReadStream(f).pipe(res);
 });
 await new Promise((r) => server.listen(0, r));
-const URL_ = `http://127.0.0.1:${server.address().port}/gta4_ps3/video.html`;
+const URL_ = `http://127.0.0.1:${server.address().port}/gta4_ps3/${process.env.PAGE || 'video.html'}`;
 const ARGS = ['--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader', '--ignore-gpu-blocklist', '--js-flags=--max-old-space-size=4096'];
 
 async function openPage(browser) {

@@ -15,3 +15,7 @@ gta4_ps3/tmp/
 gta4_ps3/clips/*/
 gta4_ps3/audio_mix.wav
 gta4_ps3/out/gta4_ps3_full_1080p30.mp4
+gta4_ps3/tlou/clips/*/
+gta4_ps3/tlou/frames/
+gta4_ps3/tlou/tmp/
+gta4_ps3/tlou/audio_mix.wav

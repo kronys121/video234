@@ -51,7 +51,7 @@ if (mode === 'stills') {
   const p0 = await openPage(browser0);
   const dur = Number(process.argv[4] || (await p0.evaluate(() => window.DUR)));
   await browser0.close();
-  const dir = path.join(HERE, 'frames'); fs.mkdirSync(dir, { recursive: true });
+  const dir = path.join(HERE, process.env.FRAMES || 'frames'); fs.mkdirSync(dir, { recursive: true });
   const SUB = Number(process.env.SUB || 1); // подкадры для размытия в движении
   const FPS = Number(process.env.FPS || 30);
   const total = Math.round(dur * FPS * SUB);

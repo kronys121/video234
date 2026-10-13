@@ -4,7 +4,7 @@ SR = 48000
 def load(p):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', p, '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2)
-voice = load('voice.mp3'); wh = load('../gta4_ps3/sfx/whoosh.wav')
+voice = load('voice2.mp3'); wh = load('../gta4_ps3/sfx/whoosh.wav')
 wh = wh / np.abs(wh).max() * 10 ** (-24 / 20)
 times = json.load(open('whoosh.json'))
 out = np.zeros((len(voice) + SR, 2), dtype=np.float32); out[:len(voice)] = voice

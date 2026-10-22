@@ -17,21 +17,31 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#0b0c10;font-fam
 <div class="shade"></div>
 <img class="logo" id="logo" src="/rdr2/assets/rdr2_logo.png">
 <div class="t" id="t">НЕВОЗМОЖНО</div>
-<svg style="position:absolute;left:310px;top:690px" width="1300" height="400" viewBox="0 0 1300 400">
- <defs><linearGradient id="tp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a5d66"/><stop offset="1" stop-color="#2a2c32"/></linearGradient>
- <linearGradient id="fr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2d33"/><stop offset="1" stop-color="#141518"/></linearGradient>
- <filter id="gl"><feGaussianBlur stdDeviation="6"/></filter></defs>
- <path d="M90 40 H1210 L1290 120 H10 Z" fill="url(#tp)"/>
- <rect x="10" y="120" width="1280" height="110" fill="url(#fr)"/>
- <rect x="10" y="226" width="1280" height="8" fill="#08090b"/>
- <rect x="10" y="234" width="1280" height="120" fill="url(#fr)"/>
- <path d="M10 354 H1290 L1270 380 H30 Z" fill="#0d0e11"/>
- <rect x="40" y="186" width="560" height="10" rx="4" fill="#0c0d10"/>
- <path d="M652 42 L640 120" stroke="#3aa0ff" stroke-width="6"/><path d="M652 42 L640 120" stroke="#3aa0ff" stroke-width="16" filter="url(#gl)" opacity=".8"/>
- <rect x="636" y="120" width="8" height="110" fill="#3aa0ff"/><rect x="630" y="120" width="20" height="110" fill="#3aa0ff" filter="url(#gl)" opacity=".7"/>
- <rect x="636" y="234" width="8" height="120" fill="#1d5b9a"/>
- <text x="1150" y="190" text-anchor="end" font-family="Mont" font-weight="900" font-size="46" fill="#c9ccd3" letter-spacing="2">PS4</text>
- <rect x="740" y="150" width="34" height="14" rx="3" fill="#0c0d10"/><rect x="790" y="150" width="34" height="14" rx="3" fill="#0c0d10"/>
+<svg style="position:absolute;left:300px;top:680px" width="1320" height="400" viewBox="0 0 1320 400">
+ <defs>
+  <linearGradient id="tpL" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6b6f78"/><stop offset="1" stop-color="#3b3e45"/></linearGradient>
+  <linearGradient id="tpR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#53565e"/><stop offset="1" stop-color="#2f3238"/></linearGradient>
+  <linearGradient id="frL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3c3f46"/><stop offset=".5" stop-color="#22242a"/><stop offset="1" stop-color="#16171b"/></linearGradient>
+  <linearGradient id="frR" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3d44"/><stop offset="1" stop-color="#1f2126"/></linearGradient>
+  <linearGradient id="lo" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2c2e34"/><stop offset="1" stop-color="#121317"/></linearGradient>
+  <filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="7"/></filter>
+ </defs>
+ <ellipse cx="660" cy="385" rx="640" ry="18" fill="#000" opacity=".6" filter="url(#gl)"/>
+ <path d="M70 30 H655 L640 110 H10 Z" fill="url(#tpL)"/>
+ <path d="M655 30 H1240 L1310 110 H640 Z" fill="url(#tpR)"/>
+ <path d="M70 30 H655 L652 36 H64 Z" fill="#9aa0aa" opacity=".6"/>
+ <path d="M10 110 H640 V240 H10 Z" fill="url(#frL)"/>
+ <path d="M640 110 H1310 V240 H640 Z" fill="url(#frR)"/>
+ <path d="M10 110 H640 V118 H10 Z" fill="#7d828c" opacity=".55"/>
+ <text x="70" y="190" font-family="Georgia,serif" font-weight="700" font-size="34" fill="#cfd2d8" letter-spacing="3">SONY</text>
+ <rect x="60" y="214" width="540" height="9" rx="4" fill="#0a0b0d"/>
+ <text x="1230" y="192" text-anchor="end" font-family="Mont" font-weight="900" font-size="50" fill="#d6d9df" letter-spacing="3" font-style="italic">PS4</text>
+ <rect x="735" y="212" width="40" height="13" rx="3" fill="#0a0b0d"/><rect x="790" y="212" width="40" height="13" rx="3" fill="#0a0b0d"/>
+ <rect x="10" y="240" width="1300" height="12" fill="#06070a"/>
+ <path d="M10 252 H1310 V350 L1290 372 H30 L10 350 Z" fill="url(#lo)"/>
+ <path d="M10 252 H1310 V258 H10 Z" fill="#5a5e66" opacity=".5"/>
+ <g><path d="M655 30 L640 110 V240" stroke="#7cc4ff" stroke-width="5" fill="none"/><path d="M655 30 L640 110 V240" stroke="#2b8cff" stroke-width="22" fill="none" filter="url(#gl)" opacity=".9"/>
+ <path d="M640 252 V368" stroke="#4aa8ff" stroke-width="4"/><path d="M640 252 V368" stroke="#2b8cff" stroke-width="16" filter="url(#gl)" opacity=".7"/></g>
 </svg>
 <script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('nologo'))document.getElementById('logo').style.display='none';</script>
 </body></html>

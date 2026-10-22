@@ -6,7 +6,7 @@ await new Promise((r) => srv.listen(0, r));
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
 const variants = JSON.parse(process.argv[2]);
 for (const [name, qs] of variants) {
-  await p.goto(`http://127.0.0.1:${srv.address().port}/rdr2/thumb/thumb.html?${qs}`);
+  await p.goto(`http://127.0.0.1:${srv.address().port}/rdr2/thumb/${process.env.PAGE || 'thumb.html'}?${qs}`);
   await p.evaluate(() => document.fonts.ready); await p.waitForTimeout(400);
   await p.screenshot({ path: path.join(ROOT, 'rdr2/thumb', name + '.jpg'), type: 'jpeg', quality: 95 });
 }

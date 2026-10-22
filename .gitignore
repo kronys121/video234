@@ -34,3 +34,7 @@ all4/frames/
 all4/audio_mix.wav
 all4/render.log
 gta4_ps3/out/all4_*.mp4
+rdr2/frames/
+rdr2/audio_mix.wav
+rdr2/voice2.mp3
+gta4_ps3/out/rdr2_*.mp4

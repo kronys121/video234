@@ -1,0 +1,23 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#111;font-family:'Mont'}
+.p{position:absolute;top:0;height:1080px;overflow:hidden;border-right:10px solid #111}
+.bg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:saturate(1.15) contrast(1.05)}
+.ch{position:absolute;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.shade{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 55%,rgba(0,0,0,.05),rgba(0,0,0,.55)),linear-gradient(0deg,rgba(0,0,0,.55),transparent 40%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:1;text-shadow:0 0 40px rgba(0,0,0,.65),0 10px 0 rgba(0,0,0,.35),0 18px 40px rgba(0,0,0,.6)}
+.ps{position:absolute;left:50%;transform:translateX(-50%);filter:drop-shadow(0 40px 40px rgba(0,0,0,.7))}
+.logo{position:absolute;filter:drop-shadow(0 10px 20px rgba(0,0,0,.7))}
+</style></head><body>
+<div class="p" style="left:0;width:480px"><div class="bg" style="background-image:url(/gta5_new/assets/industrial_dusk.jpg);filter:blur(3px) brightness(.8) saturate(1.2)"></div><img class="ch" src="/gta5_new/assets/franklin.png" style="height:1150px;left:-170px;top:90px"></div>
+<div class="p" style="left:480px;width:480px"><div class="bg" style="background-image:url(/gta5_new/clips/mountain_view/0150.jpg)"></div></div>
+<div class="p" style="left:960px;width:480px"><div class="bg" style="background-image:url(/gta5_new/assets/los_santos_haze.jpg)"></div><img class="ch" src="/gta5_new/assets/michael.png" style="height:1150px;left:-150px;top:110px"></div>
+<div class="p" style="left:1440px;width:480px;border:0"><div class="bg" style="background-image:url(/gta5_new/assets/car_collection.jpg);filter:blur(3px) brightness(.75)"></div><img class="ch" src="/gta5_new/assets/trevor.png" style="height:1330px;left:-250px;top:20px"></div>
+<div class="shade"></div>
+<img class="logo" src="/gta5_new/assets/gta5_logo.png" style="left:560px;top:30px;height:280px">
+<div class="t" id="t" style="top:420px;font-size:230px">НЕВОЗМОЖНО</div>
+<img class="ps" src="/gta4_ps3/assets/ps3_fat_flat.png" style="top:665px;width:960px">
+<script>const q=new URLSearchParams(location.search);if(q.get('t')){const t=document.getElementById('t');t.innerHTML=q.get('t');if(q.get('s'))t.style.fontSize=q.get('s')+'px';if(q.get('y'))t.style.top=q.get('y')+'px';}</script>
+</body></html>

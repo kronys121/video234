@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/kronys121/video234#readme",
   "dependencies": {
+    "@fontsource/jetbrains-mono": "^5.3.0",
     "@fontsource/montserrat": "^5.3.0",
+    "@fontsource/oswald": "^5.3.0",
     "@fontsource/russo-one": "^5.3.0",
     "playwright": "^1.56.0",
     "three": "^0.169.0"

@@ -8,6 +8,7 @@ const CPTILE = `<div style="width:620px;height:360px;border-radius:30px;backgrou
  <div style="font-size:96px;letter-spacing:.02em">CYBERPUNK</div><div style="font-size:70px;color:#00b7ff">2077</div>
  <div class="gl" style="position:absolute;left:0;right:0;height:26px;background:rgba(0,183,255,.55);mix-blend-mode:multiply"></div></div>`;
 const glUpd = (t, d) => { const g = d.querySelector('.gl'); const f = Math.floor(t * 12); g.style.top = ((rnd(f, 1) * 330) | 0) + 'px'; g.style.opacity = rnd(f, 2) > 0.4 ? 1 : 0; d.style.transform += ` translateX(${((rnd(f, 3) - 0.5) * (rnd(f, 4) > 0.7 ? 18 : 0)).toFixed(1)}px)`; };
+const glUpd2 = (t, d) => { const f = Math.floor(t * 12); if (rnd(f, 4) > 0.72) d.style.transform += ` translateX(${((rnd(f, 3) - 0.5) * 30).toFixed(1)}px) skewX(${((rnd(f, 5) - 0.5) * 12).toFixed(1)}deg)`; };
 const SALE = (txt, bg) => `<div style="padding:14px 30px;border-radius:22px;background:${bg};color:#fff;font-family:Osw;font-weight:700;font-size:80px;transform:rotate(-6deg)">${txt}</div>`;
 
 function AD(T) {
@@ -19,9 +20,10 @@ function AD(T) {
   }, { keys: [[T, 1.4, 0, 0, 1.08]] });
   // «пока одни студии разбираются с последствиями спешки»
   beat(A('пока') - 0.1, DI('/rdr2/assets/pcb.jpg'), (g) => {
-    g.el('', CPTILE, A('студии'), -260, -20, { from: [0, 220], r: -3, float: 5, upd: glUpd });
-    ['🐛', '💥', '🐞'].forEach((e, i) => g.emo(e, 120, A('разбираются') + i * 0.18, 260 + i * 170, -230 + (i % 2) * 120, { float: 8 }));
-    g.el('', PLATE('СПЕШКА', '#fff', RED), A('спешки'), 420, 200, { from: [0, 140], float: 4 });
+    g.card({ w: 400, h: 513, src: '/cyberpunk/assets/cover.jpg' }, A('одни'), -520, 30, { from: [0, 220], r: -4, float: 5 });
+    g.prop('/cyberpunk/assets/cp_logo.png', 190, A('студии'), 220, -170, { from: [200, 0], float: 4, filter: 'drop-shadow(0 0 30px rgba(252,238,10,.35))', upd: glUpd2 });
+    ['🐛', '💥', '🐞'].forEach((e, i) => g.emo(e, 120, A('разбираются') + i * 0.18, 60 + i * 230, 120 + (i % 2) * 60, { float: 8 }));
+    g.el('', PLATE('СПЕШКА', '#fff', RED), A('спешки'), 300, 320, { from: [0, 140], float: 4 });
   });
   // «Rockstar свою главную игру десятилетия уже почти довела до релиза»
   beat(A('rockstar', 1) - 0.15, 'grid', (g) => {
@@ -44,9 +46,9 @@ function AD(T) {
     g.el('', SALE('−95%', RED), A('распродажа'), 600, -300, { from: [200, 0], float: 8 });
     g.emo('🔥', 140, A('распродажа') + 0.2, 640, 160, { float: 9 });
   });
-  // «Пополнить PSN выгодно можно на ggsel» → наезд на логотип, дальше — запись сайта
+  // «Пополнить PSN выгодно можно на ggsel» — логотип выезжает сразу вместе с надписью
   beat(A('пополнить') - 0.15, 'grid', (g) => {
-    g.cap('ПОПОЛНИТЬ PSN ВЫГОДНО', 100, A('пополнить'), 0, -260, { cps: 32 });
-    g.el('', GGSEL(150), A('выгодно') - 0.1, 0, 60, { from: [0, 200], float: 3 });
-  }, { z: 1.15 });
+    g.cap('ПОПОЛНИТЬ PSN ВЫГОДНО', 100, A('пополнить'), 0, -250, { cps: 34, r: 0 });
+    g.el('', GGSEL(190), A('пополнить') + 0.05, 0, 80, { from: [0, 420], dur: 0.55, float: 3 });
+  }, { z: 1.1 });
 }

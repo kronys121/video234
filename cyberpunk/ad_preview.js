@@ -295,8 +295,36 @@ function AD(T) {
     g.el('', GGSEL(190), A('пополнить') + 0.05, 0, 80, { from: [0, 420], dur: 0.55, float: 3 });
   }, { z: 1.1 });
 }
+
+// карточка «описание под видео» со строками из ТЗ
+const DESC = `<div style="width:1040px;padding:34px 44px;border-radius:30px;background:#fff;font-family:Osw;font-weight:700;color:#1b1b1e;line-height:1.25">
+ <div style="font-size:34px;color:#8a8d94;margin-bottom:14px">ОПИСАНИЕ</div>
+ <div class="dl" style="font-size:44px">Успей пополнить PSN с выгодным курсом!</div><div class="dl" style="font-size:40px;color:#2a6cff">🔗 ggsel.net/…</div>
+ <div class="dl" style="font-size:44px;margin-top:10px">ТВОЯ GTA VI УЖЕ ТУТ</div><div class="dl" style="font-size:40px;color:#2a6cff">🔗 ggsel.net/…</div>
+ <div class="dl" style="font-size:40px;margin-top:10px">📢 ТГ-канал ggsel про консоли</div></div>`;
+const descUpd = (t0) => (t, d) => d.querySelectorAll('.dl').forEach((l, i) => { const k = E.outCubic(P(t, t0 + i * 0.12, 0.3)); l.style.opacity = k; l.style.transform = `translateX(${((1 - k) * 40).toFixed(1)}px)`; l.style.background = i === 0 && t > t0 + 0.8 ? 'rgba(61,205,88,.18)' : 'none'; });
+const BF = `<div style="padding:18px 40px;border-radius:20px;background:#000;border:6px solid #fff;color:#fff;font-family:Osw;font-weight:700;font-size:96px;letter-spacing:.02em;white-space:nowrap">ЧЁРНАЯ ПЯТНИЦА</div>`;
+
+// концовка интеграции: после записи сайта (с 30.0 с от начала интеграции)
+function AD_END(T) {
+  const A = (p, k = 0) => at(p, T + 29.9, k);
+  beat(T + 30.0, 'grid', (g) => {
+    g.cap('ССЫЛКИ В ОПИСАНИИ', 100, A('ссылки'), 0, -380, { cps: 34, r: 0 });
+    g.el('', DESC, A('ссылки') + 0.1, -120, 40, { from: [0, 260], float: 3, upd: descUpd(A('ссылки') + 0.25) });
+    g.emo('⬇️', 130, A('описании'), 640, -150, { float: 10 });
+    g.el('', ROLE('📌', 'ЗАКРЕПЛЁННЫЙ КОММЕНТАРИЙ'), A('закреплённом'), 420, 340, { from: [200, 0], float: 5, r: 2, z: 5 });
+  }, { z: 0.95 });
+  beat(A('успей') - 0.15, DI('/rdr2/assets/pcb.jpg'), (g) => {
+    g.cap('УСПЕЙ ПОПОЛНИТЬ PSN', 120, A('успей'), 0, -330, { cps: 36, r: 0, col: '#fff' });
+    g.el('', GGSEL(130), A('psn') - 0.1, -380, -40, { from: [-300, 0], float: 4 });
+    g.el('', PLATE('ВЫГОДНО', '#fff', '#2bb673'), A('выгодно'), 420, -40, { from: [300, 0], float: 4 });
+    g.el('', BF, A('чёрную'), 0, 230, { from: [0, 240], dur: 0.5, float: 3 });
+    g.emo('🔥', 120, A('пятницу') + 0.1, 560, 230, { float: 9 });
+  }, { keys: [[A('чёрную'), 1.2, 0, 40, 1.06]] });
+}
 const DI = (p) => 'dark:' + p;
 AD(0);
+AD_END(0);
 
 
 // ---------- концы, камера ----------
@@ -349,7 +377,7 @@ function frame(t) {
 }
 
 window.renderAt = async (t) => { pend.length = 0; frame(t); await Promise.all(pend); };
-window.DUR = 15.25;
+window.DUR = 36.02;
 (async () => {
   await document.fonts.load('700 60px Osw', 'НАСТОЯЩЕЕ БЕЗУМИЕ 256 МБ ?!'); await document.fonts.load('900 60px Mont', 'NAUGHTY DOG');
   await document.fonts.load('60px "Noto Color Emoji"', '🍋💪🤯🌍📱🧠🔥🎭🔍💾🎮✈️👊🌪️🌊🤖⭐➕🚗🏚️🔫🐾🤝🏆💡😱🥵🎭✨💥🎞️📋🔥🔍🚂🎥🏜️🎩🥷🧗👁️🎓🔴📷🏃🕺🎤🧠🗜️🗑️🚢⚙️🖼️↕️🚰💧📉⚡🕶️🧑‍🎨👷👩‍💻🎬🗿🖌️💻🎙️💸❓💾👥💵🤑🐌😐😮😠🤔🌫️☀️🔁🫣🤸🥊👕✂️💬✅➡️☀️🌧️❄️🍂🤖💬🔊🧠🖼️🌍⚠️🤲🤷👉👈🔍✊💦🎬🎭🖐️👀😵🏁💥⚙️🌿🔧🗑️⚡⏱️🥊🐢🔥📦📄🐺🎯😴⚔️📍⬅️➡️🧍‍♂️💡🔦🥵✅🦠🎨💧🏃👁️📐🧱😡😐👻');

@@ -40,3 +40,10 @@ rdr2/voice2.mp3
 gta4_ps3/out/rdr2_*.mp4
 rdr2/render.log
 rdr2/clips/
+cyberpunk/clips/
+cyberpunk/frames/
+cyberpunk/audio_mix.wav
+gta4_ps3/out/cyberpunk_*.mp4
+cyberpunk/frames_ad/
+cyberpunk/ad/ad_audio.wav
+cyberpunk/ad/ad_full_preview.mp4

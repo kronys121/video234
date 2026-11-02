@@ -278,16 +278,16 @@ function AD(T) {
   // «ГТА 6 уже на подходе»
   beat(at('г', A('релиза')) - 0.2, 'dark:/cyberpunk/clips/gta6/0040.jpg', (g) => {
     g.card({ w: 1100, h: 619, clip: 'cyberpunk/clips/gta6', n: 180 }, at('г', A('релиза')) - 0.1, -120, 20, { from: [0, 220], r: -2, float: 4 });
-    g.cap('ГТА 6', 200, at('6', A('релиза')), 600, -230, { cps: 12, r: 4 });
+    g.cap('GTA 6', 200, at('6', A('релиза')), 600, -230, { cps: 12, r: 4 });
     g.el('', PLATE('УЖЕ НА ПОДХОДЕ', '#fff', RED), A('подходе'), 560, 260, { from: [0, 140], float: 4, z: 5 });
   }, { keys: [[A('подходе'), 1.0, 60, 0, 1.06]] });
   // «а в PlayStation стартовала большая распродажа»
   beat(A('playstation') - 0.15, DI('/rdr2/assets/blue.jpg'), (g) => {
-    g.prop('/rdr2/assets/ps4_front.png', 260, A('playstation'), -60, 180, { from: [0, 220], float: 5 });
-    g.cap('РАСПРОДАЖА', 150, A('стартовала'), -60, -170, { cps: 22 });
-    g.el('', SALE('−75%', '#2a6cff'), A('большая'), -640, -300, { shadow: true, from: [-200, 0], float: 8 });
-    g.el('', SALE('−95%', RED), A('распродажа'), 600, -300, { from: [200, 0], float: 8 });
-    g.emo('🔥', 140, A('распродажа') + 0.2, 640, 160, { float: 9 });
+    g.prop('/cyberpunk/assets/ps5.png', 760, A('playstation'), 420, 40, { from: [0, 300], float: 5 });
+    g.cap('РАСПРОДАЖА', 150, A('стартовала'), -380, -150, { cps: 22 });
+    g.el('', SALE('−75%', '#2a6cff'), A('большая'), -590, 90, { from: [-200, 0], float: 8 });
+    g.el('', SALE('−95%', RED), A('распродажа'), -200, 160, { from: [-200, 0], float: 8 });
+    g.emo('🔥', 140, A('распродажа') + 0.2, -400, 340, { float: 9 });
   });
   // «Пополнить PSN выгодно можно на ggsel» — логотип выезжает сразу вместе с надписью
   beat(A('пополнить') - 0.15, 'grid', (g) => {
@@ -324,7 +324,6 @@ function AD_END(T) {
 }
 const DI = (p) => 'dark:' + p;
 AD(0);
-AD_END(0);
 
 
 // ---------- концы, камера ----------
@@ -377,7 +376,7 @@ function frame(t) {
 }
 
 window.renderAt = async (t) => { pend.length = 0; frame(t); await Promise.all(pend); };
-window.DUR = 36.02;
+window.DUR = 15.25;
 (async () => {
   await document.fonts.load('700 60px Osw', 'НАСТОЯЩЕЕ БЕЗУМИЕ 256 МБ ?!'); await document.fonts.load('900 60px Mont', 'NAUGHTY DOG');
   await document.fonts.load('60px "Noto Color Emoji"', '🍋💪🤯🌍📱🧠🔥🎭🔍💾🎮✈️👊🌪️🌊🤖⭐➕🚗🏚️🔫🐾🤝🏆💡😱🥵🎭✨💥🎞️📋🔥🔍🚂🎥🏜️🎩🥷🧗👁️🎓🔴📷🏃🕺🎤🧠🗜️🗑️🚢⚙️🖼️↕️🚰💧📉⚡🕶️🧑‍🎨👷👩‍💻🎬🗿🖌️💻🎙️💸❓💾👥💵🤑🐌😐😮😠🤔🌫️☀️🔁🫣🤸🥊👕✂️💬✅➡️☀️🌧️❄️🍂🤖💬🔊🧠🖼️🌍⚠️🤲🤷👉👈🔍✊💦🎬🎭🖐️👀😵🏁💥⚙️🌿🔧🗑️⚡⏱️🥊🐢🔥📦📄🐺🎯😴⚔️📍⬅️➡️🧍‍♂️💡🔦🥵✅🦠🎨💧🏃👁️📐🧱😡😐👻');

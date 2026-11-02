@@ -365,9 +365,9 @@ function frame(t) {
   let cur = 0; beats.forEach((b, i) => { if (t >= b.t0) cur = i; });
   // фоны: текущий проявляется поверх предыдущего; переход к листу — предыдущий гаснет
   const cb = beats[cur], pb = beats[cur - 1], k = E.inOut(P(t, cb.t0, 0.5));
-  beats.forEach((b) => { if (b.layer) b.layer.style.display = 'none'; });
-  if (pb && pb.layer) { pb.layer.style.display = 'block'; pb.layer.style.opacity = cb.layer ? 1 : 1 - k; pb.layer.style.zIndex = 1; pb.layer.style.transform = `translateX(${(-80 * k).toFixed(1)}px)`; }
-  if (cb.layer) { cb.layer.style.display = 'block'; cb.layer.style.opacity = k; cb.layer.style.zIndex = 2; cb.layer.style.transform = `translateX(${(80 * (1 - k) - (t - cb.t0) * 6).toFixed(1)}px) scale(${(1.04 + (t - cb.t0) * 0.006).toFixed(4)})`; }
+  beats.forEach((b) => { if (b.layer) b.layer.style.visibility = 'hidden'; });
+  if (pb && pb.layer) { pb.layer.style.visibility = 'visible'; pb.layer.style.opacity = cb.layer ? 1 : 1 - k; pb.layer.style.zIndex = 1; pb.layer.style.transform = `translateX(${(-80 * k).toFixed(1)}px)`; }
+  if (cb.layer) { cb.layer.style.visibility = 'visible'; cb.layer.style.opacity = k; cb.layer.style.zIndex = 2; cb.layer.style.transform = `translateX(${(80 * (1 - k) - (t - cb.t0) * 6).toFixed(1)}px) scale(${(1.04 + (t - cb.t0) * 0.006).toFixed(4)})`; }
   beats.forEach((b, i) => {
     const on = i >= cur - 1 && i <= cur + 1;
     b.root.style.display = on ? 'block' : 'none';
@@ -382,5 +382,7 @@ window.DUR = 15.25;
   await document.fonts.load('60px "Noto Color Emoji"', '🍋💪🤯🌍📱🧠🔥🎭🔍💾🎮✈️👊🌪️🌊🤖⭐➕🚗🏚️🔫🐾🤝🏆💡😱🥵🎭✨💥🎞️📋🔥🔍🚂🎥🏜️🎩🥷🧗👁️🎓🔴📷🏃🕺🎤🧠🗜️🗑️🚢⚙️🖼️↕️🚰💧📉⚡🕶️🧑‍🎨👷👩‍💻🎬🗿🖌️💻🎙️💸❓💾👥💵🤑🐌😐😮😠🤔🌫️☀️🔁🫣🤸🥊👕✂️💬✅➡️☀️🌧️❄️🍂🤖💬🔊🧠🖼️🌍⚠️🤲🤷👉👈🔍✊💦🎬🎭🖐️👀😵🏁💥⚙️🌿🔧🗑️⚡⏱️🥊🐢🔥📦📄🐺🎯😴⚔️📍⬅️➡️🧍‍♂️💡🔦🥵✅🦠🎨💧🏃👁️📐🧱😡😐👻');
   await document.fonts.load('60px "Noto Color Emoji"', [...new Set([...document.getElementById('world').textContent])].filter((c) => c.codePointAt(0) > 0x2000).join(''));
   await Promise.all([...document.images].filter((i) => i.src).map((i) => i.decode().catch(() => {})));
+  // фоны сцен грузим заранее, иначе в первый кадр сцены фон ещё пустой (белая вспышка)
+  await Promise.all(beats.filter((b) => b.layer).map((b) => { const i = new Image(); i.src = b.layer.style.backgroundImage.slice(5, -2); return i.decode().catch(() => {}); }));
   window.__ready = true;
 })();

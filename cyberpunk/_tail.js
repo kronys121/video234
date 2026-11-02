@@ -26,6 +26,7 @@ function camAt(t) {
 }
 
 function frame(t) {
+  (window.GFX || []).forEach((f) => f(t));
   const c = camAt(t);
   world.style.transform = `translate(960px,540px) perspective(2400px) rotateX(${(Math.sin(t * 0.21) * 5).toFixed(3)}deg) rotateY(${(Math.cos(t * 0.17) * 7).toFixed(3)}deg) rotate(${c.r.toFixed(3)}deg) scale(${c.z.toFixed(4)}) translate(${(-c.x).toFixed(1)}px,${(-c.y).toFixed(1)}px)`;
   const gs = 96 * c.z, gr = document.getElementById('grid');

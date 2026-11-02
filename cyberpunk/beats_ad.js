@@ -1,3 +1,4 @@
+const WF = (() => { const d = document.createElement('div'); d.style.cssText = 'position:absolute;inset:0;background:#fff;opacity:0;z-index:50;pointer-events:none'; document.getElementById('view').appendChild(d); return d; })();
 // =====================================================================
 //   ПОДВОДКА К ИНТЕГРАЦИИ GGSEL (первые ~15.2 с; дальше — запись экрана)
 //   T — время начала интеграции в общем ролике
@@ -48,8 +49,10 @@ function AD(T) {
   });
   // «Пополнить PSN выгодно можно на ggsel» — логотип выезжает сразу вместе с надписью
   beat(A('пополнить') - 0.15, 'grid', (g) => {
-    g.cap('ПОПОЛНИТЬ PSN ВЫГОДНО', 100, A('пополнить'), 0, -250, { cps: 34, r: 0 });
+    g.cap('ПОПОЛНИТЬ PSN ВЫГОДНО', 100, A('пополнить'), 0, -250, { cps: 34, r: 0, until: T + 16 });
     g.el('', GGSEL(190), A('пополнить') + 0.05, 0, 80, { from: [0, 420], dur: 0.55, float: 3 });
+    // плавный уход в белый перед записью сайта (страница сайта начинается с белого)
+    (window.GFX = window.GFX || []).push((t) => { WF.style.opacity = t >= T + 14.8 && t < T + 15.24 ? E.inOut(P(t, T + 14.8, 0.43)).toFixed(3) : 0; });
   }, { z: 1.1 });
 }
 

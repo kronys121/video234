@@ -6,7 +6,7 @@ const TL = { INS: 198.70, ADS: 198.95, D: 36.614 };
 const S = (t) => (t < TL.INS ? t : t + TL.D);
 const BS = (t, bg, fn, cam) => BT(S(t), bg, fn, cam);
 const CA = (n) => '/cyberpunk/assets/' + n;
-Object.assign(CL, Object.fromEntries([['bugs_arm', 300], ['bugs_bike', 360], ['bugs_float', 360], ['bugs_fog', 450], ['bugs_road', 300], ['bugs_stuck', 300], ['cmp_drive', 600], ['cmp_face', 300], ['cmp_night', 450], ['demo_crowd', 450], ['demo_market', 450], ['drive_day', 600], ['drive_mid', 450], ['drive_night', 600], ['keanu_city', 300], ['keanu_date', 240], ['keanu_logo', 180], ['keanu_stage', 750]].map(([k, n]) => [k, ['cyberpunk/clips/' + k, n]])));
+Object.assign(CL, Object.fromEntries([['bugs_arm', 300], ['bugs_bike', 360], ['bugs_float', 360], ['bugs_fog', 450], ['bugs_road', 300], ['bugs_stuck', 300], ['cmp_drive', 600], ['cmp_face', 300], ['cmp_night', 450], ['demo_crowd', 450], ['demo_market', 450], ['drive_day', 600], ['drive_mid', 450], ['drive_night', 600], ['keanu_city', 300], ['keanu_date', 240], ['keanu_logo', 180], ['keanu_stage', 750], ['tpose', 390]].map(([k, n]) => [k, ['cyberpunk/clips/' + k, n]])));
 const cp = (g, n, t, x, y, w, h, o = {}) => cover(g, CA(n), t, x, y, w, h, o);
 const cpp = (g, n, h, t, x, y, o = {}) => g.prop(CA(n), h, t, x, y, { float: 4, ...o });
 const PS4 = (g, t, x, y, h = 300, o = {}) => g.prop(RA('ps4.png'), h, t, x, y, { float: 6, ...o });
@@ -302,7 +302,7 @@ BS(289.7, 'grid', (g, t, w) => {
 });
 BS(295.9, 'grid', (g, t, w) => {
   cc(g, 'bugs_bike', w('вылеты'), -520, -200, 680, { r: -3 });
-  cc(g, 'bugs_arm', w('позах'), 400, -200, 680, { r: 3 });
+  cc(g, 'tpose', w('позах'), 400, -200, 680, { r: 3, off: 4 });
   cc(g, 'bugs_float', w('проваливающиеся') - 0.3, -60, 230, 720, { r: -1 });
   ['💥 ВЫЛЕТЫ', '📋 СЛОМАННЫЕ ЗАДАНИЯ', '🤸 СТРАННЫЕ ПОЗЫ'].forEach((txt, i) => g.el('', PLATE(txt, '#fff', i ? INK : RED), [w('вылеты'), w('сломанные'), w('позах')][i] + 0.2, -600 + i * 600, 60 + (i === 1 ? -330 : 0), { from: [0, 120], float: 4, z: 6 }));
   g.el('', PLATE('МАШИНЫ СКВОЗЬ АСФАЛЬТ', '#fff', RED), w('асфальт'), 520, 360, { from: [0, 120], float: 4, z: 6 });
@@ -341,7 +341,7 @@ BS(336.1, 'grid', (g, t, w) => {
 BS(340.5, 'grid', (g, t, w) => {
   cc(g, 'bugs_float', w('летающими'), -480, -170, 760, { r: -3, off: 2 });
   cc(g, 'bugs_stuck', w('исчезающими'), 420, -170, 760, { r: 3 });
-  cc(g, 'bugs_arm', w('ти'), -60, 240, 760, { r: -1, off: 3 });
+  cc(g, 'tpose', w('ти'), -60, 240, 760, { r: -1, off: 5 });
   g.el('', PLATE('ВИРУСНЫЕ ВИДЕО', '#fff', RED), w('соцсетям'), 600, 330, { from: [0, 120], float: 4, z: 6 });
 }, { z: 0.9 });
 BS(346.9, 'grid', (g, t, w) => {

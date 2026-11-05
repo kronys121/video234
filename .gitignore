@@ -56,3 +56,9 @@ cyberpunk/voice_v2_tight.wav
 cyberpunk/ad_end/frames/
 gta4_ps3/cyberpunk/frames_v2test/
 cyberpunk/render_v2test.log
+tlou2/clips/
+gta4_ps3/tlou2/
+tlou2/audio_mix.wav
+tlou2/voice_full.wav
+tlou2/render*.log
+gta4_ps3/out/tlou2_*.mp4

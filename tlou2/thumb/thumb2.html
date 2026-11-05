@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#07080b;font-family:'Mont'}
+.p{position:absolute;top:0;height:1080px;width:474px;overflow:hidden;background:#07080b}
+.p img{position:absolute;left:50%;transform:translateX(-50%);top:0;width:560px;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent 98%)}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,#07080b 0%,rgba(7,8,11,.88) 25%,rgba(7,8,11,0) 52%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;top:470px;font-weight:900;font-size:205px;color:#fff;letter-spacing:-.01em;line-height:1;text-shadow:0 0 50px rgba(0,0,0,.75),0 12px 30px rgba(0,0,0,.7)}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:300px;width:470px;filter:drop-shadow(0 10px 25px rgba(0,0,0,.9))}
+</style></head><body>
+<div class="p" style="left:0"><img src="/tlou2/thumb/p_ellie.jpg"></div>
+<div class="p" style="left:482px"><img src="/tlou2/thumb/p_joel.jpg"></div>
+<div class="p" style="left:964px"><img src="/tlou2/thumb/p_dina.jpg"></div>
+<div class="p" style="left:1446px"><img src="/tlou2/thumb/p_abby.jpg"></div>
+<div class="shade"></div>
+<img class="logo" id="logo" src="/tlou2/assets/logo_white.png">
+<div class="t" id="t">НЕВОЗМОЖНО</div>
+<img src="/rdr2/assets/ps4_front.png" style="position:absolute;left:50%;transform:translateX(-50%);top:700px;width:1240px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))">
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('nologo'))document.getElementById('logo').style.display='none';</script>
+</body></html>

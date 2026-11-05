@@ -329,7 +329,7 @@ const mg = (g, t, w0, x, y, h, o) => g.prop(RA(w0), h, t, x, y, { float: 4, ...o
 // =====================================================================
 const S0 = (t) => t;
 const TA = (n) => '/tlou2/assets/' + n;
-Object.assign(CL, Object.fromEntries([['grass1', 240], ['grass2', 240], ['grass3', 300], ['dogsniff', 240], ['door', 360], ['squeeze', 180], ['horse1', 300], ['horse2', 300], ['horse3', 300], ['city1', 240], ['climb1', 300], ['climb2', 240], ['roof', 240], ['peek', 240], ['fence', 300], ['walk', 240], ['hgrass1', 210], ['hfight1', 240], ['hgrass2', 300], ['hgrass3', 240], ['hinside', 300], ['hdog', 210], ['hfight2', 240], ['houtside', 360], ['enemy1', 240], ['enemy2', 270], ['glass', 180], ['enemy3', 270], ['mc1', 240], ['mc2', 300], ['mc3', 240], ['mc4', 300], ['mc5', 240], ['mc6', 240], ['mc7', 300], ['mcteam', 240], ['e_walk', 300], ['e_guitar', 360], ['e_joel', 300], ['e_joel2', 300], ['e_window', 300], ['t_forest', 240], ['t_hands', 360], ['t_face', 180], ['t_dark', 240], ['t_ellie', 360], ['t_close', 300]].map(([k, n]) => [k, ['tlou2/clips/' + k, n]])));
+Object.assign(CL, Object.fromEntries([['grass1', 240], ['grass2', 240], ['grass3', 300], ['dogsniff', 240], ['door', 360], ['squeeze', 180], ['horse1', 300], ['horse2', 300], ['horse3', 300], ['city1', 240], ['climb1', 300], ['climb2', 240], ['roof', 240], ['peek', 240], ['fence', 300], ['walk', 240], ['hgrass1', 210], ['hfight1', 240], ['hgrass2', 300], ['hgrass3', 240], ['hinside', 300], ['hdog', 210], ['hdog2', 240], ['hfight2', 240], ['houtside', 360], ['enemy1', 240], ['enemy2', 270], ['glass', 180], ['enemy3', 270], ['mc1', 240], ['mc2', 300], ['mc3', 240], ['mc4', 300], ['mc5', 240], ['mc6', 240], ['mc7', 300], ['mcteam', 240], ['e_walk', 300], ['e_guitar', 360], ['e_joel', 300], ['e_joel2', 300], ['e_window', 300], ['t_forest', 240], ['t_hands', 360], ['t_face', 180], ['t_dark', 240], ['t_ellie', 360], ['t_close', 300]].map(([k, n]) => [k, ['tlou2/clips/' + k, n]])));
 const tp = (g, n, t, x, y, w, h, o = {}) => cover(g, TA(n), t, x, y, w, h, o);
 const tpp = (g, n, h, t, x, y, o = {}) => g.prop(TA(n), h, t, x, y, { float: 4, ...o });
 const PS4 = (g, t, x, y, h = 300, o = {}) => g.prop(RA('ps4.png'), h, t, x, y, { float: 5, ...o });
@@ -384,16 +384,16 @@ BT(34.6, 'grid', (g, t, w) => {
   tpp(g, 'joel1_cut.png', 700, w('джоэла'), -560, 120, { from: [-300, 0] });
   tpp(g, 'ellie1_cut.png', 720, w('элли'), -240, 140, { from: [-300, 0] });
   g.el('', PLATE('ИСТОРИЯ ЗАКОНЧЕНА?', '#fff', INK), w('закончена'), 420, -180, { float: 4 });
-  C(g, 'e_joel', w('закончена') + 0.4, 400, 120, 620);
+  C(g, 'e_joel', w('считали'), 400, 120, 620);
 }, { z: 0.95 });
 BT(38.8, 'grid', (g, t, w) => {
-  tp(g, 'cover_ps3.jpg', t + 0.1, -440, 0, 380, 552, { r: -3 });
+  tp(g, 'cover_ps3.jpg', t + 0.1, -440, 0, 380, 525, { r: -3 });
   g.el('', PLATE('ИДЕАЛЬНЫЙ ФИНАЛ', '#fff', '#2bb673'), w('идеальным'), 300, -150, { float: 4 });
   g.emo('💸', 150, w('денег'), 300, 120, { float: 8 });
   g.el('', PLATE('СИКВЕЛ РАДИ ДЕНЕГ?', '#fff', RED), w('денег') + 0.2, 300, 300, { float: 4 });
 });
 BT(45.0, PCB, (g, t, w) => {
-  g.el('', `<div style="width:300px;height:300px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:80px;color:#111;letter-spacing:4px">SONY</div>`, w('sony'), -420, -40, { float: 5 });
+  g.el('', `<div style="padding:50px 60px;border-radius:30px;background:#fff"><img src="/tlou2/assets/sony_black.png" style="width:420px;display:block"></div>`, w('sony'), -420, -40, { float: 5 });
   g.el('', PLATE('ПОЛНАЯ СВОБОДА', '#fff', '#2bb673'), w('свободу'), 320, -200, { float: 4 });
   tp(g, 'cover_ps4.jpg', w('сиквел'), 160, 140, 220, 278, { r: -3 });
   g.cap('ИЛИ', 90, at('хотите', at('сиквел', 45)), 380, 140, { cps: 12, col: '#fff' });
@@ -458,7 +458,7 @@ BT(108.5, 'grid', (g, t, w) => {
   X(g, w('компьютеров'), 440, -40, 260);
 });
 BT(111.6, 'grid', (g, t, w) => {
-  tp(g, 'cover_ps3.jpg', t + 0.1, -540, 0, 300, 436, { r: -4 });
+  tp(g, 'cover_ps3.jpg', t + 0.1, -540, 0, 300, 414, { r: -4 });
   g.cap('В РАЗЫ СЛОЖНЕЕ', 100, w('разы'), 120, -320, { cps: 22, col: RED });
   tp(g, 'cover_ps4.jpg', w('part'), -120, 20, 360, 455, { r: 3 });
   [['🗺️', 'ЛОКАЦИИ', 'локаций'], ['👥', 'ВРАГИ', 'врагов'], ['🏃', 'АНИМАЦИИ', 'анимаций'], ['💾', 'ДАННЫЕ ×2', 'данных']].forEach(([e, txt, word], i) => g.el('', ROLE(e, txt), w(word), 460, -150 + i * 130, { float: 5 }));
@@ -542,7 +542,7 @@ BT(203.3, 'grid', (g, t, w) => {
   C(g, 'dogsniff', t + 0.1, -320, -20, 860);
   g.emo('🐕', 170, w('собаки'), 500, -160, { float: 8 });
   g.el('', PLATE('ИДУТ ПО ЗАПАХУ', '#fff', RED), w('запаху'), 500, 60, { float: 4 });
-  C(g, 'hdog', w('спрятались'), 500, 270, 380, { r: 4, z: 6 });
+  C(g, 'hdog2', w('элли'), 500, 250, 460, { r: 4, z: 6 });
 });
 BT(207.3, 'grid', (g, t, w) => {
   C(g, 'grass1', t + 0.1, -300, -20, 860);
@@ -551,7 +551,7 @@ BT(207.3, 'grid', (g, t, w) => {
 });
 BT(211.2, DK('hgrass2', 2), (g, t, w) => { SLAM(g, 'СТЕЛС', t + 0.1, 220); }, { keys: [[S0(211.2), 1.4, 0, 0, 1.08]] });
 BT(212.7, 'grid', (g, t, w) => {
-  C(g, 'grass3', w('траву') - 0.3, -560, -160, 560);
+  C(g, 'hdog2', w('траву') - 0.3, -560, -160, 560, { off: 1 });
   C(g, 'hgrass3', w('машинами') - 0.3, 0, 180, 560);
   C(g, 'glass', w('стеклом') - 0.2, 560, -160, 560);
   [['ТРАВА', 'траву', -560, 50], ['ПОД МАШИНАМИ', 'машинами', 0, 390], ['СТЕКЛО', 'стеклом', 560, 50]].forEach(([txt, word, x, y]) => g.el('', PLATE(txt, '#fff', INK), w(word) + 0.2, x, y, { float: 4, z: 6 }));
@@ -604,7 +604,7 @@ BT(260.1, 'grid', (g, t, w) => {
 // ---------- спрятанные загрузки ----------
 BT(266.7, PCB, (g, t, w) => { SLAM(g, 'ХИТРОСТЬ', w('хитрость') - 0.2, 190); g.emo('🤫', 150, w('немногие'), 0, 230, { float: 8 }); });
 BT(268.9, 'grid', (g, t, w) => {
-  tp(g, 'cover_ps3.jpg', t + 0.1, -500, 0, 330, 480, { r: -3 });
+  tp(g, 'cover_ps3.jpg', t + 0.1, -500, 0, 330, 455, { r: -3 });
   g.el('', LOADING, w('загрузки'), 260, -140, { s: 0.75, float: 4 });
   X(g, w('загрузки') + 0.3, 260, -140, 260);
   g.el('', PLATE('ПОЧТИ БЕЗ ЭКРАНОВ ЗАГРУЗКИ', '#fff', INK), w('запомнили'), 260, 170, { float: 4 });
@@ -744,7 +744,7 @@ BT(419.3, 'grid', (g, t, w) => {
   g.emo('💸', 150, w('заработать'), 0, 160, { float: 8 });
 });
 BT(425.1, 'grid', (g, t, w) => {
-  g.el('', `<div style="width:300px;height:300px;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-weight:700;font-size:80px;color:#111;letter-spacing:4px">SONY</div>`, t + 0.1, -480, -20, { float: 5 });
+  g.el('', `<div style="padding:44px 54px;border-radius:30px;background:#fff"><img src="/tlou2/assets/sony_black.png" style="width:380px;display:block"></div>`, t + 0.1, -500, -20, { float: 5 });
   tp(g, 'cover_ps4.jpg', w('дату'), 20, 0, 320, 405, { r: -3 });
   NUM(g, '19 ИЮНЯ 2020', 'новая дата выхода', w('девятнадцатое'), 470, -100, RED);
 });
@@ -812,7 +812,7 @@ BT(504.0, DK('t_forest', 2), (g, t, w) => {
   g.emo('💬', 160, t + 0.7, 0, 150, { float: 8 });
 });
 BT(507.3, 'grid', (g, t, w) => {
-  tp(g, 'cover_ps3.jpg', t + 0.1, -440, 0, 360, 523, { r: -3 });
+  tp(g, 'cover_ps3.jpg', t + 0.1, -440, 0, 360, 497, { r: -3 });
   PS3P(g, w('ps3'), 320, -40, 300);
   g.el('', PLATE('ОТДЕЛЬНЫЙ РАЗБОР', '#fff', RED), w('разбор'), 320, 200, { float: 4 });
 });

@@ -1,4 +1,6 @@
-const BT = (t, bg, fn, cam = {}) => beat(t, bg, (g) => fn(g, t, (p, k = 0) => { const r = at(p, t, k); (window.WL = window.WL || []).push([t, p, r]); return r; }), cam);
+// элемент не должен появляться в самом конце сцены и сразу исчезать: держим на экране минимум HOLD сек
+const HOLD = 2.0;
+const BT = (t, bg, fn, cam = {}) => beat(t, bg, (g) => fn(g, t, (p, k = 0) => { const r0 = at(p, t, k); const nx = (typeof BTS !== 'undefined' && BTS.find((x) => x > t + 0.01)) || 1e9; const r = Math.min(r0, Math.max(t + 0.35, nx - HOLD)); (window.WL = window.WL || []).push([t, p, r, r0]); return r; }), cam);
 const RA = (n) => '/rdr2/assets/' + n;
 const DI = (p) => 'dark:' + p;
 // клипы RDR2 (кадры в rdr2/clips/<имя>/0001.jpg, 30 к/с)

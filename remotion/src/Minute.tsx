@@ -1,14 +1,10 @@
 // Первая минута TLOU2 на Remotion: та же озвучка и сцены, плюс новые возможности —
-// элементы редактируются в Studio, настоящее размытие в движении, цветокоррекция,
+// элементы редактируются в Studio, настоящее размытие в движении, цветокоррекция (всё на CSS/SVG, без WebGL),
 // плёночное зерно, засветы на переходах, пометки от руки и звуки переходов.
 import React from 'react';
-import { AbsoluteFill, Img, Interactive, interpolate, isHtmlInCanvasSupported, Solid, staticFile, Track, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Img, Interactive, interpolate, isHtmlInCanvasSupported, staticFile, Track, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Audio } from '@remotion/media';
 import { CameraMotionBlur, HtmlInCanvasMotionBlur } from '@remotion/motion-blur';
-import { blur } from '@remotion/effects/blur';
-import { colorCorrection } from '@remotion/effects/color-correction';
-import { noise } from '@remotion/effects/noise';
-import { lightLeak } from '@remotion/effects/light-leak';
 import { E, P, beatPos, makeCamera, Cam, BeatPos, INK, RED } from './engine';
 import { Clip, Pic, Prop, Cap, BigNum, Plate, Emo, Arrow, LogoCard, Question } from './elements';
 
@@ -19,7 +15,7 @@ export const MINUTE_SEC = 60;
 //  'simple' — упрощённое: весь кадр размывается по скорости камеры (самый быстрый рендер)
 const MOTION_BLUR = 'camera' as 'camera' | 'html' | 'simple';
 // число промежуточных снимков на кадр (больше — плавнее, но рендер дольше)
-const MOTION_BLUR_SAMPLES = 6;
+const MOTION_BLUR_SAMPLES = 8;
 
 const FONT = `
 @font-face{font-family:'Osw';font-weight:700;src:url('${staticFile('fonts/osw-cyr.woff2')}') format('woff2');unicode-range:U+0400-045F}
@@ -148,8 +144,8 @@ const Backgrounds: React.FC = () => {
   const cb = BEATS[cur], pb = BEATS[cur - 1], k = E.inOut(P(t, cb.t0, 0.5));
   const layer = (b: Beat, op: number, x: number, s: number, z: number) => b.bg && (
     <div key={b.t0} style={{ position: 'absolute', inset: -60, zIndex: z, opacity: op, transform: `translateX(${x.toFixed(1)}px) scale(${s.toFixed(4)})` }}>
-      <Img src={staticFile(b.bg)} style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-        effects={[blur({ radius: 9 }), colorCorrection({ exposure: -1, saturation: 0.8, temperature: -0.15, contrast: 1.1 })]} />
+      {/* размытие и холодная цветокоррекция фона — CSS, без WebGL */}
+      <Img src={staticFile(b.bg)} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'blur(9px) brightness(.5) saturate(.8) contrast(1.1) hue-rotate(-8deg)' }} />
     </div>
   );
   return (
@@ -161,21 +157,28 @@ const Backgrounds: React.FC = () => {
   );
 };
 
-// засвет на переходе между сценами
+// засвет на переходе между сценами (CSS-градиенты: проявляется и уходит, пятна плывут)
 const LightLeakInner: React.FC<{ seed: number; hueShift: number; style?: React.CSSProperties }> = ({ seed, hueShift, style }) => {
-  const frame = useCurrentFrame(); const { durationInFrames, width, height } = useVideoConfig();
-  return <Solid width={width} height={height} style={{ ...style, position: 'absolute', inset: 0, mixBlendMode: 'screen', opacity: 0.45 }}
-    effects={[lightLeak({ seed, hueShift, progress: interpolate(frame, [0, durationInFrames - 1], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }) })]} />;
+  const frame = useCurrentFrame(); const { durationInFrames } = useVideoConfig();
+  const p = interpolate(frame, [0, durationInFrames - 1], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const a = Math.sin(p * Math.PI); // 0 → 1 → 0
+  const x1 = 15 + ((seed * 37) % 50) + p * 30, y1 = 20 + ((seed * 53) % 40), x2 = 85 - ((seed * 29) % 40) - p * 25, y2 = 75 - ((seed * 17) % 30);
+  return <div style={{ ...style, position: 'absolute', inset: 0, mixBlendMode: 'screen', opacity: 0.75 * a, filter: `hue-rotate(${hueShift}deg)`,
+    background: `radial-gradient(ellipse 55% 70% at ${x1}% ${y1}%, rgba(255,170,60,.95), rgba(255,90,20,.5) 40%, transparent 70%), radial-gradient(ellipse 45% 55% at ${x2}% ${y2}%, rgba(255,220,120,.8), rgba(255,120,40,.3) 45%, transparent 70%)` }} />;
 };
 const LightLeak = Interactive.create({ Component: LightLeakInner, layout: 'none', schema: {
   seed: { type: 'number', default: 0, step: 1, description: 'Узор', hiddenFromList: false },
   hueShift: { type: 'number', default: 0, min: 0, max: 360, step: 1, description: 'Оттенок', hiddenFromList: false } } });
 
-// плёночное зерно поверх всего кадра
+// плёночное зерно поверх всего кадра (SVG-шум, новый узор каждые 2 кадра, без WebGL)
 const Grain: React.FC = () => {
   const frame = useCurrentFrame(); const { width, height } = useVideoConfig();
-  return <Solid width={width} height={height} color="#808080" style={{ position: 'absolute', inset: 0, mixBlendMode: 'overlay', opacity: 0.35 }}
-    effects={[noise({ amount: 0.5, seed: frame % 24 })]} showInTimeline={false} />;
+  return (
+    <svg width={width} height={height} style={{ position: 'absolute', inset: 0, mixBlendMode: 'overlay', opacity: 0.22, pointerEvents: 'none' }}>
+      <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves={2} seed={Math.floor(frame / 2) % 50} stitchTiles="stitch" /><feColorMatrix type="saturate" values="0" /></filter>
+      <rect width="100%" height="100%" filter="url(#grain)" />
+    </svg>
+  );
 };
 
 export const Minute: React.FC = () => {
@@ -188,7 +191,7 @@ export const Minute: React.FC = () => {
       {MOTION_BLUR === 'html' && isHtmlInCanvasSupported()
         ? <HtmlInCanvasMotionBlur width={width} height={height} samples={MOTION_BLUR_SAMPLES} shutterAngle={180} showInTimeline={false}>{world}</HtmlInCanvasMotionBlur>
         : MOTION_BLUR === 'camera'
-          ? <AbsoluteFill><CameraMotionBlur samples={MOTION_BLUR_SAMPLES} shutterAngle={180}>{world}</CameraMotionBlur></AbsoluteFill>
+          ? <AbsoluteFill><CameraMotionBlur samples={MOTION_BLUR_SAMPLES} shutterAngle={120}>{world}</CameraMotionBlur></AbsoluteFill>
           : <FallbackBlur>{world}</FallbackBlur>}
       <AbsoluteFill style={{ background: 'radial-gradient(ellipse 72% 68% at 50% 50%,rgba(0,0,0,0) 45%,rgba(0,0,0,.42) 100%)' }} />
       <Track name="Засветы">

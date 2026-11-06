@@ -1,6 +1,6 @@
 import { Config } from '@remotion/cli/config';
 
-// эффекты (цветокоррекция, зерно, засветы) работают через WebGL
+// WebGL в ролике не используется; angle оставлен на случай, если эффекты Remotion вернутся
 Config.setChromiumOpenGlRenderer('angle');
 Config.setVideoImageFormat('jpeg');
 Config.setCrf(20);

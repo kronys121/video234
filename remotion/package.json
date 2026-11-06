@@ -5,16 +5,20 @@
   "scripts": {
     "assets": "node prepare-assets.mjs",
     "studio": "remotion studio src/index.ts",
-    "render": "remotion render src/index.ts Pilot out/pilot.mp4"
+    "render": "remotion render src/index.ts TLOU2-Minute out/tlou2_minute.mp4 --concurrency=8"
   },
   "dependencies": {
     "@remotion/cli": "4.0.536",
-    "remotion": "4.0.536",
+    "@remotion/effects": "^4.0.536",
+    "@remotion/media": "^4.0.536",
+    "@remotion/motion-blur": "^4.0.536",
+    "@remotion/rough-notation": "^4.0.536",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "remotion": "4.0.536"
   },
   "devDependencies": {
-    "typescript": "5.6.3",
-    "@types/react": "18.3.12"
+    "@types/react": "18.3.12",
+    "typescript": "5.6.3"
   }
 }

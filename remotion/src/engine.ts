@@ -1,5 +1,4 @@
-// Математика движка v2, перенесённая один в один: появление, камера, тайминг по словам.
-import WORDS from './words.json';
+// Математика движка v2, перенесённая один в один: появление элементов и камера.
 
 export const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 export const P = (t: number, a: number, d: number) => clamp((t - a) / d);
@@ -13,17 +12,6 @@ export const outExpo = (x: number) => (x >= 1 ? 1 : 1 - Math.pow(2, -10 * x));
 export const fr = (x: number) => x - Math.floor(x);
 export const rnd = (i: number, k = 0) => fr(Math.sin(i * 127.1 + k * 311.7) * 43758.5453);
 export const INK = '#2a2a2c', RED = '#e3262b';
-
-// ---- слова озвучки ----
-const nz = (s: string) => s.toLowerCase().replace(/ё/g, 'е').replace(/[^a-zа-я0-9]/g, '');
-export const at = (p: string, after = 0, k = 0) => {
-  const q = nz(p); let n = 0;
-  for (const x of WORDS as { w: string; t: number }[]) if (x.t >= after - 0.001 && nz(x.w).startsWith(q)) { if (n++ === k) return x.t; }
-  throw new Error(`слово «${p}» не найдено после ${after}`);
-};
-// элемент не должен появиться в самом конце сцены и сразу исчезнуть: держим минимум HOLD сек
-export const HOLD = 2.0;
-export const wordAt = (t0: number, next: number) => (p: string, k = 0) => Math.min(at(p, t0, k), Math.max(t0 + 0.35, next - HOLD));
 
 // ---- трансформ элемента ----
 export const tf = ({ x = 0, y = 0, s = 1, r = 0, rx = 0, ry = 0 }) =>

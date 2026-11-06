@@ -1,8 +1,7 @@
 // Элементы ролика. Каждый создан через Interactive.create, поэтому в Studio его можно
 // выделить на таймлайне, сдвинуть по времени и поменять положение, текст и наклон.
 import React from 'react';
-import { Img, Interactive, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing } from 'remotion';
-import { Video } from '@remotion/media';
+import { Img, Interactive, OffthreadVideo, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing } from 'remotion';
 import { Circle, Underline, Highlight, Box } from '@remotion/rough-notation';
 import { INK, RED, P, outExpo, rnd, tf, popIn, fr } from './engine';
 
@@ -44,9 +43,9 @@ const Pop: React.FC<PopProps> = ({ x, y, r = 0, float = 0, dur, fromX = 0, fromY
 const ClipInner: React.FC<{ src: string; w: number; x: number; y: number; r: number; style?: React.CSSProperties }> = ({ src, w, x, y, r, style }) => (
   <Pop x={x} y={y} r={r} filter="none" style={style}>
     <div style={{ width: w, height: Math.round(w * 9 / 16), borderRadius: 30, overflow: 'hidden', background: '#222', boxShadow: '0 30px 50px rgba(0,0,0,.30)' }}>
-      {/* цветокоррекция клипа через CSS: WebGL-эффект здесь размножался бы размытием в движении
-          (кадр рисуется несколько раз) и упирался в лимит WebGL-контекстов браузера */}
-      <Video src={staticFile(`clips/${src}`)} muted loop objectFit="cover" showInTimeline={false} style={{ width: '100%', height: '100%', filter: 'contrast(1.08) saturate(1.15)' }} />
+      {/* OffthreadVideo: кадры из mp4 достаёт отдельный процесс Remotion, а не браузер — надёжно,
+          даже когда размытие в движении рисует кадр несколько раз. Цветокоррекция — CSS. */}
+      <OffthreadVideo src={staticFile(`clips/${src}`)} muted showInTimeline={false} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.08) saturate(1.15)' }} />
     </div>
   </Pop>
 );

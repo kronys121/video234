@@ -4,7 +4,7 @@
 import React from 'react';
 import { AbsoluteFill, Img, Interactive, interpolate, isHtmlInCanvasSupported, Solid, staticFile, Track, useCurrentFrame, useVideoConfig } from 'remotion';
 import { Audio } from '@remotion/media';
-import { HtmlInCanvasMotionBlur } from '@remotion/motion-blur';
+import { CameraMotionBlur, HtmlInCanvasMotionBlur } from '@remotion/motion-blur';
 import { blur } from '@remotion/effects/blur';
 import { colorCorrection } from '@remotion/effects/color-correction';
 import { noise } from '@remotion/effects/noise';
@@ -13,7 +13,12 @@ import { E, P, beatPos, makeCamera, Cam, BeatPos, INK, RED } from './engine';
 import { Clip, Pic, Prop, Cap, BigNum, Plate, Emo, Arrow, LogoCard, Question } from './elements';
 
 export const MINUTE_SEC = 60;
-// размытие в движении: число промежуточных снимков на кадр (больше — плавнее, но рендер дольше)
+// Размытие в движении:
+//  'camera' — настоящее: кадр собирается из нескольких промежуточных положений (работает везде)
+//  'html'   — экспериментальное HTML-in-canvas (в Remotion 4.0.536 падает: «No cached paint record»)
+//  'simple' — упрощённое: весь кадр размывается по скорости камеры (самый быстрый рендер)
+const MOTION_BLUR = 'camera' as 'camera' | 'html' | 'simple';
+// число промежуточных снимков на кадр (больше — плавнее, но рендер дольше)
 const MOTION_BLUR_SAMPLES = 6;
 
 const FONT = `
@@ -180,9 +185,11 @@ export const Minute: React.FC = () => {
     <AbsoluteFill style={{ background: '#e6e6e8', overflow: 'hidden' }}>
       <style>{FONT}</style>
       <Backgrounds />
-      {isHtmlInCanvasSupported()
+      {MOTION_BLUR === 'html' && isHtmlInCanvasSupported()
         ? <HtmlInCanvasMotionBlur width={width} height={height} samples={MOTION_BLUR_SAMPLES} shutterAngle={180} showInTimeline={false}>{world}</HtmlInCanvasMotionBlur>
-        : <FallbackBlur>{world}</FallbackBlur>}
+        : MOTION_BLUR === 'camera'
+          ? <AbsoluteFill><CameraMotionBlur samples={MOTION_BLUR_SAMPLES} shutterAngle={180}>{world}</CameraMotionBlur></AbsoluteFill>
+          : <FallbackBlur>{world}</FallbackBlur>}
       <AbsoluteFill style={{ background: 'radial-gradient(ellipse 72% 68% at 50% 50%,rgba(0,0,0,0) 45%,rgba(0,0,0,.42) 100%)' }} />
       <Track name="Засветы">
         <LightLeak name="Засвет: почему не PS5" from={1078} durationInFrames={60} seed={1} hueShift={0} />

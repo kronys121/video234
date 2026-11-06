@@ -36,9 +36,9 @@ const BEATS: Beat[] = [
     ) },
   { t0: 4.24, end: 10.05, bg: null, cam: { z: 0.92 }, body: () => (
       <>
-        <Clip from={264} durationInFrames={399} name="Клип: город" src="city1.mp4" w={640} x={-560} y={-190} r={-2} />
-        <Clip from={361} durationInFrames={302} name="Клип: враги" src="enemy1.mp4" w={640} x={300} y={-200} r={2} />
-        <Clip from={480} durationInFrames={183} name="Клип: собака" src="dogsniff.mp4" w={620} x={-380} y={230} r={-2} />
+        <Clip from={264} durationInFrames={399} name="Клип: город" src="city1" w={640} x={-560} y={-190} r={-2} />
+        <Clip from={361} durationInFrames={302} name="Клип: враги" src="enemy1" w={640} x={300} y={-200} r={2} />
+        <Clip from={480} durationInFrames={183} name="Клип: собака" src="dogsniff" w={620} x={-380} y={230} r={-2} />
         <Emo from={483} durationInFrames={180} name="Звук" ch="🔊" size={140} x={520} y={230} />
       </>
     ) },
@@ -76,7 +76,7 @@ const BEATS: Beat[] = [
     ) },
   { t0: 34.88, end: 39.08, bg: null, cam: { z: 0.95 }, body: () => (
       <>
-        <Clip from={2190} durationInFrames={215} name="Клип: Джоэл" src="e_joel.mp4" w={620} x={400} y={120} r={2} />
+        <Clip from={2190} durationInFrames={215} name="Клип: Джоэл" src="e_joel" w={620} x={400} y={120} r={2} />
         <Prop from={2225} durationInFrames={180} name="Джоэл" src="joel1_cut.png" h={700} x={-560} y={120} fromX={-300} float={4} />
         <Prop from={2234} durationInFrames={171} name="Элли" src="ellie1_cut.png" h={720} x={-240} y={140} fromX={-300} float={4} />
         <Plate from={2243} durationInFrames={162} name="История закончена" text="ИСТОРИЯ ЗАКОНЧЕНА?" x={420} y={-180} />
@@ -102,7 +102,7 @@ const BEATS: Beat[] = [
   { t0: 52.18, end: 60.0, bg: null, cam: {}, body: () => (
       <>
         <Emo from={3160} durationInFrames={500} name="Идея" ch="💭" size={200} x={-560} y={-120} />
-        <Clip from={3246} durationInFrames={414} name="Клип: сценаристы" src="t_hands.mp4" w={760} x={-120} y={100} r={-2} />
+        <Clip from={3246} durationInFrames={414} name="Клип: сценаристы" src="t_hands" w={760} x={-120} y={100} r={-2} />
         <Cap from={3361} durationInFrames={299} name="А что, если" text="«А ЧТО, ЕСЛИ…»" size={110} x={0} y={-300} cps={24} mark={{ kind: 'highlight', at: 0.7 }} />
         <Plate from={3478} durationInFrames={182} name="Новая история" text="НОВАЯ ИСТОРИЯ" bg={RED} x={420} y={300} />
       </>

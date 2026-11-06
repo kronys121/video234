@@ -1,7 +1,7 @@
 // Элементы ролика. Каждый создан через Interactive.create, поэтому в Studio его можно
 // выделить на таймлайне, сдвинуть по времени и поменять положение, текст и наклон.
 import React from 'react';
-import { Img, Interactive, OffthreadVideo, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing } from 'remotion';
+import { Img, Interactive, interpolate, staticFile, useCurrentFrame, useVideoConfig, Easing } from 'remotion';
 import { Circle, Underline, Highlight, Box } from '@remotion/rough-notation';
 import { INK, RED, P, outExpo, rnd, tf, popIn, fr } from './engine';
 
@@ -39,16 +39,21 @@ const Pop: React.FC<PopProps> = ({ x, y, r = 0, float = 0, dur, fromX = 0, fromY
   return <div style={{ ...abs, ...style, transform: p.transform, opacity: p.opacity, zIndex: z, filter: f || undefined }}>{children}</div>;
 };
 
-// ---------- карточка с видеоклипом (mp4) ----------
-const ClipInner: React.FC<{ src: string; w: number; x: number; y: number; r: number; style?: React.CSSProperties }> = ({ src, w, x, y, r, style }) => (
-  <Pop x={x} y={y} r={r} filter="none" style={style}>
-    <div style={{ width: w, height: Math.round(w * 9 / 16), borderRadius: 30, overflow: 'hidden', background: '#222', boxShadow: '0 30px 50px rgba(0,0,0,.30)' }}>
-      {/* OffthreadVideo: кадры из mp4 достаёт отдельный процесс Remotion, а не браузер — надёжно,
-          даже когда размытие в движении рисует кадр несколько раз. Цветокоррекция — CSS. */}
-      <OffthreadVideo src={staticFile(`clips/${src}`)} muted showInTimeline={false} style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'contrast(1.08) saturate(1.15)' }} />
-    </div>
-  </Pop>
-);
+// ---------- карточка с видеоклипом ----------
+// Клип — папка кадров jpg (30 к/с, 0001.jpg…). Видео при рендере не декодируется, поэтому
+// размытие в движении (кадр рисуется несколько раз) и много потоков ничего не ломают.
+const CLIP_FRAMES: Record<string, number> = { city1: 240, enemy1: 240, dogsniff: 240, e_joel: 300, t_hands: 360 };
+const ClipInner: React.FC<{ src: string; w: number; x: number; y: number; r: number; style?: React.CSSProperties }> = ({ src, w, x, y, r, style }) => {
+  const { t } = useLocal();
+  const k = Math.floor(Math.max(0, t) * 30) % CLIP_FRAMES[src] + 1;
+  return (
+    <Pop x={x} y={y} r={r} filter="none" style={style}>
+      <div style={{ width: w, height: Math.round(w * 9 / 16), borderRadius: 30, overflow: 'hidden', background: '#222', boxShadow: '0 30px 50px rgba(0,0,0,.30)' }}>
+        <Img src={staticFile(`clips/${src}/${String(k).padStart(4, '0')}.jpg`)} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', filter: 'contrast(1.08) saturate(1.15)' }} />
+      </div>
+    </Pop>
+  );
+};
 export const Clip = Interactive.create({ Component: ClipInner, layout: 'none', schema: { ...posSchema, w: num('Ширина', 640) } });
 
 // ---------- картинка в карточке (обложка) ----------

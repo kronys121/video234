@@ -3,7 +3,8 @@ import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } 
 const R = path.resolve('..'), P = path.resolve('public');
 fs.rmSync(P, { recursive: true, force: true });
 const cp = (src, dst) => { fs.mkdirSync(path.dirname(path.join(P, dst)), { recursive: true }); fs.cpSync(path.join(R, src), path.join(P, dst), { recursive: true }); };
-for (const k of ['city1', 'enemy1', 'dogsniff', 'e_joel', 't_hands']) cp(`tlou2/clips_src/${k}.mp4`, `clips/${k}.mp4`);
+// клипы — готовые кадры jpg (30 к/с): при рендере не нужно декодировать видео
+for (const k of ['city1', 'enemy1', 'dogsniff', 'e_joel', 't_hands']) cp(`tlou2/clips/${k}`, `clips/${k}`);
 cp('tlou2/clips/t_forest/0120.jpg', 'img/bg_forest.jpg');
 cp('tlou2/clips/t_dark/0090.jpg', 'img/bg_dark.jpg');
 for (const f of ['cover_ps4.jpg', 'cover_ps3.jpg', 'logo_white.png', 'nd_logo.png', 'joel1_cut.png', 'ellie1_cut.png', 'sony_black.png']) cp(`tlou2/assets/${f}`, `img/${f}`);

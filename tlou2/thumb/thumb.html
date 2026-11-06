@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0b0f0b;font-family:'Mont'}
+.bg{position:absolute;inset:-30px;background:url(/tlou2/thumb/bg_forest.jpg) center/cover;filter:blur(3px) brightness(.55) saturate(1.1)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse 70% 65% at 50% 45%,rgba(0,0,0,0),rgba(0,0,0,.75))}
+.ch{position:absolute;filter:drop-shadow(0 25px 40px rgba(0,0,0,.8))}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,rgba(5,7,5,.95) 0%,rgba(5,7,5,.6) 28%,rgba(5,7,5,0) 50%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;top:575px;font-weight:900;font-size:165px;color:#fff;line-height:1;letter-spacing:-.01em;text-shadow:0 0 50px rgba(0,0,0,.9),0 12px 30px rgba(0,0,0,.8)}
+.t b{color:#e3242b}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:250px;width:640px;filter:drop-shadow(0 10px 25px rgba(0,0,0,1))}
+.x{position:absolute;left:50%;transform:translateX(-50%);top:770px;width:980px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.9))}
+</style></head><body>
+<div class="bg"></div><div class="vig"></div>
+<img class="ch" src="/tlou2/assets/joel2_cut.png" style="height:900px;left:520px;top:40px;filter:brightness(.8) drop-shadow(0 25px 40px rgba(0,0,0,.8))">
+<img class="ch" src="/tlou2/assets/ellie2_cut.png" style="height:2050px;left:40px;top:-60px">
+<img class="ch" src="/tlou2/assets/abby_cut.png" style="height:1180px;left:1290px;top:-30px">
+<div class="shade"></div>
+<img class="logo" id="logo" src="/tlou2/assets/logo_white.png">
+<div class="t" id="t">PS4 <b>НА ПРЕДЕЛЕ</b></div>
+<img class="x" src="/rdr2/assets/ps4_front.png">
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('s'))document.getElementById('t').style.fontSize=q.get('s')+'px';if(q.get('nologo'))document.getElementById('logo').style.display='none';</script>
+</body></html>

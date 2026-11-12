@@ -8,7 +8,7 @@ CLIPS = [
  ('desert_drive','m80_misappropriation',130,8), ('dunes','m80_misappropriation',143,8), ('desert_hw','m80_misappropriation',195,8), ('desert_sunset','m80_misappropriation',222,8),
  ('coop1','coop',50,8), ('coop2','coop',120,8), ('coop3','coop',340,8), ('coop4','coop',550,8),
  ('marker','ps2_gameplay',866,8), ('burger','ps2_gameplay',930,8), ('grove','ps2_gameplay',423,8), ('traffic','ps2_gameplay',1830,8), ('ls_haze','ps2_gameplay',2010,8), ('rails','ps2_gameplay',3106.5,8),
- ('bmx','bmx',6,8), ('gym','gym',5,8), ('haircut','haircut',30,8), ('yellow','haircut',11,8), ('fat','body',4,8), ('muscle','body',32,8),
+ ('swim2','swim',26,8), ('bmx','bmx',6,8), ('gym','gym',5,8), ('haircut','haircut',30,8), ('yellow','haircut',11,8), ('fat','body',4,8), ('muscle','body',32,8),
 ]
 only = set(sys.argv[1:])
 for name, src, st, du in CLIPS:
@@ -16,6 +16,8 @@ for name, src, st, du in CLIPS:
     d = f'clips/{name}'
     if os.path.exists(f'{d}/0001.jpg') and not only: continue
     os.makedirs(d, exist_ok=True)
-    vf = 'fps=30,scale=960:540:force_original_aspect_ratio=increase,crop=960:540'
+    # у записей миссий (1280x720) чёрные полосы сверху и снизу: картинка 1280x640 с y=38 — срезаем их
+    pre = 'crop=1280:632:0:42,' if src.startswith('m') and src[1].isdigit() else ''
+    vf = pre + 'fps=30,scale=960:540:force_original_aspect_ratio=increase,crop=960:540'
     subprocess.run(['ffmpeg', '-v', 'error', '-y', '-ss', str(st), '-i', f'src/{src}.mp4', '-t', str(du), '-vf', vf, '-q:v', '3', f'{d}/%04d.jpg'], check=True)
     print(name, len(os.listdir(d)))

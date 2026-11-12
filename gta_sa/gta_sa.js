@@ -333,7 +333,7 @@ const mg = (g, t, w0, x, y, h, o) => g.prop(RA(w0), h, t, x, y, { float: 4, ...o
 // =====================================================================
 const SAC = ['lv_drive', 'lv_strip', 'lv_peds', 'lv_desert', 'lv_neon', 'swim', 'ls_sunset', 'ls_drive', 'ls_street', 'tune', 'lowrider', 'fields', 'fields_sun', 'country', 'forest', 'fog_night', 'sf_city',
   'plane_takeoff', 'plane_sea', 'plane_fog', 'plane_trees', 'plane_canyon', 'desert_drive', 'dunes', 'desert_hw', 'desert_sunset', 'coop1', 'coop2', 'coop3', 'coop4', 'marker', 'burger', 'grove', 'traffic',
-  'ls_haze', 'rails', 'bmx', 'gym', 'haircut', 'yellow', 'fat', 'muscle'];
+  'ls_haze', 'rails', 'bmx', 'gym', 'haircut', 'yellow', 'fat', 'muscle', 'swim2'];
 Object.assign(CL, Object.fromEntries(SAC.map((k) => [k, ['gta_sa/clips/' + k, 240]])));
 const SA = (n) => '/gta_sa/assets/' + n;
 const sap = (g, n, h, t, x, y, o = {}) => g.prop(SA(n), h, t, x, y, { float: 4, ...o });
@@ -571,7 +571,7 @@ const BEATS = [
 }],
 [277.4, 'grid', (g, t, w) => {
   C(g, 'dunes', t + 0.05, -560, -150, 540);
-  C(g, 'swim', w('плавать'), 0, -170, 540, { r: 1 });
+  C(g, 'swim2', w('плавать'), 0, -170, 540, { r: 1 });
   C(g, 'bmx', w('велосипеды'), 560, -140, 540);
   pl(g, 'АСФАЛЬТ · ГРУНТ · ПЕСОК', w('асфальт'), -560, 90, INK);
   pl(g, 'ЗАПАС ВОЗДУХА', w('воздуха'), 0, 70, '#2a6cff');
@@ -585,8 +585,8 @@ const BEATS = [
   pl(g, '+ ПОДГРУЗКА МИРА', w('подгрузкой'), -300, 280, INK);
 }],
 [298.5, 'grid', (g, t, w) => {
-  C(g, 'gym', t + 0.05, -420, -80, 640);
-  g.el('', SLIDERS(['ВОЖДЕНИЕ', 'СТРЕЛЬБА', 'ВЫНОСЛИВОСТЬ']), w('навыки'), 380, -80, { float: 4, upd: slUpd });
+  C(g, 'desert_drive', t + 0.05, -440, -80, 620);
+  g.el('', SLIDERS(['ВОЖДЕНИЕ', 'СТРЕЛЬБА', 'ВЫНОСЛИВОСТЬ']).replace('width:620px', 'width:760px').replaceAll('width:200px', 'width:300px'), w('навыки'), 400, -80, { float: 4, upd: slUpd });
   [['⚔️', 'военный'], ['💘', 'свидания'], ['🔧', 'тюнинг'], ['🎰', 'казино'], ['🏀', 'баскетбола'], ['💃', 'танцев']].forEach(([e, k], i) => g.emo(e, 100, w(k), -560 + i * 220, 300, { float: 7 }));
 }],
 [310.3, 'grid', (g, t, w) => {
@@ -615,7 +615,7 @@ const BEATS = [
 [339.5, 'grid', (g, t, w) => {
   sap(g, 'cj_cut.png', 620, t + 0.1, -580, 60, { from: [-300, 0] });
   C(g, 'fat', w('фастфуда'), 0, -150, 520, { r: -2 });
-  C(g, 'muscle', w('качалку'), 470, 120, 520);
+  C(g, 'gym', w('качалку'), 470, 120, 520);
   g.emo('🍔', 110, w('растолстеете'), -100, 170, { float: 7 });
   g.emo('💪', 110, w('накачаетесь'), 650, -170, { float: 7 });
 }],

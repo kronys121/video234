@@ -72,3 +72,8 @@ gta_sa/voice/*.mp3
 gta_sa/voice/*.wav
 gta_sa/voice/*.log
 gta_sa/src/
+gta_sa/clips/
+gta_sa/ad/*.mp3
+gta_sa/ad/*.wav
+gta_sa/ad/*.mp4
+gta_sa/ad/end/frames/

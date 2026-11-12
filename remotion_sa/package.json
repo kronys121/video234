@@ -1,0 +1,20 @@
+{
+  "name": "gta-sa-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTASA out/gta_sa_final.mp4 --concurrency=8"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#0b0c10;font-family:'Mont'}
+.p{position:absolute;top:0;height:1080px;width:474px;overflow:hidden}
+.bg{position:absolute;inset:-20px;background-size:cover;background-position:center;filter:blur(2px) brightness(.85) saturate(1.15)}
+.ch{position:absolute;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,#07080b 0%,rgba(7,8,11,.85) 22%,rgba(7,8,11,0) 55%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;top:470px;font-weight:900;font-size:205px;color:#fff;letter-spacing:-.01em;line-height:1;text-shadow:0 0 50px rgba(0,0,0,.75),0 12px 30px rgba(0,0,0,.7)}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:330px;width:440px;filter:drop-shadow(0 10px 25px rgba(0,0,0,.8))}
+</style></head><body>
+<div class="p" style="left:0px"><div class="bg" style="inset:0;filter:saturate(1.1);background-image:url(/rdr2/assets/keyart.jpg);background-size:3200px auto;background-position:-451px -480px"></div></div>
+<div class="p" style="left:482px"><div class="bg" style="inset:0;filter:saturate(1.1);background-image:url(/rdr2/assets/keyart.jpg);background-size:3200px auto;background-position:-835px -352px"></div></div>
+<div class="p" style="left:964px"><div class="bg" style="inset:0;filter:saturate(1.1);background-image:url(/rdr2/assets/keyart.jpg);background-size:3200px auto;background-position:-1379px -256px"></div></div>
+<div class="p" style="left:1446px"><div class="bg" style="inset:0;filter:saturate(1.1);background-image:url(/rdr2/assets/keyart.jpg);background-size:3200px auto;background-position:-2227px -480px"></div></div>
+<div class="shade"></div>
+<img class="logo" id="logo" src="/rdr2/assets/rdr2_logo.png">
+<div class="t" id="t">НЕВОЗМОЖНО</div>
+<img src="/rdr2/assets/ps4_front.png" style="position:absolute;left:50%;transform:translateX(-50%);top:700px;width:1240px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))">
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('nologo'))document.getElementById('logo').style.display='none';</script>
+</body></html>

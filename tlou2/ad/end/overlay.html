@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Osw';font-weight:700;src:url('/node_modules/@fontsource/oswald/files/oswald-cyrillic-700-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Osw';font-weight:700;src:url('/node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:transparent}
+#tint{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(0,0,0,.25),rgba(0,0,0,.6))}
+.c{position:absolute;left:50%;transform-origin:50% 50%;font-family:Osw;font-weight:700;white-space:nowrap}
+.cap{top:230px;font-size:120px;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.6)}
+.cap span{display:inline-block;margin:0 .14em}
+#logo{top:430px}
+#pin{top:760px}
+#pl1{top:760px}
+.pl{padding:12px 34px;border-radius:18px;font-size:80px;color:#fff;display:inline-block}
+.pin{padding:16px 34px;border-radius:24px;background:#fff;color:#2a2a2c;font-size:60px;display:inline-block}
+.emo{font-family:'Noto Color Emoji'}
+</style></head><body>
+<div id="tint"></div>
+<div class="c cap" id="cap1"><span>ССЫЛКИ</span><span>В</span><span>ОПИСАНИИ</span></div>
+<div class="c cap" id="cap2"><span>УСПЕЙ</span><span>ПОПОЛНИТЬ</span><span>PSN</span></div>
+<div class="c" id="logo"><div style="display:flex;align-items:center;gap:30px;font-family:Mont;font-weight:900;font-size:170px;line-height:1;color:#1b1b1e;letter-spacing:-.03em;padding:44px 74px;border-radius:52px;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.45)"><svg width="160" height="160" viewBox="0 0 100 100"><path d="M80 30 L50 13 L19 31 V69 L50 87 L81 69 V51 H53" fill="none" stroke="#3dcd58" stroke-width="17" stroke-linejoin="round" stroke-linecap="round"/></svg><span style="margin-top:-20px">ggsel</span></div></div>
+<div class="c" id="pin"><span class="pin"><span class="emo">📌</span> И В ЗАКРЕПЛЁННОМ КОММЕНТАРИИ</span></div>
+<div class="c" id="pl1"><span class="pl" id="p1" style="background:#2bb673">ВЫГОДНО</span>&nbsp;&nbsp;<span class="pl" id="p2" style="background:#000;border:6px solid #fff">В ЧЁРНУЮ ПЯТНИЦУ!</span></div>
+<script>
+const cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)), P=(t,a,d)=>cl((t-a)/d), oc=(x)=>1-Math.pow(1-x,3), ob=(x)=>{const c1=1.6,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+// время — от начала файла интеграции (слова из распознавания голоса)
+const W={ssylki:32.8,v:33.14,opis:33.24,zakrep:33.96,uspei:35.16,popol:35.44,psn:35.84,vygod:36.22,chern:36.7}, SW=34.95;
+const words=(id,ts,t0out)=>{const sp=document.querySelectorAll(`#${id} span`);ts.forEach((a,i)=>{const k=oc(P(t,a-0.05,0.25));const o=t0out?1-P(t,t0out,0.25):1;sp[i].style.opacity=(k*o).toFixed(3);sp[i].style.transform=`translateY(${((1-k)*50-(1-o)*40).toFixed(1)}px)`;});document.getElementById(id).style.transform='translateX(-50%)';};
+const pop=(e,a,out)=>{const k=P(t,a-0.05,0.35);const o=out?1-P(t,out,0.25):1;e.style.opacity=(cl(k*3)*o).toFixed(3);e.style.transform=`translateY(${((1-oc(k))*120).toFixed(1)}px) scale(${(0.6+0.4*ob(k)).toFixed(3)})`;};
+let t=0;
+window.renderAt=(tt)=>{t=tt;
+  document.getElementById('tint').style.opacity=oc(P(t,32.7,0.4)).toFixed(3);
+  words('cap1',[W.ssylki,W.v,W.opis],SW);
+  words('cap2',[W.uspei,W.popol,W.psn],0);
+  const lk=P(t,32.75,0.5), lg=document.getElementById('logo'); lg.style.opacity=cl(lk*3);lg.style.transform=`translateX(-50%) translateY(${((1-oc(lk))*260).toFixed(1)}px) scale(${(0.6+0.4*ob(lk)).toFixed(3)})`;
+  const pin=document.querySelector('#pin .pin'); pop(pin,W.zakrep,SW); document.getElementById('pin').style.transform='translateX(-50%)';
+  pop(document.getElementById('p1'),W.vygod); pop(document.getElementById('p2'),W.chern);
+  document.getElementById('pl1').style.transform='translateX(-50%)';
+};
+window.ready=document.fonts.ready.then(()=>document.fonts.load('60px "Noto Color Emoji"','📌'));
+</script></body></html>

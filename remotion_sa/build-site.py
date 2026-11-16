@@ -24,5 +24,5 @@ for k in sorted(os.listdir(f'{R}/gta_sa/clips')):
     if not os.path.exists(out):
         subprocess.run(['ffmpeg', '-v', 'error', '-y', '-framerate', '30', '-i', f'{R}/gta_sa/clips/{k}/%04d.jpg', '-c:v', 'libx264', '-crf', '16', '-pix_fmt', 'yuv420p', out], check=True)
 shutil.copy(f'{R}/gta_sa/voice/gta_sa_voice_main.mp3', 'public/media/voice.mp3')
-shutil.copy(f'{R}/gta_sa/ad/ad_final_user.mp4', 'public/media/gta_sa_ggsel.mp4')
+shutil.copy(f'{R}/gta_sa/ad/gta_sa_ggsel_1611.mp4', 'public/media/gta_sa_ggsel.mp4')
 print('site ok')

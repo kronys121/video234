@@ -7,7 +7,7 @@ import { AbsoluteFill, Audio, OffthreadVideo, Sequence, continueRender, delayRen
 export const FPS = 60;
 const MAIN_SEC = 475.0;            // длина ролика без рекламы
 const AD_AT = 173.09;              // 2:53 — после «…способ спрятать, где кончается мир», перед «С машинами и людьми…»
-const AD_SEC = 41.703;             // длина отрезка с рекламой
+const AD_SEC = 41.0;              // длина отрезка с рекламой (вариант с 16 ноября)
 const AD_FROM = Math.round(AD_AT * FPS), AD_LEN = Math.round(AD_SEC * FPS), MAIN_LEN = Math.round(MAIN_SEC * FPS);
 export const TOTAL_FRAMES = MAIN_LEN + AD_LEN;
 

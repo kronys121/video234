@@ -25,6 +25,7 @@ html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
 .w>span{display:inline-block}
 .uline{position:absolute;height:9px;border-radius:5px;background:#e1252d;transform-origin:0 50%}
 </style></head><body>
+<svg width="0" height="0" style="position:absolute"><filter id="mbx" x="-20%" y="-5%" width="140%" height="110%"><feGaussianBlur id="mbxg" stdDeviation="0 0"/></filter></svg>
 <div id="stage">
   <!-- S1: обложка + звёзды -->
   <div class="sc" id="s1"><div class="light"></div>
@@ -165,7 +166,7 @@ const rooms = ROOMS.map(([clip, x, y, name], i) => {
 window.renderAt = async function (t) {
   pending.length = 0;
   const cardT = T.card_t;
-  const B = { s2: cardT[0] - 0.25, s3: wt(0, 'и', 1, true) - 0.12, s4: wt(0, 'на', 0, true) - 0.15, s6a: T.segments[2].at - 0.1, s6b: wt(3, 'это', 0, true) + 0.05, s7: T.segments[4].at - 0.1, s8: T.segments[4].end + 0.12 };
+  const B = { s2: cardT[0] - 0.14, s3: wt(0, 'и', 1, true) - 0.12, s4: wt(0, 'на', 0, true) - 0.15, s6a: T.segments[2].at - 0.1, s6b: wt(3, 'это', 0, true) + 0.05, s7: T.segments[4].at - 0.1, s8: T.segments[4].end + 0.12 };
 
   // ===== S1 =====
   if (vis($('s1'), t, 0, B.s2)) {
@@ -181,7 +182,11 @@ window.renderAt = async function (t) {
   if (vis($('s2'), t, B.s2, B.s3)) {
     const keys = [[B.s2 - 0.1, 0]]; cardT.forEach((ct, i) => keys.push([ct + 0.08, i * (CW + GAPX) + CW / 2 - (i === 0 ? 0 : 330)]));
     keys.push([B.s3 + 0.3, keys[keys.length - 1][1] + 120]);
-    const cx = curve(keys)(t);
+    const cxf = curve(keys); const cx = cxf(t);
+    // размытие в движении по горизонтали: длина смаза = скорость × выдержка (1/120 с)
+    const vx = (cxf(t + 1 / 480) - cxf(t - 1 / 480)) * 240; const sm = Math.abs(vx) / 120;
+    $('mbxg').setAttribute('stdDeviation', `${Math.min(12, sm / 4).toFixed(2)} 0`);
+    $('row').style.filter = sm > 3 ? 'url(#mbx)' : 'none';
     $('c2').style.transform = `translate(${960 - cx - CW / 2 + 300}px, 280px) rotateY(${lerp(5, -5, seg(t, B.s2, B.s3))}deg) scale(${lerp(1.02, 1.08, seg(t, B.s2, B.s3))})`;
     cards.forEach((c, i) => {
       const ti = cardT[i] - 0.05; const q = seg(t, ti, ti + 0.4);
@@ -203,13 +208,13 @@ window.renderAt = async function (t) {
   // ===== S4/S5 =====
   if (vis($('s4'), t, B.s4, B.s6a)) {
     const t32 = wt(0, '32'), tS = T.segments[1].at, tB = wt(1, 'больше'), tZ = wt(1, 'загрузить'), tN = wt(1, 'невозможно');
-    const kin = E.oc(seg(t, B.s4 + 0.02, B.s4 + 0.7));
+    const kin = E.oc(seg(t, B.s4 - 0.06, B.s4 + 0.5));
     const kL = E.io(seg(t, t32 - 0.3, t32 + 0.2));              // PS2 уходит влево, место для «32 МБ»
     const kS = E.io(seg(t, tS - 0.05, tS + 0.6));                // PS2 и подпись уходят вправо, входит карта
     const hit = seg(t, tZ + 0.55, tZ + 1.2);
     const jolt = hit > 0 && hit < 1 ? Math.sin(hit * Math.PI * 5) * (1 - hit) * 12 : 0;
     const px = lerp(lerp(460, 200, kL), 900, kS), py = lerp(430, 360, kS), ps = lerp(1, 0.78, kS);
-    $('ps2g').style.transform = `translate(${px + jolt}px, ${py + (1 - kin) * 520}px) scale(${ps})`;
+    $('ps2g').style.transform = `translate(${px + jolt}px, ${py + (1 - kin) * 360}px) scale(${ps})`;
     $('ps2g').style.opacity = cl(kin * 2);
     const km = E.oc(seg(t, t32 - 0.05, t32 + 0.35));
     const mbx = lerp(1260, 1020, kS), mby = lerp(370, 690, kS), mbs = lerp(1, 0.55, kS);

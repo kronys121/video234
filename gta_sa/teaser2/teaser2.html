@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>GTA SA teaser v2</title>
+<style>
+@font-face{font-family:Mont;font-weight:600;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-600-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:600;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-600-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:700;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-700-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:700;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-800-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)format('woff2')}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
+#stage{position:absolute;inset:0;overflow:hidden;background:#e9e9e9}
+.sc{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;display:none;perspective:1600px}
+.abs{position:absolute}
+.p3{transform-style:preserve-3d}
+.light{position:absolute;inset:-80px;background:radial-gradient(ellipse 70% 75% at 50% 44%,#ffffff 0%,#f4f4f4 38%,#dcdcdc 78%,#c9c9c9 100%)}
+.cam{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.shadow{filter:drop-shadow(0 28px 26px rgba(0,0,0,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.14))}
+.contact{position:absolute;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.30),rgba(0,0,0,0))}
+.vcard{position:absolute;border-radius:20px;overflow:hidden;background:#222;box-shadow:0 26px 50px rgba(0,0,0,.24),0 6px 12px rgba(0,0,0,.14)}
+.vcard img{width:100%;height:100%;object-fit:cover;display:block}
+.mont{font-family:Mont,sans-serif}
+.lbl{font-family:Mont,sans-serif;font-weight:700;color:#151515}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em}
+.w>span{display:inline-block}
+.uline{position:absolute;height:9px;border-radius:5px;background:#e1252d;transform-origin:0 50%}
+</style></head><body>
+<div id="stage">
+  <!-- S1: обложка + звёзды -->
+  <div class="sc" id="s1"><div class="light"></div>
+    <div class="cam p3" id="c1">
+      <img class="abs shadow" id="vc" src="../assets/vice_cover.jpg" style="left:470px;top:230px;width:330px">
+      <div class="contact" id="sh1" style="left:700px;top:790px;width:520px;height:70px"></div>
+      <img class="abs shadow" id="cov" src="../assets/sa_cover.jpg" style="left:745px;top:170px;width:430px;border-radius:6px">
+      <div class="abs" id="stars" style="left:0;top:850px;width:1920px;text-align:center"></div>
+    </div>
+  </div>
+  <!-- S2: лента карточек -->
+  <div class="sc" id="s2"><div class="light"></div>
+    <div class="cam p3" id="c2"><div class="abs p3" id="row" style="left:0;top:0"></div></div>
+  </div>
+  <!-- S3: геймплей без загрузок -->
+  <div class="sc" id="s3">
+    <img class="abs" id="g3" style="left:0;top:0;width:1920px;height:1080px;object-fit:cover">
+    <div class="abs" id="load" style="left:640px;top:440px;width:640px;height:170px;border-radius:22px;background:#fff;box-shadow:0 30px 60px rgba(0,0,0,.35)">
+      <div class="lbl" style="position:absolute;left:44px;top:30px;font-size:46px">Загрузка…</div>
+      <div style="position:absolute;left:44px;right:44px;top:108px;height:16px;border-radius:8px;background:#e3e3e3;overflow:hidden"><div id="lbar" style="height:100%;width:0;background:#1d1d1d;border-radius:8px"></div></div>
+      <div class="uline" id="strike" style="left:20px;top:78px;width:600px;height:12px"></div>
+    </div>
+  </div>
+  <!-- S4/S5: PS2, 32 МБ, карта -->
+  <div class="sc" id="s4"><div class="light"></div>
+    <div class="cam p3" id="c4">
+      <div class="abs" id="mapw" style="left:0;top:0;width:560px;height:560px">
+        <div class="abs shadow" style="inset:0;background:#fff;border-radius:6px;padding:16px"><img src="../assets/map.jpg" style="width:100%;height:100%;display:block;border-radius:2px"></div>
+        <svg class="abs" id="xmark" viewBox="0 0 560 560" style="left:0;top:0;width:560px;height:560px;overflow:visible">
+          <line id="x1" x1="90" y1="90" x2="470" y2="470" stroke="#e1252d" stroke-width="34" stroke-linecap="round"/>
+          <line id="x2" x1="470" y1="90" x2="90" y2="470" stroke="#e1252d" stroke-width="34" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="abs" id="ps2g" style="left:0;top:0;width:1000px;height:330px">
+        <div class="contact" style="left:40px;top:285px;width:920px;height:80px"></div>
+        <img class="abs shadow" src="../assets/ps2.png" style="left:0;top:0;width:1000px;height:328px">
+      </div>
+      <div class="abs" id="mb" style="left:0;top:0;width:520px">
+        <div class="lbl" id="mbn" style="font-size:150px;font-weight:800;line-height:1;letter-spacing:-3px">32 МБ</div>
+        <div class="uline" id="mbu" style="left:6px;top:162px;width:420px"></div>
+        <div class="lbl" id="mbs" style="font-size:42px;font-weight:600;color:#555;margin-top:44px">оперативной памяти</div>
+      </div>
+    </div>
+  </div>
+  <!-- S6a: качалка во весь экран -->
+  <div class="sc" id="s6a"><img class="abs" id="g6" style="left:0;top:0;width:1920px;height:1080px;object-fit:cover"></div>
+  <!-- S6b: комнаты над картой -->
+  <div class="sc" id="s6b">
+    <div class="abs" id="sky" style="inset:-80px;background:radial-gradient(ellipse 80% 70% at 50% 30%,#ffffff 0%,#f1f4f8 45%,#d9dde3 100%)"></div>
+    <div class="cam p3" id="c6" style="perspective-origin:50% 40%">
+      <div class="abs p3" id="world6" style="left:960px;top:540px;width:0;height:0"></div>
+    </div>
+  </div>
+  <!-- S7: Rockstar? -->
+  <div class="sc" id="s7"><div class="light"></div>
+    <div class="cam p3" id="c7">
+      <div class="contact" id="sh7" style="left:520px;top:760px;width:420px;height:60px"></div>
+      <img class="abs shadow" id="rs" src="../assets/rockstar.png" style="left:550px;top:330px;width:380px">
+      <div class="abs lbl" id="qm" style="left:1090px;top:250px;font-size:420px;font-weight:800;color:#2f6fde;line-height:1;filter:drop-shadow(0 22px 24px rgba(0,0,0,.18))">?</div>
+    </div>
+  </div>
+  <!-- S8: финал -->
+  <div class="sc" id="s8"><div class="light"></div>
+    <div class="cam p3" id="c8">
+      <img class="abs shadow" id="cj" src="../thumb/pc_cj.png" style="left:230px;top:150px;width:560px">
+      <img class="abs shadow" id="logo" src="../thumb/logo_sa.png" style="left:1130px;top:120px;width:470px">
+      <div class="abs lbl" id="fin" style="left:900px;top:690px;width:960px;text-align:center;font-size:56px;line-height:1.2;white-space:nowrap"></div>
+      <div class="uline" id="finu" style="left:1180px;top:780px;width:400px"></div>
+    </div>
+  </div>
+</div>
+<script>
+const DUR = 30; window.DUR = DUR;
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = {
+  oc: (x) => 1 - (1 - x) ** 3, oq: (x) => 1 - (1 - x) ** 4, ic: (x) => x * x * x, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x, c1 = 1.25) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; },
+  sp: (x) => 1 - Math.exp(-7 * x) * Math.cos(10 * x),
+};
+function curve(keys) {
+  return (t) => {
+    const n = keys.length; if (t <= keys[0][0]) return keys[0][1]; if (t >= keys[n - 1][0]) return keys[n - 1][1];
+    let i = 0; while (keys[i + 1][0] < t) i++;
+    const [t0, v0] = keys[i], [t1, v1] = keys[i + 1];
+    const m = (j) => (j === 0 || j === n - 1 ? 0 : (keys[j + 1][1] - keys[j - 1][1]) / (keys[j + 1][0] - keys[j - 1][0]));
+    const h = t1 - t0, u = (t - t0) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * v0 + (u3 - 2 * u2 + u) * h * m(i) + (-2 * u3 + 3 * u2) * v1 + (u3 - u2) * h * m(i + 1);
+  };
+}
+const pending = [];
+function clipSrc(name, t, start = 0) { const f = 1 + (Math.floor(Math.max(0, t - start) * 30) % 240); return `../clips/${name}/${String(f).padStart(4, '0')}.jpg`; }
+function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttribute('src', src); pending.push(img.decode().catch(() => {})); } }
+// слова: каждое выезжает снизу из маски
+function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' '); return [...el.querySelectorAll('.w>span')]; }
+function wordsIn(arr, t, t0, stag = 0.06, d = 0.38) { arr.forEach((s, i) => { const k = E.oq(seg(t, t0 + i * stag, t0 + i * stag + d)); s.style.transform = `translateY(${(1 - k) * 105}%)`; }); }
+// переход: смаз-наплыв (как в обычном монтаже), сцена видима в [a, b]
+function vis(el, t, a, b, wa = 0.16, wb = 0.16) {
+  const on = t >= a - wa * 0.5 && t < b + wb * 0.5; el.style.display = on ? 'block' : 'none'; if (!on) return false;
+  const kin = a <= 0 ? 1 : seg(t, a - wa * 0.5, a + wa * 0.5), kout = b >= DUR ? 0 : seg(t, b - wb * 0.5, b + wb * 0.5);
+  const bl = 16 * ((1 - E.oc(kin)) + E.ic(kout));
+  el.style.opacity = Math.min(cl(kin * 1.6), 1 - E.ic(kout) * 0.0) * (kout > 0.5 ? cl((1 - kout) * 2.2) : 1);
+  el.style.filter = bl > 0.05 ? `blur(${bl.toFixed(2)}px)` : 'none';
+  el.style.transform = `scale(${(1 + 0.05 * (1 - E.oc(kin))) * (1 + 0.07 * E.ic(kout))})`;
+  return true;
+}
+let T = null; // тайминги слов из timeline.json
+const clean = (w) => w.toLowerCase().replace(/[.,!?–—]/g, '');
+function wt(k, pre, n = 0, exact = false) { const h = T.segments[k].words.filter((w) => exact ? clean(w.w) === pre.toLowerCase() : clean(w.w).startsWith(pre.toLowerCase())); return h[n].t; }
+
+// ---------- построение ----------
+const STAR = '<svg viewBox="0 0 100 95" width="86" height="82" style="margin:0 10px"><path d="M50 4l13.6 29.2 31.9 3.8-23.6 21.9 6.3 31.5L50 74.8 21.8 90.4l6.3-31.5L4.5 37l31.9-3.8z" fill="#f5b40f" stroke="#d48f00" stroke-width="3" stroke-linejoin="round"/></svg>';
+$('stars').innerHTML = STAR.repeat(5); const stars = [...$('stars').children];
+const CARDS = [['ls_drive', 'Лос-Сантос'], ['sf_city', 'Сан-Фиерро'], ['lv_neon', 'Лас-Вентурас'], ['forest', 'Леса'], ['desert_sunset', 'Пустыни'], ['plane_canyon', 'Горы'], ['bmx', 'Велосипеды'], ['plane_takeoff', 'Самолёты'], ['gym', 'Качалка'], ['haircut', 'Парикмахерская']];
+const CW = 740, CH = 416, GAPX = 90; const row = $('row'); const cards = [];
+CARDS.forEach(([clip, name], i) => {
+  const g = document.createElement('div'); g.className = 'abs'; g.style.left = i * (CW + GAPX) + 'px'; g.style.top = '0px'; g.style.width = CW + 'px';
+  g.innerHTML = `<div class="lbl" style="font-size:44px;font-weight:700;margin-bottom:24px;white-space:nowrap"></div><div class="vcard" style="position:relative;width:${CW}px;height:${CH}px"><img></div>`;
+  row.appendChild(g); cards.push({ g, lab: words(g.firstChild, name), im: g.querySelector('img'), clip });
+});
+const finW = words($('fin'), 'Полный разбор — на канале');
+// S6b: карта и комнаты
+const world6 = $('world6');
+world6.innerHTML = `<div class="abs p3" id="map6" style="left:-800px;top:-800px;width:1600px;height:1600px;transform-origin:50% 50%"><img src="../assets/map.jpg" style="width:100%;height:100%;display:block;border-radius:10px;box-shadow:0 40px 80px rgba(0,0,0,.25)"></div>`;
+const map6 = $('map6');
+const ROOMS = [['gym', -560, -40, 'Качалка'], ['haircut', 20, -250, 'Парикмахерская'], ['tune', 600, 10, 'Гараж']];
+const rooms = ROOMS.map(([clip, x, y, name], i) => {
+  const r = document.createElement('div'); r.className = 'abs p3'; r.style.left = '0px'; r.style.top = '0px';
+  r.innerHTML = `<div class="vcard" style="position:relative;left:-290px;top:-163px;width:580px;height:326px"><img></div>`;
+  world6.appendChild(r);
+  const sh = document.createElement('div'); sh.className = 'abs'; sh.style.cssText = 'width:420px;height:150px;margin:-75px 0 0 -210px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.35),rgba(0,0,0,0))'; map6.appendChild(sh);
+  const ln = document.createElement('div'); ln.className = 'abs'; ln.style.cssText = 'width:0;border-left:4px dashed rgba(30,30,30,.55);transform-origin:50% 0'; world6.appendChild(ln);
+  return { r, sh, ln, im: r.querySelector('img'), clip, x, y };
+});
+
+window.renderAt = async function (t) {
+  pending.length = 0;
+  const cardT = T.card_t;
+  const B = { s2: cardT[0] - 0.25, s3: wt(0, 'и', 1, true) - 0.12, s4: wt(0, 'на', 0, true) - 0.15, s6a: T.segments[2].at - 0.1, s6b: wt(3, 'это', 0, true) + 0.05, s7: T.segments[4].at - 0.1, s8: T.segments[4].end + 0.12 };
+
+  // ===== S1 =====
+  if (vis($('s1'), t, 0, B.s2)) {
+    const k = E.ob(seg(t, 0.0, 0.75), 0.9);
+    $('cov').style.transform = `translateX(${(1 - k) * 820}px) rotate(${lerp(9, -2.5, k)}deg) translateY(${Math.sin(t * 1.4) * 5}px)`;
+    $('sh1').style.opacity = k; $('sh1').style.transform = `translateX(${(1 - k) * 820}px)`;
+    const kv = E.oc(seg(t, 0.35, 1.2));
+    $('vc').style.transform = `translateX(${(1 - kv) * -500}px) rotate(${lerp(-14, -8, kv)}deg) scale(.86)`; $('vc').style.opacity = kv; $('vc').style.filter = 'blur(3px) drop-shadow(0 20px 20px rgba(0,0,0,.18))';
+    stars.forEach((s, i) => { const ti = wt(0, 'лучш') + 0.05 + i * 0.13; const q = seg(t, ti, ti + 0.35); s.style.transform = `scale(${q > 0 ? E.ob(q, 2.2) : 0})`; s.style.opacity = cl(q * 4); });
+    $('c1').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 3.2)))}) translateX(${lerp(-10, 14, seg(t, 0, 3.2))}px)`;
+  }
+  // ===== S2 =====
+  if (vis($('s2'), t, B.s2, B.s3)) {
+    const keys = [[B.s2 - 0.1, 0]]; cardT.forEach((ct, i) => keys.push([ct + 0.08, i * (CW + GAPX) + CW / 2 - (i === 0 ? 0 : 330)]));
+    keys.push([B.s3 + 0.3, keys[keys.length - 1][1] + 120]);
+    const cx = curve(keys)(t);
+    $('c2').style.transform = `translate(${960 - cx - CW / 2 + 300}px, 280px) rotateY(${lerp(5, -5, seg(t, B.s2, B.s3))}deg) scale(${lerp(1.02, 1.08, seg(t, B.s2, B.s3))})`;
+    cards.forEach((c, i) => {
+      const ti = cardT[i] - 0.05; const q = seg(t, ti, ti + 0.4);
+      c.g.style.opacity = cl(q * 3); c.g.style.transform = `translateY(${(1 - E.ob(q, 1.1)) * 60}px) scale(${0.86 + 0.14 * E.ob(q, 1.1)})`;
+      wordsIn(c.lab, t, ti + 0.08, 0.05, 0.35);
+      if (t > ti - 0.1) setSrc(c.im, clipSrc(c.clip, t, ti - 1.5));
+    });
+  }
+  // ===== S3 =====
+  if (vis($('s3'), t, B.s3, B.s4)) {
+    setSrc($('g3'), clipSrc('rails', t, B.s3 - 1.0));
+    $('g3').style.transform = `scale(${lerp(1.04, 1.13, seg(t, B.s3, B.s4))})`;
+    const ti = wt(0, 'экрана') - 0.3; const q = seg(t, ti, ti + 0.4); const out = seg(t, B.s4 - 0.35, B.s4 - 0.05);
+    $('load').style.opacity = cl(q * 3) * (1 - out); $('load').style.transform = `translateY(${(1 - E.ob(q, 1.2)) * 50}px) scale(${(0.9 + 0.1 * E.ob(q, 1.2)) * (1 - 0.08 * out)})`;
+    $('lbar').style.width = (38 * E.oc(seg(t, ti + 0.2, ti + 1.6))) + '%';
+    const ks = E.oc(seg(t, wt(0, 'загрузки') + 0.1, wt(0, 'загрузки') + 0.36));
+    $('strike').style.transform = `scaleX(${ks}) rotate(-3deg)`; $('strike').style.opacity = ks > 0 ? 1 : 0;
+  }
+  // ===== S4/S5 =====
+  if (vis($('s4'), t, B.s4, B.s6a)) {
+    const t32 = wt(0, '32'), tS = T.segments[1].at, tB = wt(1, 'больше'), tZ = wt(1, 'загрузить'), tN = wt(1, 'невозможно');
+    const kin = E.oc(seg(t, B.s4 + 0.02, B.s4 + 0.7));
+    const kL = E.io(seg(t, t32 - 0.3, t32 + 0.2));              // PS2 уходит влево, место для «32 МБ»
+    const kS = E.io(seg(t, tS - 0.05, tS + 0.6));                // PS2 и подпись уходят вправо, входит карта
+    const hit = seg(t, tZ + 0.55, tZ + 1.2);
+    const jolt = hit > 0 && hit < 1 ? Math.sin(hit * Math.PI * 5) * (1 - hit) * 12 : 0;
+    const px = lerp(lerp(460, 200, kL), 900, kS), py = lerp(430, 360, kS), ps = lerp(1, 0.78, kS);
+    $('ps2g').style.transform = `translate(${px + jolt}px, ${py + (1 - kin) * 520}px) scale(${ps})`;
+    $('ps2g').style.opacity = cl(kin * 2);
+    const km = E.oc(seg(t, t32 - 0.05, t32 + 0.35));
+    const mbx = lerp(1260, 1020, kS), mby = lerp(370, 690, kS), mbs = lerp(1, 0.55, kS);
+    $('mb').style.transform = `translate(${mbx}px, ${mby}px) scale(${mbs})`; $('mb').style.transformOrigin = '0 0';
+    $('mbn').style.opacity = cl(km * 2); $('mbn').style.transform = `translateY(${(1 - km) * 40}px)`;
+    $('mbu').style.transform = `scaleX(${E.oc(seg(t, t32 + 0.3, t32 + 0.6))})`;
+    const ko = E.oc(seg(t, wt(0, 'оператив'), wt(0, 'оператив') + 0.4)); $('mbs').style.opacity = ko; $('mbs').style.transform = `translateY(${(1 - ko) * 20}px)`;
+    // карта
+    const kmIn = E.ob(seg(t, tS + 0.05, tS + 0.7), 0.8), kBig = E.io(seg(t, tB - 0.15, tB + 0.35));
+    const kGo = E.io(seg(t, tZ - 0.05, tZ + 0.6)), kBack = E.sp(seg(t, tZ + 0.6, tZ + 1.5));
+    let mx = lerp(-700, 230, kmIn), my = 250, msc = lerp(1, 1.42, kBig), mr = lerp(-14, -4, kmIn);
+    // попытка «залезть» в PS2: карта едет к консоли и сжимается, упирается и отскакивает
+    const push = kGo * (1 - kBack * 0.85);
+    mx = lerp(mx, 760, push); msc = lerp(msc, 0.62, push); mr = lerp(mr, 6, push);
+    $('mapw').style.transform = `translate(${mx}px, ${my}px) rotate(${mr}deg) scale(${msc})`;
+    $('mapw').style.opacity = t < tS ? 0 : 1;
+    const x1 = E.oc(seg(t, tN + 0.05, tN + 0.25)), x2 = E.oc(seg(t, tN + 0.2, tN + 0.4));
+    const L = 537; ['x1', 'x2'].forEach((id, j) => { const k = j ? x2 : x1; $(id).setAttribute('stroke-dasharray', `${L}`); $(id).setAttribute('stroke-dashoffset', `${L * (1 - k)}`); $(id).style.opacity = k > 0 ? 1 : 0; });
+    $('c4').style.transform = `scale(${lerp(1.0, 1.07, E.io(seg(t, B.s4, B.s6a)))}) translateY(${lerp(10, -10, seg(t, B.s4, B.s6a))}px)`;
+  }
+  // ===== S6a: качалка =====
+  if (vis($('s6a'), t, B.s6a, B.s6b)) {
+    setSrc($('g6'), clipSrc('gym', t, B.s6a - 3));
+    $('g6').style.transform = `scale(${lerp(1.03, 1.12, seg(t, B.s6a, B.s6b))}) translateX(${lerp(0, -30, seg(t, B.s6a, B.s6b))}px)`;
+  }
+  // ===== S6b: комнаты над картой =====
+  if (vis($('s6b'), t, B.s6b, B.s7)) {
+    const tV = wt(3, 'висят'), tK = wt(3, 'картой');
+    const kd = E.io(seg(t, tV - 0.35, tK + 0.2));           // камера опускает взгляд: под комнатами открывается карта
+    const rx = lerp(0, 56, kd), ty = lerp(0, -170, kd), sc = lerp(1.0, 0.8, kd);
+    world6.style.transform = `translateY(${ty}px) scale(${sc}) rotateX(${rx}deg) rotateZ(${lerp(0, -8, kd)}deg)`;
+    map6.style.transform = `translateZ(${-560}px)`;
+    map6.style.opacity = cl(seg(kd, 0.18, 0.5));
+    rooms.forEach((o, i) => {
+      const ti = wt(3, ['отдельн', 'маленьк', 'миры'][i]) - 0.05; const q = seg(t, ti, ti + 0.45);
+      const bob = Math.sin(t * 1.5 + i * 2) * 8;
+      // комнаты всегда смотрят в камеру (компенсируем наклон мира)
+      o.r.style.transform = `translate3d(${o.x}px, ${o.y + bob}px, 0px) rotateZ(${lerp(0, 8, kd)}deg) rotateX(${-rx}deg) scale(${(0.82 + 0.18 * E.ob(q, 1.1))})`;
+      o.r.style.opacity = cl(q * 3);
+      setSrc(o.im, clipSrc(o.clip, t, ti - 2));
+      // тень на карте и пунктир вниз
+      o.sh.style.left = 800 + o.x + 'px'; o.sh.style.top = 800 + o.y + 'px'; o.sh.style.opacity = cl(q * 2) * kd * 0.9;
+      const kl = E.oc(seg(t, tV + 0.15 + i * 0.12, tV + 0.75 + i * 0.12));
+      o.ln.style.left = o.x + 'px'; o.ln.style.top = o.y + 163 + 'px'; o.ln.style.height = 560 * kl + 'px';
+      o.ln.style.transform = `rotateX(-90deg)`; o.ln.style.opacity = kl > 0 ? 1 : 0;
+    });
+    $('sky').style.transform = `translateY(${lerp(0, 120, kd)}px)`;
+  }
+  // ===== S7 =====
+  if (vis($('s7'), t, B.s7, B.s8)) {
+    const tR = wt(4, 'Rockstar'), tP = wt(4, 'провернуть');
+    const k = E.ob(seg(t, tR - 0.35, tR + 0.15), 1.4);
+    $('rs').style.transform = `translateY(${(1 - k) * 80}px) scale(${0.7 + 0.3 * k}) rotate(${lerp(-6, 0, k)}deg)`; $('rs').style.opacity = cl(seg(t, tR - 0.35, tR - 0.2));
+    $('sh7').style.opacity = cl(seg(t, tR - 0.3, tR));
+    const q = seg(t, tP - 0.2, tP + 0.25);
+    $('qm').style.transform = `scale(${q > 0 ? E.ob(q, 1.8) : 0}) rotate(${lerp(-25, 8, E.oc(q))}deg)`; $('qm').style.opacity = cl(q * 4);
+    $('c7').style.transform = `scale(${lerp(1, 1.06, E.io(seg(t, B.s7, B.s8)))})`;
+  }
+  // ===== S8 =====
+  if (vis($('s8'), t, B.s8, DUR)) {
+    const k = E.oc(seg(t, B.s8, B.s8 + 0.6));
+    $('cj').style.transform = `translateX(${(1 - k) * -700}px)`; $('cj').style.opacity = cl(k * 2);
+    const kl = E.ob(seg(t, B.s8 + 0.15, B.s8 + 0.65), 1.3);
+    $('logo').style.transform = `scale(${0.6 + 0.4 * kl})`; $('logo').style.opacity = cl(seg(t, B.s8 + 0.15, B.s8 + 0.3));
+    wordsIn(finW, t, B.s8 + 0.45, 0.07, 0.4);
+    $('finu').style.transform = `scaleX(${E.oc(seg(t, B.s8 + 0.95, B.s8 + 1.3))})`;
+    $('c8').style.transform = `scale(${lerp(1.0, 1.04, E.io(seg(t, B.s8, DUR)))})`;
+  }
+  await Promise.all(pending);
+  await new Promise(requestAnimationFrame);
+};
+(async () => {
+  T = await (await fetch('timeline.json')).json();
+  await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  await window.renderAt(0); window.__ready = true;
+})();
+</script>
+</body></html>

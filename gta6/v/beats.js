@@ -232,7 +232,7 @@ SC(170.18, L,
 
 // ===== EUPHORIA (после рекламы) =====
 SC(175.00, L,
-  I('gta4_logo.png', 175.55, { x: 520, y: 520, w: 400, enter: 'pop' }),
+  I('gta4_logo.png', 175.1, { x: 520, y: 520, w: 400, enter: 'pop' }),
   I('niko_cut.png', 176.0, { x: 1350, y: 560, w: 320, enter: 'rise' }),
   T('EUPHORIA', 177.15, { y: 940, size: 100, color: BLUE, weight: 900 }));
 SC(178.28, L,

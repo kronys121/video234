@@ -10,7 +10,7 @@ const E = {
   ob: (x, c1 = 1.4) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; },
   sp: (x) => 1 - Math.exp(-7 * x) * Math.cos(11 * x),
 };
-const FPS_CLIP = 30;
+const FPS_CLIP = 60;
 const STAGE = $('stage');
 const SCENES = []; const CLIPUSE = []; const PENDING = [];
 window.CLIPUSE = CLIPUSE;
@@ -63,7 +63,8 @@ function place(it, t, extra = '') {
   it.el.style.filter = f.filter(Boolean).join(' ') || 'none';
   return true;
 }
-function base(kind, o) { return Object.assign({ kind, x: 960, y: 540, at: 0, enter: 'pop', ph: Math.random() * 6 }, o); }
+let PH_N = 0; // фаза покачивания — детерминированная (одинаковая во всех потоках рендера)
+function base(kind, o) { return Object.assign({ kind, x: 960, y: 540, at: 0, enter: 'pop', ph: ((++PH_N) * 2.399) % 6.283 }, o); }
 
 function IMG(src, o = {}) { const it = base('img', o); it.src = ASSET(src); return it; }
 function PHOTO(src, at, o = {}) { if (typeof at === 'object') o = at; else o = Object.assign({ at }, o); const it = base('photo', Object.assign({ float: 0 }, o)); it.src = ASSET(src); return it; }

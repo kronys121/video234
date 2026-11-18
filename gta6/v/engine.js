@@ -20,8 +20,11 @@ function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttrib
 function mk(tag, cls, css, parent) { const e = document.createElement(tag); if (cls) e.className = cls; if (css) e.style.cssText = css; (parent || STAGE).appendChild(e); return e; }
 
 // ---------- клипы ----------
+// пул свободных отрезков геймплея для фонов (pool.js: [клип, начало, длина]); берётся по очереди, без повторов
+const POOLQ = (window.POOL || []).map((p) => p.slice());
+function POOL_TAKE(need) { for (const p of POOLQ) { if (p[2] >= need) { const r = [p[0], p[1]]; p[1] += need + 0.05; p[2] -= need + 0.05; POOLQ.push(POOLQ.splice(POOLQ.indexOf(p), 1)[0]); return r; } } return null; }
 let clipN = 0;
-function useClip(name, off, dur) { const key = `${String(clipN++).padStart(3, '0')}_${name}`; CLIPUSE.push({ key, name, off: +off.toFixed(3), dur: +dur.toFixed(3) }); return key; }
+function useClip(name, off, dur, at = 0, small = false) { const key = `${String(clipN++).padStart(3, '0')}_${name}`; CLIPUSE.push({ key, name, off: +off.toFixed(3), dur: +dur.toFixed(3), at: +at.toFixed(3), small }); return key; }
 function clipFrame(key, local, dur) { const n = Math.round(dur * FPS_CLIP); const f = 1 + cl(Math.floor(local * FPS_CLIP), 0, n - 1); return `clips/${key}/${String(f).padStart(4, '0')}.jpg`; }
 
 // ---------- элементы ----------
@@ -49,14 +52,26 @@ function enterTf(it, t) {
   if (it.float) { ty += Math.sin((t + it.ph) * 1.25) * it.float; r += Math.sin((t + it.ph) * 0.9) * it.float * 0.06; }
   return { o, tx, ty, s, r, bl };
 }
+// камера сцены: смещение для параллакса (передний план двигается сильнее заднего)
+let CAMX = 0, CAMY = 0;
+const PAR = { card: 0.55, photo: 0.55, img: 1.25, txt: 0.85, emo: 1.1, icons: 0.9, stars: 0.9, num: 0.85, x: 1.1, check: 1.1, chip: 1.0, bar: 0.8, ring: 0.9, arrow: 0.8 };
+let MBN = 0; const MBDEFS = document.getElementById('mbdefs');
+function mbFilter(it, sx, sy) {   // направленное размытие в движении (SVG), своё на каждый элемент
+  if (!it.mb) { it.mb = 'mb' + (MBN++); MBDEFS.insertAdjacentHTML('beforeend', `<filter id="${it.mb}" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="0 0"/></filter>`); it.mbG = MBDEFS.lastElementChild.firstElementChild; }
+  it.mbG.setAttribute('stdDeviation', `${sx.toFixed(2)} ${sy.toFixed(2)}`); return `url(#${it.mb})`;
+}
 function place(it, t, extra = '') {
   const v = enterTf(it, t);
   const vis = t >= it.at - 0.01 && (it.out == null || t < it.out + 0.3);
   it.el.style.display = vis ? (it.disp || 'block') : 'none';
   if (!vis) return false;
   it.el.style.opacity = v.o.toFixed(3);
-  it.el.style.transform = `translate(-50%,-50%) translate(${(it.x + v.tx).toFixed(1)}px,${(it.y + v.ty).toFixed(1)}px) rotate(${((it.rot || 0) + v.r).toFixed(2)}deg) scale(${(v.s * (it.sc || 1)).toFixed(4)}) ${extra}`;
+  const par = it.par ?? PAR[it.kind] ?? 1;
+  it.el.style.transform = `translate(-50%,-50%) translate(${(it.x + v.tx + CAMX * par).toFixed(2)}px,${(it.y + v.ty + CAMY * par).toFixed(2)}px) rotate(${((it.rot || 0) + v.r).toFixed(2)}deg) scale(${(v.s * (it.sc || 1)).toFixed(4)}) ${extra}`;
   const f = [];
+  // скорость элемента за 1/120 с -> длина смаза (затвор 180° при 60 к/с)
+  const p = enterTf(it, t - 1 / 120); const mx = Math.abs(v.tx - p.tx) / 2.4, my = Math.abs(v.ty - p.ty) / 2.4;
+  if (it.kind !== 'txt' && (mx > 0.6 || my > 0.6)) f.push(mbFilter(it, Math.min(mx, 40), Math.min(my, 40)));
   if (v.bl > 0.05) f.push(`blur(${v.bl.toFixed(1)}px)`);
   if (it.blur) f.push(`blur(${it.blur}px)`);
   if (it.shadow !== false && it.kind !== 'txt') f.push(it.kind === 'card' || it.kind === 'photo' ? '' : 'drop-shadow(0 22px 22px rgba(0,0,0,.22)) drop-shadow(0 4px 6px rgba(0,0,0,.14))');
@@ -97,13 +112,14 @@ function build() {
   for (const s of SCENES) {
     s.el = mk('div', 'sc', '', STAGE);
     s.bgEl = mk('div', 'bg', '', s.el);
-    const bg = s.bg || 'light';
+    let bg = s.bg || 'light';
+    if (bg.auto) { const need = s.t1 - s.t0 + 0.4; const p = POOL_TAKE(need); if (p) { bg = Object.assign({}, bg, { blur: p[0], off: p[1], px: bg.px || 7, soft: true }); s.bg = bg; } else { bg = 'light'; s.bg = bg; } }
     if (bg === 'light') s.bgEl.className = 'bg light';
     else if (bg === 'dark') s.bgEl.className = 'bg dark';
     else {
       const clip = bg.blur || bg.full; s.bgImg = mk('img', 'bgimg', '', s.bgEl);
-      s.bgKey = useClip(clip, bg.off || 0, s.t1 - s.t0 + 0.4);
-      if (bg.blur) { s.bgImg.style.filter = `blur(${bg.px || 16}px) saturate(1.1)`; s.bgImg.style.transform = 'scale(1.12)'; mk('div', bg.dark ? 'veil dark' : 'veil', '', s.bgEl); }
+      s.bgKey = useClip(clip, bg.off || 0, s.t1 - s.t0 + 0.4, s.t0 - 0.2, !!bg.blur);
+      if (bg.blur) { s.bgImg.style.filter = `blur(${bg.px || 16}px) saturate(1.1)`; s.bgImg.style.transform = 'scale(1.12)'; mk('div', bg.dark ? 'veil dark' : bg.soft ? 'veil soft' : 'veil', '', s.bgEl); }
     }
     s.cam = mk('div', 'cam', '', s.el);
     for (const it of s.items) {
@@ -115,7 +131,7 @@ function build() {
         }
         case 'card': {
           it.el = mk('div', 'it card', `width:${it.w || 900}px;height:${(it.w || 900) * 9 / 16}px;border-radius:${it.r ?? 22}px`, s.cam); it.im = mk('img', '', '', it.el);
-          it.key = useClip(it.clip, it.off || 0, end - it.at); break;
+          it.key = useClip(it.clip, it.off || 0, end - it.at, it.at); break;
         }
         case 'txt': {
           it.el = mk('div', 'it txt', `font-size:${it.size}px;color:${it.color || '#151515'};font-weight:${it.weight || 800};${it.w ? `width:${it.w}px;` : 'white-space:nowrap;'}text-align:${it.align || 'center'};${it.glow ? 'text-shadow:0 4px 24px rgba(0,0,0,.6);' : ''}`, s.cam);
@@ -179,9 +195,12 @@ function sceneVis(s, t) {
   return true;
 }
 function drawScene(s, t) {
-  const L = s.t1 - s.t0, k = E.io(seg(t, s.t0, s.t1));
-  const cam = s.camK || 0.045;
-  s.cam.style.transform = `scale(${(1 + cam * k).toFixed(4)}) translate(${(Math.sin(s.t0) * 12 * (k - 0.5)).toFixed(1)}px,${(Math.cos(s.t0) * 8 * (k - 0.5)).toFixed(1)}px)`;
+  const L = s.t1 - s.t0, u = seg(t, s.t0 - 0.1, s.t1 + 0.1), k = 0.25 * u + 0.75 * E.oc(u);
+  const cam = s.camK || 0.06;
+  const dir = (Math.sin(s.t0 * 1.7) > 0 ? 1 : -1), dirY = (Math.cos(s.t0 * 2.3) > 0 ? 1 : -1);
+  CAMX = dir * 36 * (k - 0.5); CAMY = dirY * 18 * (k - 0.5);
+  s.cam.style.transform = `scale(${(1 + cam * k).toFixed(5)}) rotate(${(dir * 0.5 * (k - 0.5)).toFixed(3)}deg)`;
+  if (s.bgImg) s.bgImg.style.translate = `${(CAMX * -0.25).toFixed(2)}px ${(CAMY * -0.25).toFixed(2)}px`;
   if (s.bgImg) { setSrc(s.bgImg, clipFrame(s.bgKey, t - s.t0 + 0.2, L + 0.4)); if (s.bg.full) s.bgImg.style.transform = `scale(${(1.02 + 0.06 * k).toFixed(4)})`; }
   for (const it of s.items) {
     switch (it.kind) {
@@ -200,7 +219,12 @@ function drawScene(s, t) {
         it.kids.forEach((d, i) => { const ta = it.times ? it.times[i] : it.at + i * it.step; const q = seg(t, ta, ta + 0.4); d.style.opacity = cl(q * 3); d.style.transform = `scale(${q > 0 ? (0.4 + 0.6 * E.ob(q, 2)).toFixed(3) : 0.4})`; });
         break;
       }
-      case 'num': { if (!place(it, t)) break; const q = E.oc(seg(t, it.at, it.at + it.dur)); const v = lerp(it.a, it.b, q); it.el.textContent = it.prefix + (it.fmt ? it.fmt(v) : Math.round(v).toLocaleString('ru-RU').replace(/ /g, ' ')) + it.suffix; break; }
+      case 'num': {
+        if (!place(it, t)) break;
+        const fmt = (v) => it.prefix + (it.fmt ? it.fmt(v) : Math.round(v).toLocaleString('ru-RU').replace(/\u00a0/g, ' ')) + it.suffix;
+        if (!it.wfix) { it.el.style.fontVariantNumeric = 'tabular-nums'; let w = 0; for (const v of [it.a, it.b]) { it.el.textContent = fmt(v); w = Math.max(w, it.el.offsetWidth); } it.el.style.width = Math.ceil(w + 4) + 'px'; it.el.style.textAlign = 'right'; it.wfix = true; }
+        const q = E.oc(seg(t, it.at, it.at + it.dur)); it.el.textContent = fmt(lerp(it.a, it.b, q)); break;
+      }
       case 'x': case 'check': { if (!place(it, t)) break; it.lines.forEach((ln, i) => { const q = E.oc(seg(t, it.at + i * 0.14, it.at + i * 0.14 + 0.22)); ln.setAttribute('stroke-dashoffset', (1 - q).toFixed(3)); }); break; }
       case 'bar': { if (!place(it, t)) break; const q = E.io(seg(t, it.at + 0.2, it.at + 0.2 + it.dur)); const v = lerp(it.from, it.to, q); it.fill.style.width = v.toFixed(1) + '%'; it.pct.textContent = Math.round(v) + '%'; if (it.col) it.fill.style.background = it.col; break; }
       case 'arrow': { if (!place(it, t)) break; const q = E.oc(seg(t, it.at, it.at + 0.4)); it.path.setAttribute('stroke-dashoffset', (1 - q).toFixed(3)); it.head.style.opacity = q > 0.85 ? 1 : 0; break; }

@@ -89,3 +89,8 @@ gta6/art_src/*
 !gta6/art_src/list.txt
 gta6/shots_src/*
 !gta6/shots_src/list.txt
+gta6/src/
+gta6/shots/
+gta6/review/*
+!gta6/review/notes.md
+!gta6/review/voice_sentences.txt

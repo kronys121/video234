@@ -52,7 +52,7 @@ function enterTf(it, t) {
 function place(it, t, extra = '') {
   const v = enterTf(it, t);
   const vis = t >= it.at - 0.01 && (it.out == null || t < it.out + 0.3);
-  it.el.style.display = vis ? 'block' : 'none';
+  it.el.style.display = vis ? (it.disp || 'block') : 'none';
   if (!vis) return false;
   it.el.style.opacity = v.o.toFixed(3);
   it.el.style.transform = `translate(-50%,-50%) translate(${(it.x + v.tx).toFixed(1)}px,${(it.y + v.ty).toFixed(1)}px) rotate(${((it.rot || 0) + v.r).toFixed(2)}deg) scale(${(v.s * (it.sc || 1)).toFixed(4)}) ${extra}`;
@@ -66,7 +66,7 @@ function place(it, t, extra = '') {
 function base(kind, o) { return Object.assign({ kind, x: 960, y: 540, at: 0, enter: 'pop', ph: Math.random() * 6 }, o); }
 
 function IMG(src, o = {}) { const it = base('img', o); it.src = ASSET(src); return it; }
-function PHOTO(src, o = {}) { const it = base('photo', o); it.src = ASSET(src); return it; }
+function PHOTO(src, at, o = {}) { if (typeof at === 'object') o = at; else o = Object.assign({ at }, o); const it = base('photo', Object.assign({ float: 0 }, o)); it.src = ASSET(src); return it; }
 function CARD(clip, o = {}) { const it = base('card', o); it.clip = clip; return it; }
 function TXT(text, o = {}) { const it = base('txt', Object.assign({ enter: 'words', size: 64 }, o)); it.text = text; return it; }
 function EMO(ch, o = {}) { const it = base('emo', Object.assign({ size: 150 }, o)); it.ch = ch; return it; }
@@ -126,12 +126,12 @@ function build() {
         }
         case 'emo': it.el = mk('div', 'it emo', `font-size:${it.size}px`, s.cam); it.el.textContent = it.ch; break;
         case 'icons': {
-          it.el = mk('div', 'it', 'display:flex;gap:' + it.gap + 'px', s.cam);
+          it.el = mk('div', 'it', 'display:flex;gap:' + it.gap + 'px', s.cam); it.disp = 'flex';
           it.kids = it.list.map((ch) => { const d = mk('div', 'icon', `width:${it.size}px;height:${it.size}px;font-size:${it.size * 0.52}px;background:${it.bgc || '#9e1b24'}`, it.el); d.textContent = ch; return d; });
           break;
         }
         case 'stars': {
-          it.el = mk('div', 'it', 'display:flex;gap:' + it.gap + 'px', s.cam);
+          it.el = mk('div', 'it', 'display:flex;gap:' + it.gap + 'px', s.cam); it.disp = 'flex';
           it.kids = Array.from({ length: it.n }, (_, i) => { const d = mk('div', '', `width:${it.size}px;height:${it.size * 0.95}px`, it.el); d.innerHTML = STAR_SVG(it.colors ? it.colors[i] : it.color); return d; });
           break;
         }
@@ -145,7 +145,7 @@ function build() {
         }
         case 'chip': it.el = mk('div', 'it', `width:${it.size}px;height:${it.size}px`, s.cam); it.el.innerHTML = chipSVG(it.label, it.color || '#4fd66b'); break;
         case 'bar': {
-          it.el = mk('div', 'it bar', `width:${it.w}px`, s.cam);
+          it.el = mk('div', 'it bar', `width:${it.w}px`, s.cam); it.disp = 'flex';
           it.el.innerHTML = `<div class="bl">${it.label}</div><div class="bt"><div class="bf"></div></div><div class="bp">0%</div>`;
           it.fill = it.el.querySelector('.bf'); it.pct = it.el.querySelector('.bp'); break;
         }

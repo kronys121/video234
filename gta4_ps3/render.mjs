@@ -31,7 +31,7 @@ async function openPage(browser) {
 }
 async function shot(page, t, file) {
   await page.evaluate((tt) => window.renderAt(tt), t);
-  await page.screenshot({ path: file, type: 'jpeg', quality: 93 });
+  await page.screenshot({ path: file, type: 'jpeg', quality: Number(process.env.JPEGQ || 93) });
 }
 
 const mode = process.argv[2] || 'stills';

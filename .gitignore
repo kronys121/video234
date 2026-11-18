@@ -97,3 +97,7 @@ gta6/review/*
 gta6/__pycache__/
 gta6/*_preview*.jpg
 gta6/out/
+gta6/v/clips/
+gta6/v/clipuse.json
+gta6/v/scenes.json
+gta6/v/mix_full.wav

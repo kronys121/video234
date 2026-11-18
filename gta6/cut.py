@@ -47,7 +47,7 @@ elif mode == 'cut':
         if os.path.exists(out): return
         subprocess.run(['ffmpeg', '-nostdin', '-y', '-v', 'error', '-ss', f"{s['ss']:.3f}", '-i', f'{HERE}/src/{s["src"]}.mp4', '-t', f"{s['dur']:.3f}",
                         '-vf', crop(s['name'], s['src']) + ',scale=1920:1080:flags=lanczos,fps=60,format=yuv420p',
-                        '-af', 'aresample=48000', '-ac', '2', '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '16', '-c:a', 'pcm_s16le', '-f', 'matroska', out + '.tmp'], check=True)
+                        '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', '-an', '-f', 'mp4', out + '.tmp'], check=True)
         os.rename(out + '.tmp', out)
     with ThreadPoolExecutor(3) as ex: list(ex.map(cut, range(len(S))))
     print('cut', len(S))

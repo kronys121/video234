@@ -13,7 +13,7 @@ with open(lst, 'w') as f:
             f.write(f"file '{HERE}/out/ad_720.mp4'\n")
         f.write(f"file '{HERE}/shots/{i:03d}_{s['name']}.mp4'\n")
 # реклама: только видео, 720p60
-subprocess.run(['ffmpeg', '-nostdin', '-y', '-v', 'error', '-i', f'{HERE}/ad/gta6_ggsel.mp4', '-vf', 'scale=1920:1080,fps=60,format=yuv420p', '-an',
+subprocess.run(['ffmpeg', '-nostdin', '-y', '-v', 'error', '-i', f'{HERE}/ad/gta6_ggsel.mp4', '-vf', 'scale=1920:1080,fps=60,format=yuv420p,setsar=1', '-an',
                 '-c:v', 'libx264', '-preset', 'veryfast', '-crf', '18', f'{HERE}/out/ad_720.mp4'], check=True)
 AD = float(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'format=duration', '-of', 'csv=p=0', f'{HERE}/ad/gta6_ggsel.mp4']))
 # звук: голос до рекламы + звук рекламы + голос после

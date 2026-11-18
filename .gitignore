@@ -96,3 +96,4 @@ gta6/review/*
 !gta6/review/voice_sentences.txt
 gta6/__pycache__/
 gta6/*_preview*.jpg
+gta6/out/

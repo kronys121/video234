@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>GTA SA teaser</title>
+<style>
+@font-face{font-family:Russo;src:url(../../node_modules/@fontsource/russo-one/files/russo-one-cyrillic-400-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Russo;src:url(../../node_modules/@fontsource/russo-one/files/russo-one-latin-400-normal.woff2)format('woff2')}
+@font-face{font-family:Osw;font-weight:500;src:url(../../node_modules/@fontsource/oswald/files/oswald-cyrillic-500-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Osw;font-weight:500;src:url(../../node_modules/@fontsource/oswald/files/oswald-latin-500-normal.woff2)format('woff2')}
+@font-face{font-family:Osw;font-weight:700;src:url(../../node_modules/@fontsource/oswald/files/oswald-cyrillic-700-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Osw;font-weight:700;src:url(../../node_modules/@fontsource/oswald/files/oswald-latin-700-normal.woff2)format('woff2')}
+:root{--gold:#ffd27a;--org:#ff8a2a;--teal:#3fd6c9;--ink:#07090f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:var(--ink)}
+#stage{position:absolute;inset:0;perspective:1500px;perspective-origin:50% 50%;overflow:hidden;background:var(--ink)}
+.sc{position:absolute;left:0;top:0;width:1920px;height:1080px;perspective:1500px;display:none;overflow:hidden}
+.abs{position:absolute}
+.p3{transform-style:preserve-3d}
+.russo{font-family:Russo,sans-serif}
+.osw{font-family:Osw,sans-serif;font-weight:500;text-transform:uppercase}
+.ch{display:inline-block;will-change:transform}
+#grain{position:absolute;inset:0;pointer-events:none;mix-blend-mode:overlay;opacity:.22}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 55%,rgba(0,0,0,.65) 100%)}
+.cell{position:absolute;border-radius:6px;border:2px solid rgba(255,210,122,.75);background:rgba(255,138,42,.18);box-shadow:0 0 18px rgba(255,138,42,.35) inset}
+.card{position:absolute;width:960px;height:540px;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.6);border:3px solid rgba(255,255,255,.12)}
+.card img{width:100%;height:100%;object-fit:cover;display:block}
+.pin{position:absolute;transform-origin:50% 100%;text-align:center}
+.pin .lab{font-family:Russo;font-size:54px;color:#fff;padding:10px 26px;background:rgba(7,9,15,.78);border:3px solid var(--gold);border-radius:12px;white-space:nowrap;text-shadow:0 2px 0 #000}
+.pin .stem{width:4px;height:120px;margin:0 auto;background:linear-gradient(var(--gold),transparent)}
+.room{position:absolute;width:420px;height:236px;transform-style:preserve-3d}
+.room .f{position:absolute;inset:0;border-radius:6px;overflow:hidden;border:3px solid rgba(255,210,122,.8);box-shadow:0 0 40px rgba(255,170,80,.35)}
+.room .f img{width:100%;height:100%;object-fit:cover}
+.room .side{position:absolute;background:linear-gradient(#5a3a22,#2a1a10);border:2px solid rgba(255,210,122,.5)}
+</style></head><body>
+<div id="stage">
+  <!-- S1: PS2 -->
+  <div class="sc" id="s1">
+    <div class="abs" id="s1bg" style="inset:-200px;background:radial-gradient(ellipse at 50% 85%,#3b1c0c 0%,#120c14 45%,#07090f 75%)"></div>
+    <div class="abs russo" id="yr" style="left:0;top:120px;width:1920px;text-align:center;font-size:560px;line-height:1;color:#ff8a2a;opacity:.16">2004</div>
+    <div class="abs p3" id="ps2w" style="left:335px;top:450px;width:1250px;height:410px">
+      <div class="abs" id="ps2sh" style="left:120px;top:370px;width:1010px;height:90px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.85),transparent)"></div>
+      <img class="abs" id="ps2refl" src="../assets/ps2.png" style="left:0;top:410px;width:1250px;height:410px;transform:scaleY(-1);opacity:.18;-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,.9),transparent 45%)">
+      <img class="abs" id="ps2img" src="../assets/ps2.png" style="left:0;top:0;width:1250px;height:410px">
+      <div class="abs" id="ps2sweep" style="left:0;top:0;width:1250px;height:410px;-webkit-mask-image:url(../assets/ps2.png);-webkit-mask-size:100% 100%;background:linear-gradient(105deg,transparent 42%,rgba(255,226,170,.75) 50%,transparent 58%);background-size:300% 100%;mix-blend-mode:screen"></div>
+    </div>
+    <div class="abs osw" id="kick1" style="left:0;top:250px;width:1920px;text-align:center;font-size:64px;letter-spacing:14px;color:#fff">PlayStation 2</div>
+    <div class="abs osw" id="sub1" style="left:0;top:340px;width:1920px;text-align:center;font-size:40px;letter-spacing:8px;color:var(--gold)">консоль 2000 года</div>
+  </div>
+
+  <!-- S2: 32 МБ -->
+  <div class="sc" id="s2">
+    <div class="abs" style="inset:-300px;background:radial-gradient(ellipse at 50% 40%,#2a1408 0%,#0d0a12 50%,#07090f 80%)"></div>
+    <div class="abs p3" id="cam2" style="left:0;top:0;width:1920px;height:1080px">
+      <div class="abs p3" id="num" style="left:360px;top:110px;width:1200px;height:440px"></div>
+      <div class="abs osw" id="ram" style="left:0;top:540px;width:1920px;text-align:center;font-size:58px;letter-spacing:12px;color:#fff"></div>
+      <div class="abs osw" id="st4" style="left:60px;top:230px;font-size:44px;color:#cfd6e6;letter-spacing:4px"><span style="font-family:Russo;font-size:90px;color:var(--teal)">4 МБ</span><br>видеопамять</div>
+      <div class="abs osw" id="st300" style="left:1400px;top:300px;font-size:44px;color:#cfd6e6;letter-spacing:4px;text-align:right"><span style="font-family:Russo;font-size:90px;color:var(--teal)">300 МГц</span><br>процессор</div>
+      <div class="abs p3" id="grid" style="left:560px;top:660px;width:800px;height:340px"></div>
+    </div>
+  </div>
+
+  <!-- S3: карта -->
+  <div class="sc" id="s3">
+    <div class="abs" style="inset:0;background:linear-gradient(#0b1424 0%,#1b1424 35%,#3a1c10 60%,#07090f 100%)"></div>
+    <div class="abs p3" id="cam3" style="left:960px;top:540px;width:0;height:0">
+      <div class="abs p3" id="mapw" style="left:-550px;top:-550px;width:1100px;height:1100px">
+        <img class="abs" src="../assets/map.jpg" style="left:0;top:0;width:1100px;height:1100px;filter:saturate(1.15) contrast(1.1)">
+        <div class="abs" id="tiles" style="left:0;top:0;width:1100px;height:1100px"></div>
+        <div class="abs" id="ring" style="width:560px;height:560px;border-radius:50%;border:5px solid var(--teal);box-shadow:0 0 40px var(--teal),0 0 40px var(--teal) inset;background:radial-gradient(closest-side,rgba(63,214,201,.12),transparent)"></div>
+        <div class="abs" id="dot" style="width:34px;height:34px;border-radius:50%;background:#fff;box-shadow:0 0 0 8px rgba(63,214,201,.5),0 0 30px #fff"></div>
+        <div class="pin p3" id="pin0"><div class="lab">ЛОС-САНТОС</div><div class="stem"></div></div>
+        <div class="pin p3" id="pin1"><div class="lab">САН-ФИЕРРО</div><div class="stem"></div></div>
+        <div class="pin p3" id="pin2"><div class="lab">ЛАС-ВЕНТУРАС</div><div class="stem"></div></div>
+      </div>
+    </div>
+    <div class="abs russo" id="h3a" style="left:110px;top:90px;font-size:110px;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.8)"></div>
+    <div class="abs russo" id="h3b" style="left:110px;top:90px;font-size:96px;line-height:1.02;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.8)"></div>
+  </div>
+
+  <!-- S4: туннель клипов -->
+  <div class="sc" id="s4">
+    <div class="abs" style="inset:0;background:radial-gradient(ellipse at 50% 50%,#2a1630 0%,#120a18 45%,#07090f 80%)"></div>
+    <div class="abs p3" id="cam4" style="left:960px;top:540px;width:0;height:0"></div>
+    <div class="abs russo" id="w4" style="left:0;top:770px;width:1920px;text-align:center;font-size:150px;color:#fff;text-shadow:0 8px 40px rgba(0,0,0,.9)"></div>
+    <div class="abs" id="bok" style="inset:0"></div>
+  </div>
+
+  <!-- S5: интерьеры в небе -->
+  <div class="sc" id="s5">
+    <div class="abs" id="sky5" style="left:0;top:-1080px;width:1920px;height:2160px;background:linear-gradient(#0a1230 0%,#2a2350 30%,#7a3a40 55%,#e07a3a 72%,#1a0f10 100%)"></div>
+    <div class="abs p3" id="cam5" style="left:960px;top:540px;width:0;height:0">
+      <div class="abs" id="map5" style="left:-1400px;top:-1400px;width:2800px;height:2800px;background:url(../assets/map.jpg) 0 0/100% 100%;filter:brightness(.8) saturate(1.1)"></div>
+      <div class="abs" id="beam" style="width:10px;margin-left:-5px;background:linear-gradient(to top,rgba(255,220,60,.95),rgba(255,220,60,0));box-shadow:0 0 30px rgba(255,220,60,.8)"></div>
+      <div class="abs" id="mark" style="width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:radial-gradient(closest-side,#ffe14a,rgba(255,225,74,.3) 60%,transparent)"></div>
+    </div>
+    <div class="abs russo" id="h5" style="left:0;top:80px;width:1920px;text-align:center;font-size:84px;line-height:1.05;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.85)"></div>
+  </div>
+
+  <!-- S6: финал -->
+  <div class="sc" id="s6">
+    <div class="abs" id="bg6" style="left:-60px;top:-40px;width:2040px;height:1160px;background:url(../thumb/bg.jpg) center/cover;filter:blur(8px) brightness(.55) sepia(.35) saturate(1.3)"></div>
+    <div class="abs" style="inset:0;background:linear-gradient(90deg,rgba(7,9,15,.2),rgba(7,9,15,.75) 70%)"></div>
+    <img class="abs" id="cj6" src="../thumb/pc_cj.png" style="left:150px;top:90px;width:580px">
+    <img class="abs" id="logo6" src="../thumb/logo_sa.png" style="left:1210px;top:40px;width:430px">
+    <div class="abs russo" id="t6" style="left:780px;top:440px;width:1080px;font-size:88px;line-height:1.04;color:#fff;text-shadow:0 6px 30px rgba(0,0,0,.85)"></div>
+    <div class="abs osw" id="sub6" style="left:785px;top:850px;font-size:44px;letter-spacing:6px;color:var(--gold)">Полный разбор — на канале</div>
+  </div>
+
+  <!-- HUD: память, сквозная нить -->
+  <div class="abs" id="hud" style="right:70px;top:60px;width:430px">
+    <div class="osw" style="font-size:26px;letter-spacing:5px;color:#cfd6e6;display:flex;justify-content:space-between"><span>ПАМЯТЬ PS2</span><span id="hudv" style="color:var(--gold)"></span></div>
+    <div style="margin-top:10px;height:22px;border-radius:11px;background:rgba(255,255,255,.12);overflow:hidden;border:2px solid rgba(255,255,255,.25)"><div id="hudb" style="height:100%;width:0;background:linear-gradient(90deg,var(--org),var(--gold));box-shadow:0 0 20px var(--org)"></div></div>
+  </div>
+  <canvas id="grain" width="480" height="270"></canvas>
+  <div id="vig"></div>
+</div>
+<script>
+const DUR = 30; window.DUR = DUR;
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = {
+  oc: (x) => 1 - (1 - x) ** 3, ic: (x) => x * x * x, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x) => { const c1 = 1.9, c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; },
+  os: (x) => 1 - Math.exp(-6 * x) * Math.cos(9 * x), // пружина с затуханием
+  sine: (x) => .5 - .5 * Math.cos(Math.PI * x),
+};
+// гладкая кривая через ключи [t, v] (кубический Эрмит, Catmull-Rom касательные) — без нулевой скорости на каждом ключе
+function curve(keys) {
+  return (t) => {
+    if (t <= keys[0][0]) return keys[0][1];
+    const n = keys.length; if (t >= keys[n - 1][0]) return keys[n - 1][1];
+    let i = 0; while (keys[i + 1][0] < t) i++;
+    const [t0, v0] = keys[i], [t1, v1] = keys[i + 1];
+    const m = (j) => { const a = keys[Math.max(0, j - 1)], b = keys[Math.min(n - 1, j + 1)]; return j === 0 || j === n - 1 ? 0 : (b[1] - a[1]) / (b[0] - a[0]); };
+    const h = t1 - t0, u = (t - t0) / h, u2 = u * u, u3 = u2 * u;
+    return (2 * u3 - 3 * u2 + 1) * v0 + (u3 - 2 * u2 + u) * h * m(i) + (-2 * u3 + 3 * u2) * v1 + (u3 - u2) * h * m(i + 1);
+  };
+}
+function letters(el, text) { el.innerHTML = ''; return [...text].map((c) => { const s = document.createElement('span'); s.className = 'ch'; s.textContent = c === ' ' ? ' ' : c; if (c === '\n') { el.appendChild(document.createElement('br')); return null; } el.appendChild(s); return s; }).filter(Boolean); }
+function mb(px) { return px > 0.05 ? `blur(${px.toFixed(2)}px)` : 'none'; }
+
+// ---------- клипы (последовательности jpg) ----------
+const pending = [];
+function clipSrc(name, t, start = 0) { const f = 1 + (Math.floor(Math.max(0, t - start) * 30) % 240); return `../clips/${name}/${String(f).padStart(4, '0')}.jpg`; }
+function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttribute('src', src); pending.push(img.decode().catch(() => {})); } }
+
+// ---------- S2: объёмные «32» + ячейки ----------
+const LAY = 16; const num = $('num');
+for (let i = LAY - 1; i >= 0; i--) {
+  const d = document.createElement('div'); d.className = 'abs russo';
+  d.style.cssText = `left:0;top:0;width:1200px;text-align:center;font-size:400px;line-height:1.1;transform:translateZ(${-i * 5}px)`;
+  d.innerHTML = '32<span style="font-size:190px;margin-left:30px">МБ</span>';
+  if (i === 0) { d.style.background = 'linear-gradient(#fff3c9 10%,#ffd27a 45%,#ff8a2a 90%)'; d.style.webkitBackgroundClip = 'text'; d.style.color = 'transparent'; d.style.filter = 'drop-shadow(0 0 30px rgba(255,138,42,.45))'; }
+  else { const k = i / LAY; d.style.color = `rgb(${Math.round(150 - 110 * k)},${Math.round(70 - 50 * k)},${Math.round(20 - 12 * k)})`; }
+  num.appendChild(d);
+}
+const ramCh = letters($('ram'), 'оперативной памяти');
+const cells = []; const grid = $('grid');
+for (let r = 0; r < 4; r++) for (let c = 0; c < 8; c++) { const d = document.createElement('div'); d.className = 'cell'; grid.appendChild(d); cells.push({ d, r, c }); }
+
+// ---------- S3: плитки карты 8×4 ----------
+const tiles = []; const TW = 1100 / 8, TH = 1100 / 4;
+for (let r = 0; r < 4; r++) for (let c = 0; c < 8; c++) { const d = document.createElement('div'); d.className = 'abs'; d.style.cssText = `left:${c * TW}px;top:${r * TH}px;width:${TW}px;height:${TH}px;border:2px solid rgba(255,210,122,.55)`; $('tiles').appendChild(d); tiles.push({ d, cx: (c + .5) * TW, cy: (r + .5) * TH }); }
+const CITY = [[800, 860], [150, 470], [850, 230]]; // ЛС, СФ, ЛВ (в пикселях карты 1100)
+const pathX = curve([[10, 700], [10.6, 800], [12.5, 150], [15.0, 850], [17.5, 900]]);
+const pathY = curve([[10, 980], [10.6, 860], [12.5, 470], [15.0, 230], [17.5, 200]]);
+CITY.forEach(([x, y], i) => { const p = $('pin' + i); p.style.left = x + 'px'; p.style.top = y + 'px'; });
+const h3a = letters($('h3a'), 'ТРИ ГОРОДА');
+const h3b = letters($('h3b'), 'НИ ОДНОГО\nЭКРАНА ЗАГРУЗКИ');
+
+// ---------- S4: туннель ----------
+const FEAT = [['gym', 'КАЧАЛКА', 18.1], ['tune', 'ТЮНИНГ', 19.35], ['plane_takeoff', 'САМОЛЁТЫ', 20.6], ['swim2', 'ПЛАВАНИЕ', 21.85]];
+const FILL = ['lv_neon', 'ls_sunset', 'lowrider', 'bmx', 'burger', 'desert_drive', 'haircut', 'ls_street'];
+const cam4 = $('cam4'); const cards4 = []; const ZSTEP = 1300;
+FEAT.forEach(([clip, word, tf], i) => { const side = i % 2 ? 1 : -1; cards4.push({ clip, x: side * 260, y: -110, z: -(i + 1) * ZSTEP, ry: -side * 16, main: true, tf }); });
+FILL.forEach((clip, i) => { const side = i % 2 ? -1 : 1; const k = Math.floor(i / 2); cards4.push({ clip, x: side * (1250 + (i % 3) * 120), y: (i % 4 < 2 ? -520 : 380), z: -(k + 1) * ZSTEP - 500 + (i % 2) * 300, ry: -side * 38, main: false }); });
+cards4.forEach((c) => { const d = document.createElement('div'); d.className = 'card'; d.style.marginLeft = '-480px'; d.style.marginTop = '-270px'; const im = document.createElement('img'); d.appendChild(im); cam4.appendChild(d); c.d = d; c.im = im; });
+const w4 = $('w4');
+// пылинки-боке для параллакса
+const boks = []; for (let i = 0; i < 26; i++) { const d = document.createElement('div'); d.className = 'abs'; const s = 6 + (i * 37 % 22); d.style.cssText = `width:${s}px;height:${s}px;border-radius:50%;background:rgba(255,210,150,.55)`; $('bok').appendChild(d); boks.push({ d, x: (i * 613) % 1920, y: (i * 389) % 1080, sp: .4 + (i % 5) * .25, s }); }
+// камера: медленно у каждой карточки, быстро между
+const camZ4 = curve([[17.5, -900], [18.1, ZSTEP * 1 - 520], [18.9, ZSTEP * 1 - 330], [19.35, ZSTEP * 2 - 520], [20.15, ZSTEP * 2 - 330], [20.6, ZSTEP * 3 - 520], [21.4, ZSTEP * 3 - 330], [21.85, ZSTEP * 4 - 520], [22.5, ZSTEP * 4 - 250]]);
+const camX4 = curve([[17.5, 0], [18.1, -170], [19.35, 170], [20.6, -170], [21.85, 170], [22.5, 90]]);
+
+// ---------- S5: комнаты в небе ----------
+const ROOMS = [['gym', -640, 60, 620, 16], ['burger', 160, -260, 820, -8], ['haircut', 700, 80, 560, -18], ['yellow', -120, 250, 470, 6]];
+const cam5 = $('cam5'); const rooms = [];
+ROOMS.forEach(([clip, x, y, z, ry]) => {
+  const r = document.createElement('div'); r.className = 'room'; r.style.marginLeft = '-210px'; r.style.marginTop = '-118px';
+  r.innerHTML = `<div class="side" style="left:0;top:100%;width:420px;height:60px;transform-origin:50% 0;transform:rotateX(-90deg)"></div><div class="side" style="left:100%;top:0;width:60px;height:236px;transform-origin:0 50%;transform:rotateY(90deg)"></div><div class="f"><img></div>`;
+  cam5.appendChild(r); rooms.push({ r, im: r.querySelector('img'), clip, x, y, z, ry });
+});
+const h5 = letters($('h5'), 'ИНТЕРЬЕРЫ ВИСЯТ\nВ НЕБЕ НАД КАРТОЙ');
+// ---------- S6 ----------
+const t6 = letters($('t6'), 'КАК SAN ANDREAS\nВЫЖАЛА ИЗ PS2 ВСЁ');
+const sub6Ch = letters($('sub6'), 'Полный разбор — на канале');
+
+// ---------- зерно ----------
+const gctx = $('grain').getContext('2d'); const gimg = gctx.createImageData(480, 270);
+function grain(t) { let s = (Math.floor(t * 30) * 2654435761) >>> 0; const d = gimg.data; for (let i = 0; i < d.length; i += 4) { s ^= s << 13; s ^= s >>> 17; s ^= s << 5; const v = (s >>> 0) & 255; d[i] = d[i + 1] = d[i + 2] = v; d[i + 3] = 255; } gctx.putImageData(gimg, 0, 0); }
+
+function show(id, on) { $(id).style.display = on ? 'block' : 'none'; }
+function charIn(chs, t, t0, stag, dur, fn) { chs.forEach((c, i) => { const k = seg(t, t0 + i * stag, t0 + i * stag + dur); fn(c, k, i); }); }
+
+window.renderAt = async function (t) {
+  pending.length = 0;
+  show('s1', t < 5); show('s2', t >= 5 && t < 10.15); show('s3', t >= 9.85 && t < 17.5); show('s4', t >= 17.5 && t < 22.5); show('s5', t >= 22.5 && t < 26.25); show('s6', t >= 26.25);
+
+  // ===== S1 =====
+  if (t < 5) {
+    const up = E.ob(seg(t, 0.35, 1.9));
+    const dive = E.ic(seg(t, 4.35, 5.0));
+    const ry = curve([[0, -14], [2.5, -7], [4.35, -2], [5, 0]])(t);
+    $('ps2w').style.transform = `translateY(${(1 - up) * 420}px) rotateX(${8 - 4 * seg(t, 0, 4.4)}deg) rotateY(${ry}deg)`;
+    $('ps2w').style.opacity = cl(seg(t, 0.3, 0.9));
+    $('ps2sweep').style.backgroundPosition = `${lerp(110, -10, E.io(seg(t, 2.2, 3.8)))}% 0`;
+    $('ps2img').style.filter = `brightness(${0.55 + 0.6 * E.oc(seg(t, 0.4, 2.2))})`;
+    // камера: наезд + лёгкий крен, затем нырок
+    const s = curve([[0, .88], [2.5, .97], [4.35, 1.04]])(Math.min(t, 4.35)) * (1 + 7 * dive);
+    const rz = curve([[0, -3], [2.5, -1], [4.35, 0.5]])(Math.min(t, 4.35));
+    const s1 = $('s1');
+    s1.style.transformOrigin = '960px 700px';
+    s1.style.transform = `scale(${s}) rotate(${rz}deg)`;
+    s1.style.opacity = 1 - seg(t, 4.75, 5.0);
+    $('yr').style.transform = `translateX(${lerp(-120, 120, t / 5)}px) scale(${1.1 - .08 * t / 5})`;
+    $('yr').style.filter = mb(10 + 4 * dive);
+    const k1 = E.oc(seg(t, 1.2, 2.4));
+    $('kick1').style.letterSpacing = `${lerp(70, 14, k1)}px`; $('kick1').style.opacity = k1 * (1 - seg(t, 4.1, 4.5));
+    $('kick1').style.filter = mb(8 * (1 - k1));
+    const k2 = E.oc(seg(t, 2.6, 3.4));
+    $('sub1').style.opacity = k2 * (1 - seg(t, 4.1, 4.5)); $('sub1').style.transform = `translateY(${(1 - k2) * 30}px)`;
+  }
+
+  // ===== S2 =====
+  if (t >= 5 && t < 10.15) {
+    const k = E.os(seg(t, 5.0, 5.9));
+    const z = lerp(900, 0, Math.min(1, k));
+    num.style.transform = `translateZ(${z}px) translateY(${-260 * E.io(seg(t, 9.55, 10.1))}px)`;
+    num.style.opacity = cl(seg(t, 5.0, 5.12)) * (1 - seg(t, 9.7, 10.05));
+    num.style.filter = mb(Math.max(0, z) / 60);
+    // орбита камеры
+    const ry = curve([[5, 12], [7.5, 2], [10, -10]])(t), rx = curve([[5, 12], [7.5, 6], [10, 4]])(t);
+    const gl = E.io(seg(t, 9.55, 10.15));
+    $('cam2').style.transform = `translateZ(${-120 + 60 * seg(t, 5, 9.5)}px) rotateX(${rx}deg) rotateY(${ry * (1 - gl)}deg)`;
+    charIn(ramCh, t, 5.55, 0.035, 0.3, (c, q) => { c.style.opacity = q; c.style.transform = `translateY(${(1 - E.oc(q)) * 40}px)`; });
+    $('ram').style.opacity = 1 - seg(t, 9.5, 9.8);
+    // второстепенные цифры на разной глубине (DOF)
+    const a = E.oc(seg(t, 6.5, 7.2)), b = E.oc(seg(t, 6.8, 7.5));
+    $('st4').style.transform = `translateZ(${-500 + 140 * a}px) translateX(${(1 - a) * -120}px)`; $('st4').style.opacity = a * (1 - seg(t, 9.4, 9.7)); $('st4').style.filter = mb(3.5);
+    $('st300').style.transform = `translateZ(${160 - 60 * b}px) translateX(${(1 - b) * 140}px)`; $('st300').style.opacity = b * (1 - seg(t, 9.4, 9.7)); $('st300').style.filter = mb(2);
+    // ячейки: по одной на 1/32 доли, потом сетка ложится плашмя и превращается в плитки карты
+    const W = 800 / 8, H = 340 / 4;
+    cells.forEach(({ d, r, c }, i) => {
+      const ti = 7.5 + i * 0.078; const q = E.ob(seg(t, ti, ti + 0.22));
+      d.style.left = c * W + 4 + 'px'; d.style.top = r * H + 4 + 'px'; d.style.width = W - 8 + 'px'; d.style.height = H - 8 + 'px';
+      d.style.opacity = cl(seg(t, ti, ti + 0.06));
+      d.style.transform = `translateZ(${(1 - q) * 300}px) scale(${0.4 + 0.6 * q})`;
+      d.style.background = `rgba(255,138,42,${0.18 + 0.5 * Math.max(0, 1 - (t - ti) / 0.5)})`;
+    });
+    const fl = gl; // сетка: подъём в центр и наклон как у карты
+    grid.style.transform = `translateY(${-420 * fl}px) translateZ(${-200 * fl}px) rotateX(${58 * fl}deg) scale(${1 + .4 * fl})`;
+    $('s2').style.opacity = 1 - seg(t, 9.95, 10.15);
+  }
+
+  // ===== S3 =====
+  if (t >= 9.85 && t < 17.5) {
+    const px = pathX(t), py = pathY(t);
+    const lag = 0.12; const cx = pathX(t - lag), cy = pathY(t - lag);
+    const rx = curve([[9.85, 52], [12.5, 46], [15, 50], [17.5, 58]])(t);
+    const rz = curve([[9.85, -6], [11.5, -14], [13.5, 4], [15.5, 10], [17.5, 2]])(t);
+    const zoom = curve([[9.85, 1.0], [10.6, 1.45], [12.5, 1.35], [15, 1.5], [16.6, 1.7], [17.5, 2.7]])(t);
+    $('cam3').style.transform = `translateY(60px) scale(${zoom}) rotateX(${rx}deg) rotateZ(${rz}deg) translate(${550 - cx}px,${550 - cy}px)`;
+    $('s3').style.opacity = cl(seg(t, 9.85, 10.15)) * (1 - seg(t, 17.3, 17.5));
+    $('ring').style.left = px - 280 + 'px'; $('ring').style.top = py - 280 + 'px';
+    $('dot').style.left = px - 17 + 'px'; $('dot').style.top = py - 17 + 'px';
+    const ringIn = E.ob(seg(t, 10.1, 10.6)); $('ring').style.transform = `scale(${ringIn})`; $('ring').style.opacity = ringIn;
+    tiles.forEach((o) => {
+      const dd = Math.hypot(o.cx - px, (o.cy - py) * 0.6); const on = cl(1 - (dd - 230) / 140);
+      const appear = seg(t, 9.85, 10.4);
+      o.d.style.background = `rgba(7,9,15,${0.72 * (1 - on) * appear})`;
+      o.d.style.boxShadow = on > .5 ? `inset 0 0 ${30 * on}px rgba(255,138,42,${.6 * on})` : 'none';
+      o.d.style.borderColor = `rgba(255,210,122,${0.25 + 0.6 * on})`;
+    });
+    [10.6, 12.5, 15.0].forEach((tc, i) => {
+      const q = E.ob(seg(t, tc - 0.15, tc + 0.35));
+      const p = $('pin' + i);
+      p.style.transform = `translate(-50%,-100%) rotateZ(${-rz}deg) rotateX(${-rx}deg) scale(${q / zoom * 1.0})`;
+      p.style.opacity = cl(seg(t, tc - 0.15, tc)) * (i < 2 ? 1 - seg(t, [12.3, 14.8][i], [12.7, 15.2][i]) * 0.6 : 1);
+    });
+    charIn(h3a, t, 10.3, 0.05, 0.35, (c, q) => { const e = E.ob(q); c.style.opacity = cl(q * 3) * (1 - seg(t, 13.6, 13.9)); c.style.transform = `translateY(${(1 - e) * 80}px) rotateX(${(1 - e) * 80}deg)`; });
+    charIn(h3b, t, 14.05, 0.03, 0.32, (c, q) => { const e = E.ob(q); c.style.opacity = cl(q * 3) * (1 - seg(t, 17.1, 17.4)); c.style.transform = `translateY(${(1 - e) * 90}px) scale(${0.6 + 0.4 * e})`; c.style.color = q < 1 ? '#ffd27a' : '#fff'; });
+  }
+
+  // ===== S4 =====
+  if (t >= 17.5 && t < 22.5) {
+    const cz = camZ4(t), cx = camX4(t);
+    const rz = curve([[17.5, 8], [18.1, -3], [19.35, 3], [20.6, -3], [21.85, 3], [22.5, 0]])(t);
+    cam4.style.transform = `rotate(${rz}deg) translate3d(${-cx}px,40px,${cz}px)`;
+    cards4.forEach((c) => {
+      const rel = c.z + cz; // < 0 — впереди камеры
+      c.d.style.transform = `translate3d(${c.x}px,${c.y}px,${c.z}px) rotateY(${c.ry}deg)`;
+      const vis = rel < 900 && rel > -6500; c.d.style.display = vis ? 'block' : 'none';
+      if (!vis) return;
+      const fog = cl((-rel - 1500) / 4500);
+      const dof = c.main ? Math.abs(rel + 450) / 220 : 3 + Math.abs(rel + 450) / 300;
+      c.d.style.filter = `blur(${Math.min(9, dof).toFixed(1)}px) brightness(${(1 - 0.75 * fog) * (c.main ? 1 : .7)})`;
+      setSrc(c.im, clipSrc(c.clip, t, 17.5 - (c.main ? 0 : 2)));
+    });
+    // слово к текущей карточке
+    let cur = -1; FEAT.forEach((f, i) => { if (t >= f[2] - 0.2) cur = i; });
+    if (cur >= 0) {
+      const tf = FEAT[cur][2]; const word = FEAT[cur][1];
+      if (w4.dataset.w !== word) { w4.dataset.w = word; w4._ch = letters(w4, word); }
+      const out = cur < 3 ? seg(t, FEAT[cur + 1][2] - 0.35, FEAT[cur + 1][2] - 0.2) : seg(t, 22.3, 22.5);
+      charIn(w4._ch, t, tf - 0.2, 0.03, 0.3, (c, q) => { const e = E.ob(q); c.style.opacity = cl(q * 3) * (1 - out); c.style.transform = `translateY(${(1 - e) * 110 - out * 60}px) rotateX(${(1 - e) * -90}deg)`; });
+      w4.style.transform = `translateX(${(cur % 2 ? -1 : 1) * 420}px)`;
+    }
+    $('s4').style.opacity = cl(seg(t, 17.5, 17.62)) * (1 - seg(t, 22.35, 22.5));
+    const vz = (cz - camZ4(t - 1 / 60)) * 60; // скорость камеры → полёт пылинок
+    boks.forEach((b) => { const yy = (b.y + t * 40 * b.sp) % 1080; const xx = (b.x + (b.x - 960) * ((t - 17.5) * 0.4 * b.sp)) ; const xr = ((xx % 2400) + 2400) % 2400 - 240; b.d.style.transform = `translate(${xr}px,${yy}px) scale(${1 + Math.min(4, Math.abs(vz) / 3000) * b.sp})`; b.d.style.filter = 'blur(3px)'; });
+  }
+
+  // ===== S5 =====
+  if (t >= 22.5 && t < 26.25) {
+    const k = E.io(seg(t, 22.5, 24.3));
+    const rx = lerp(60, 80, k);            // взгляд от карты к горизонту
+    const ty = lerp(-60, 330, k);          // карта уходит вниз, в кадр входит небо над ней
+    const sc = curve([[22.5, 1.0], [24.3, 0.72], [26.25, 0.68]])(t);
+    const rz = lerp(-6, 3, seg(t, 22.5, 26.25));
+    cam5.style.transform = `translateY(${ty}px) scale(${sc}) rotateX(${rx}deg) rotateZ(${rz}deg)`;
+    $('sky5').style.transform = `translateY(${lerp(-100, 560, k)}px)`;
+    const beamH = 470 * E.oc(seg(t, 22.9, 23.7));
+    $('mark').style.left = '-120px'; $('mark').style.top = '250px'; $('mark').style.transform = `scale(${1 + 0.15 * Math.sin(t * 8)})`;
+    $('beam').style.left = '-120px'; $('beam').style.top = '250px'; $('beam').style.height = beamH + 'px';
+    $('beam').style.transformOrigin = '50% 0'; $('beam').style.transform = `rotateX(90deg)`;
+    rooms.forEach((o, i) => {
+      const q = E.ob(seg(t, 23.0 + i * 0.18, 23.6 + i * 0.18));
+      const bob = Math.sin(t * 1.6 + i) * 14;
+      o.r.style.transform = `translate3d(${o.x}px,${o.y}px,${o.z * (0.2 + 0.8 * q) + bob}px) rotateZ(${-rz}deg) rotateX(${-rx}deg) rotateY(${o.ry + 8 * Math.sin(t * .7 + i)}deg) scale(${(0.3 + 0.7 * q) * 1.5})`;
+      o.r.style.opacity = cl(q * 2);
+      setSrc(o.im, clipSrc(o.clip, t, 20));
+    });
+    charIn(h5, t, 23.6, 0.025, 0.3, (c, q) => { const e = E.ob(q); c.style.opacity = cl(q * 3); c.style.transform = `translateY(${(1 - e) * 70}px)`; });
+    $('s5').style.opacity = cl(seg(t, 22.5, 22.62)) * (1 - seg(t, 26.1, 26.25));
+  }
+
+  // ===== S6 =====
+  if (t >= 26.25) {
+    const cj = E.ob(seg(t, 26.25, 26.85));
+    $('cj6').style.transform = `translateY(${(1 - cj) * 700}px) rotate(${(1 - cj) * -6}deg) translateX(${(t - 26.25) * -6}px)`;
+    const lg = E.os(seg(t, 26.35, 27.2));
+    $('logo6').style.transform = `scale(${0.3 + 0.7 * lg}) rotate(${(1 - lg) * 12}deg)`; $('logo6').style.opacity = cl(seg(t, 26.35, 26.5));
+    charIn(t6, t, 26.55, 0.022, 0.32, (c, q) => { const e = E.ob(q); c.style.opacity = cl(q * 3); c.style.transform = `translateY(${(1 - e) * 90}px) rotateX(${(1 - e) * 70}deg)`; });
+    charIn(sub6Ch, t, 27.35, 0.015, 0.3, (c, q) => { c.style.opacity = q; c.style.transform = `translateX(${(1 - E.oc(q)) * 30}px)`; });
+    $('bg6').style.transform = `scale(${1.04 + (t - 26.25) * 0.012}) translateX(${(t - 26.25) * -8}px)`;
+    $('s6').style.transform = `perspective(1500px) rotateY(${lerp(-4, 0, E.oc(seg(t, 26.25, 28)))}deg) scale(${1.06 - 0.06 * E.oc(seg(t, 26.25, 28))})`;
+  }
+
+  // ===== HUD памяти (нить) =====
+  let v = 0, vis = 0;
+  if (t >= 5.6 && t < 22.5) { vis = cl(seg(t, 5.6, 6.0)) * (t > 22.2 ? 1 - seg(t, 22.2, 22.5) : 1); v = t < 10 ? 32 * seg(t, 7.5, 10.0) : 26 + 5 * (0.5 + 0.5 * Math.sin(t * 2.1)) + (t > 17.5 ? 1 : 0); }
+  if (t >= 26.25) { vis = cl(seg(t, 26.4, 26.7)); v = 32 * E.oc(seg(t, 26.4, 27.3)); }
+  $('hud').style.opacity = vis; $('hudb').style.width = (v / 32 * 100).toFixed(1) + '%'; $('hudv').textContent = `${Math.round(v)} / 32 МБ`;
+  if (t >= 26.25) $('hud').style.top = '960px';
+  else $('hud').style.top = '60px';
+
+  grain(t);
+  await Promise.all(pending);
+  await new Promise(requestAnimationFrame);
+};
+document.fonts.ready.then(async () => { await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await window.renderAt(0); window.__ready = true; });
+</script>
+</body></html>

@@ -1,0 +1,12 @@
+Тизер GTA SA v2 — источники звука
+
+Голос: автор канала (фразы из основного ролика gta_sa/voice/gta_sa_voice_main.mp3).
+
+Музыка (нужна подпись в описании видео):
+"Funkorama" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/
+
+Звуковые эффекты (CC0, подпись не нужна):
+- BigSoundBank.com (Joseph Sardin), CC0 — вжухи 1795–1801, 0128; щелчки 1735, 1742, 2821; страница 0164
+- OpenGameArt.org «Swishes Sound Pack», CC0

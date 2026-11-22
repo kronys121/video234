@@ -1,0 +1,117 @@
+# name | src | start | dur | что в кадре (проход 2, шаг 1 с)
+palm_sun      revisit 0.0 6.0     пальма против солнца, лучи, облака (ВСТУПЛЕНИЕ)
+trail_hut     revisit 6.5 9.5     тропа к хижине на холме, горы
+sea_view      revisit 16.0 6.0    вид с холма на море, джунгли
+valley_view   revisit 40.0 1.5    долина с деревней сверху
+hill_sea      revisit 42.5 6.0    холм, пальмы, море
+bush_run      revisit 48.0 5.0    бег сквозь кусты (листва)
+nano_punch    revisit 98.0 2.0    сила: удар/бросок
+nano_strength revisit 104.0 12.0  сила: враги, бросок, кусты
+jungle_deep   revisit 129.0 22.0  густые джунгли, свет сквозь листву (ЛУЧШИЙ)
+jungle_deep2  revisit 152.0 18.0  густые джунгли, огромные деревья
+waterfall     revisit 170.0 8.0   водопад с радугой (!!)
+waterfall2    revisit 197.0 2.5  водопад вблизи
+river_bridge  revisit 200.0 16.0  река, мост, хижина на воде
+cloak_run     revisit 220.0 6.0   НЕВИДИМОСТЬ, бег (фиолетовое оружие)
+cloak_hut     revisit 230.0 6.0   невидимость в хижине
+river_beach   revisit 272.0 13.0  река → пляж, вода
+underwater1   revisit 293.0 4.0   под водой (лучи)
+shore_rocks   revisit 299.0 10.0  берег, камни, вода, горы
+grass_close   revisit 309.0 15.0  трава/кусты крупно (ДЕТАЛИЗАЦИЯ)
+camp_shore    revisit 382.0 10.0  лагерь на берегу из-за камня
+dawn_bay      contact 64.0 7.0    рассвет над заливом, пальмы (!!)
+dawn_bay2     contact 73.0 3.0    рассвет, залив
+binoc_hud     contact 82.0 3.0    бинокль-HUD на лодку
+dawn_rocks    contact 93.0 7.0    рассвет, солнце, залив
+camp_dawn     contact 106.0 10.0  лагерь на рассвете, навесы, солнце
+camp_dawn2    contact 120.0 8.0   хижины на рассвете
+beach_sunset  contact 136.0 4.5   пляж на рассвете, солнце над водой (!!)
+strength_box  contact 193.0 4.0   сила: бросок генератора → ВЗРЫВ 3:18
+jeep_enter    contact 202.0 5.0   сел в джип у лагеря
+jeep_jungle   contact 209.0 24.0  ДЖИП сквозь джунгли, пальмы гнутся
+jeep_jungle2  contact 233.0 12.0  джип выезжает к пляжу
+jeep_beach    contact 246.0 9.0   джип по белому пляжу, солнце (!!)
+beach_boom    contact 272.0 6.0   пляж, джип, ВЗРЫВ 4:36
+beach_palms   contact 302.0 9.0   пляж, пальмы, тропа
+palms_close   contact 311.0 15.0  пальмы и кусты крупно, пляж
+jeep_gun      contact 408.0 10.0  джип с пулемётом в джунглях
+camp_attack   contact 426.0 16.0  атака на лагерь на джипе, железные крыши
+boat_fire     contact 456.0 12.0  залив, катер горит (взрыв 7:44)
+jeep_road     contact 566.0 33.0  джип по лесной дороге (!!)
+jeep_fog      relic 5.0 15.0      джип в туманных джунглях, стрельба
+fog_base      relic 21.0 4.0      туманная база, невидимость
+jeep_crash    relic 45.0 6.5      джип летит/врезается
+fog_jungle    relic 85.0 11.0     туманные джунгли (вид)
+pickup_fog    relic 112.0 23.0    пикап по туманному лесу (!!)
+pickup_base   relic 150.0 6.0     пикап врезается в шлагбаум
+big_tree      relic 164.0 8.0     огромное дерево, густые джунгли
+freeze        relic 365.5 4.0  белая вспышка → заморозка (лёд)
+heli_down     relic 508.0 7.0  ночь: вертолёт, ВЗРЫВ 8:32
+alien_attack  ascension 27.0 13.0 кат-сцена: пришелец атакует вертолёт
+vtol_fire     ascension 46.0 2.0  огонь у кабины
+vtol_canyon   ascension 52.0 6.0  полёт VTOL над ущельем, дым
+vtol_bridge   ascension 70.0 10.0 полёт, мост вдали
+vtol_sun      ascension 180.0 10.0 солнце сквозь тучи, ущелье
+vtol_battle   ascension 192.0 8.0 бой с пришельцами, выстрелы
+vtol_dome     ascension 264.0 8.0 купол пришельцев + ВЗРЫВ (!!)
+vtol_fight2   ascension 280.0 6.0 вспышки боя
+vtol_crash    ascension 318.0 8.0 горящий пришелец падает
+c2_art        ascension 361.0 15.0 арт Crysis 2: боец в снегу + Ceph
+palms_shoot   years18 6.0 18.0    стрельба по пальмам — ЛОМАЮТСЯ
+beach_rock    years18 26.0 4.0  пляж, скала
+hut_physics   years18 34.0 32.0   хижина: объекты разлетаются, удар (!!)
+hut_explode   years18 66.0 16.0   ВЗРЫВ хижины, листы летят (!!)
+barrel_leak   years18 82.0 26.0   бочка на причале, жидкость льётся
+water_shots   years18 108.0 10.0  выстрелы по воде, брызги
+tyre_jeep     years18 120.0 8.0   прострел шин джипа
+car_explode   years18 128.0 12.0  ВЗРЫВ машины, огонь
+car_burn      years18 132.0 7.0   машина горит в джунглях (вторая часть взрыва)
+sand_prints   years18 146.0 14.0  следы на песке
+bird_throw    years18 160.0 10.0  птица, бросок — перья (смешно)
+shallow_water years18 180.0 3.0   вода у берега
+underwater2   years18 183.0 26.0  ПОДВОДНЫЙ мир, рыба, лучи (!!)
+sw_plane      switch 58.0 29.0    Switch: самолёт C-17 над островом ночью
+sw_dawn       switch 546.0 6.0  Switch: рассвет, трава, пальмы
+sw_cloak      switch 567.0 15.0   Switch: рассвет, невидимость (синяя)
+sw_camp       switch 582.0 6.0  Switch: лагерь, мешки
+sw_jungle     switch 610.0 44.0   Switch: джунгли днём, пальмы, трава
+sw_rocks      switch 660.0 20.0   Switch: скалы, пляж
+sw_beach      switch 686.0 26.0   Switch: пляж, камни (видна дальность)
+sw_jeep       switch 770.0 6.0    Switch: пляж, джип
+sw_palms      switch 798.0 18.0   Switch: пляж → пальмы, папоротник
+sw_fogroad    switch 858.0 36.0   Switch: туманные джунгли, дорога (!!)
+c2_park_sun   c2_nyc 3.5 4.0      C2: набережная, солнце сквозь деревья, дым
+c2_sunset     c2_nyc 26.0 3.5  C2: набережная на закате, горящие обломки (!!)
+c2_park       c2_nyc 36.0 11.5    C2: набережная, деревья, город
+c2_skyline    c2_nyc 103.0 5.0  C2: улица с баррикадами, дым над небоскрёбами
+c2_ruins      c2_nyc 137.0 5.0    C2: обломки, вид на небоскрёбы
+c2_parkfence  c2_nyc 184.0 10.0   C2: парк, лучи сквозь ограду
+c2_tower      c2_nyc 255.0 7.0    C2: вышка, солнце сквозь дым
+c2_tunnel     c2_nyc 442.0 14.0   C2: оранжевый тоннель пришельцев
+c2_city_up    c2_nyc 515.0 15.0   C2: выход в город, небоскрёбы снизу вверх (!!)
+c2_street     c2_nyc 530.0 16.0   C2: улица, фура, разрушения
+c2_plaza      c2_nyc 688.0 12.0  C2: площадь, горящие машины, такси (!!)
+c2_taxi_boom  c2_nyc 740.0 8.0    C2: взрыв на улице, такси
+c2_taxi_st    c2_nyc 799.0 4.0  C2: улица, такси, здания
+c2_shadows    c2_nyc 819.0 10.0  C2: зелень, тени на тротуаре
+c2_avenue     c2_nyc 884.0 10.0  C2: улица с автобусом и небоскрёбами
+c2_sunset2    c2_nyc 33.0 3.0     C2: набережная, горящие машины
+c2_bldg       c2_nyc 806.0 4.0    C2: фасады зданий, улица
+fc_logo       farcry 8.0 4.0      Far Cry: логотип над морем (интро)
+fc_yacht      farcry 26.0 6.0     Far Cry: яхта в море (интро)
+fc_cave_exit  farcry 174.0 10.0   Far Cry: выход из пещеры, пляж и пальмы
+fc_hill_sea   farcry 300.0 10.0   Far Cry: холм, море, острова (!!)
+fc_village    farcry 324.0 12.0   Far Cry: деревня, пальмы, море
+fc_pier       farcry 340.0 5.0    Far Cry: причал, пляж
+fc_path       farcry 370.0 12.0   Far Cry: тропа, хижины, пальмы
+fc_lagoon     farcry 412.0 6.0    Far Cry: лагуна (!!)
+fc_swim       farcry 418.0 12.0   Far Cry: плывёт к острову, вода
+fc_jungle     farcry 430.0 12.0   Far Cry: зелёные джунгли
+fc_buggy      farcry 628.0 18.0   Far Cry: багги по джунглям
+fc_bay        farcry 652.0 22.0   Far Cry: вид на залив из багги (вода, отражения)
+fc_beach      farcry 680.0 8.0    Far Cry: пляж, остров
+fc_underwater farcry 712.0 12.0   Far Cry: под водой
+fc_shore      farcry 740.0 10.0   Far Cry: остров с пляжем, вода
+fc_jeep       farcry 800.0 26.0   Far Cry: джип по острову и пляжу
+fc_boat       farcry 862.0 18.0   Far Cry: катер, остров, корабль
+fc_ship       farcry 902.0 18.0   Far Cry: ржавый корабль в море

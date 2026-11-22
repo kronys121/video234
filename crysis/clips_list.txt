@@ -115,3 +115,14 @@ fc_shore      farcry 740.0 10.0   Far Cry: остров с пляжем, вод�
 fc_jeep       farcry 800.0 26.0   Far Cry: джип по острову и пляжу
 fc_boat       farcry 862.0 18.0   Far Cry: катер, остров, корабль
 fc_ship       farcry 902.0 18.0   Far Cry: ржавый корабль в море
+cmp3_dawn     compare 15.5 7.0    СРАВНЕНИЕ PS3|PC|360: залив на рассвете (!!)
+cmp_sunset    compare 70.5 18.5   СРАВНЕНИЕ PC|PS3: закат в джунглях
+cmp3_beach    compare 90.5 15.0   СРАВНЕНИЕ PS3|PC|360: пляж, стрельба
+cmp_hut       compare 112.5 13.0  СРАВНЕНИЕ PC|PS3: интерьер хижины
+cmp_palms     compare 152.5 15.0  СРАВНЕНИЕ PC|360: пальмы, дорога (!!)
+cmp_village   compare 168.5 6.0   СРАВНЕНИЕ PC|360: деревня
+cmp3_bark     compare 175.5 7.0   СРАВНЕНИЕ PS3|PC|360: кора пальмы крупно (текстуры)
+cmp_jungle    compare 205.5 20.0  СРАВНЕНИЕ PC|360: джунгли, пляж
+cmp_rocks     compare 232.5 14.0  СРАВНЕНИЕ PC|PS3: каменистое русло (!!)
+cmp_jeep      compare 247.5 24.0  СРАВНЕНИЕ PC|360: джип по пляжу
+cmp_frozen    compare 272.5 20.0  СРАВНЕНИЕ PC|360: замёрзший корабль

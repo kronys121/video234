@@ -109,3 +109,4 @@ crysis/clips/
 crysis/review/*
 !crysis/review/notes.md
 crysis/img_src/
+crysis/*_preview.jpg

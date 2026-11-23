@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Crysis · ggsel подводка</title>
+<style>
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-800-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)format('woff2')}
+@font-face{font-family:Emoji;src:url(../../gta6/v/fonts/NotoColorEmoji.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
+#stage{position:absolute;inset:0;overflow:hidden}
+.light{position:absolute;inset:-80px;background:radial-gradient(ellipse 70% 75% at 50% 44%,#ffffff 0%,#f4f4f4 38%,#dcdcdc 78%,#c9c9c9 100%)}
+.abs{position:absolute;left:0;top:0}
+.cam{position:absolute;inset:0}
+.shadow{filter:drop-shadow(0 28px 26px rgba(0,0,0,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.14))}
+.lbl{font-family:Mont,sans-serif;font-weight:800;color:#151515;white-space:nowrap}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em .06em}
+.w>span{display:inline-block}
+.emo{font-family:Emoji;line-height:1}
+</style></head><body>
+<div id="stage"><div class="light"></div>
+  <div class="cam" id="cam">
+    <img class="abs shadow" id="logo" src="crysis_logo.png" style="width:760px">
+    <img class="abs shadow" id="gpu" src="gpu_8800gtx.png" style="width:900px">
+    <div class="abs lbl" id="q1" style="font-size:96px"></div>
+    <svg class="abs" id="x" viewBox="0 0 100 100" style="width:300px;height:300px;overflow:visible"><line x1="12" y1="12" x2="88" y2="88" stroke="#e1252d" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><line x1="88" y1="12" x2="12" y2="88" stroke="#e1252d" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+    <div class="abs emo" id="tag" style="font-size:260px">🏷️</div>
+    <div class="abs lbl" id="q2" style="font-size:88px"></div>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = { oc: (x) => 1 - (1 - x) ** 3, oq: (x) => 1 - (1 - x) ** 4, ic: (x) => x * x * x, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x, c1 = 1.6) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; } };
+function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' '); return [...el.querySelectorAll('.w>span')]; }
+function wordsIn(arr, t, t0, stag = 0.06, d = 0.34, out = 0) { arr.forEach((s, i) => { const k = E.oq(seg(t, t0 + i * stag, t0 + i * stag + d)); s.style.transform = `translateY(${((1 - k) * 105 + out * 105).toFixed(1)}%)`; }); }
+function put(el, x, y, s = 1, r = 0, o = 1, extra = '') { el.style.opacity = o; el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${r}deg) scale(${s}) ${extra}`; }
+// тайминги слов: Хотя 0.00 · сейчас 0.20 · вопрос 0.44 · уже 0.68 · другой 0.90 · не 1.40 · потянет 1.48 · ли 1.96 · а 2.18 · где 2.26 · купить 2.44 · подешевле 2.74
+window.DUR = 3.95;
+const q1 = words($('q1'), 'А Crysis потянет?');
+const q2 = words($('q2'), 'Где купить подешевле?');
+window.renderAt = async function (t) {
+  // 1: логотип Crysis (0–1.35), уходит вверх
+  const kL = E.ob(seg(t, 0.0, 0.45), 1.2), oL = E.io(seg(t, 1.25, 1.55));
+  put($('logo'), 960, lerp(500, 260, oL), (0.7 + 0.3 * kL) * (1 - 0.35 * oL), 0, cl(kL * 3) * (1 - seg(t, 2.1, 2.3)));
+  // 2: видеокарта + «А Crysis потянет?» (1.35–2.15), зачёркивается на «ли»
+  const kG = E.oc(seg(t, 1.3, 1.7)), oG = E.io(seg(t, 2.1, 2.4));
+  put($('gpu'), lerp(-500, 960, kG) - oG * 1400, 560 + Math.sin(t * 2) * 6, 1, lerp(-8, 0, kG), cl(kG * 2) * (1 - oG));
+  put($('q1'), 960 - oG * 1400, 840, 1, 0, 1 - oG); wordsIn(q1, t, 1.38, 0.07, 0.3);
+  const lines = [...$('x').querySelectorAll('line')];
+  lines.forEach((ln, i) => { const q = E.oc(seg(t, 1.9 + i * 0.1, 2.06 + i * 0.1)); ln.setAttribute('stroke-dashoffset', (1 - q).toFixed(3)); });
+  put($('x'), 960 - oG * 1400, 560, 1, 0, (seg(t, 1.9, 1.92)) * (1 - oG));
+  // 3: ценник + «Где купить подешевле?» (2.2–3.95)
+  const kT = seg(t, 2.25, 2.65);
+  put($('tag'), 960, 420 + Math.sin(t * 2.5) * 8, kT > 0 ? 0.5 + 0.5 * E.ob(kT, 2) : 0.5, lerp(-25, -6, E.oc(kT)), cl(kT * 3));
+  put($('q2'), 960, 760, 1, 0, t > 2.2 ? 1 : 0); wordsIn(q2, t, 2.28, 0.13, 0.32);
+  $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 3.95)))})`;
+  await new Promise(requestAnimationFrame);
+};
+(async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await window.renderAt(0); window.__ready = true; })();
+</script>
+</body></html>

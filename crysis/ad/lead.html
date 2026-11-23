@@ -37,7 +37,7 @@ function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span clas
 function wordsIn(arr, t, t0, stag = 0.06, d = 0.34, out = 0) { arr.forEach((s, i) => { const k = E.oq(seg(t, t0 + i * stag, t0 + i * stag + d)); s.style.transform = `translateY(${((1 - k) * 105 + out * 105).toFixed(1)}%)`; }); }
 function put(el, x, y, s = 1, r = 0, o = 1, extra = '') { el.style.opacity = o; el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${r}deg) scale(${s}) ${extra}`; }
 // тайминги слов: Хотя 0.00 · сейчас 0.20 · вопрос 0.44 · уже 0.68 · другой 0.90 · не 1.40 · потянет 1.48 · ли 1.96 · а 2.18 · где 2.26 · купить 2.44 · подешевле 2.74
-window.DUR = 3.95;
+window.DUR = 3.40;
 const q1 = words($('q1'), 'А Crysis потянет?');
 const q2 = words($('q2'), 'Где купить подешевле?');
 window.renderAt = async function (t) {
@@ -55,7 +55,7 @@ window.renderAt = async function (t) {
   const kT = seg(t, 2.25, 2.65);
   put($('tag'), 960, 420 + Math.sin(t * 2.5) * 8, kT > 0 ? 0.5 + 0.5 * E.ob(kT, 2) : 0.5, lerp(-25, -6, E.oc(kT)), cl(kT * 3));
   put($('q2'), 960, 760, 1, 0, t > 2.2 ? 1 : 0); wordsIn(q2, t, 2.28, 0.13, 0.32);
-  $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 3.95)))})`;
+  $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 3.4)))})`;
   await new Promise(requestAnimationFrame);
 };
 (async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await window.renderAt(0); window.__ready = true; })();

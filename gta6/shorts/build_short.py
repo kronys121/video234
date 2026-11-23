@@ -3,7 +3,7 @@
 import json, os, subprocess, numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); G = os.path.dirname(HERE)
 SR = 48000; FPS = 60; END = 3.6
-SEGS = [(0.0, 21.55), (242.9, 261.85)]          # куски озвучки (сек оригинала)
+SEGS = [(0.0, 21.55), (242.9, 280.76)]          # куски озвучки (сек оригинала)
 W = json.load(open(f'{G}/voice/words.json'))
 # слова на шкале шорта
 words = []; t0 = 0.0
@@ -13,7 +13,9 @@ for a, b in SEGS:
     t0 += b - a
 VO = t0; TOTAL = VO + END
 # правки распознавания
-FIX = {'Race': 'RAGE', 'E': 'ИИ', '.E.': '', '6': '6', 'Рукстар': 'Rockstar', 'чистоты': 'частоты', 'мс': 'мс'}
+FIX = {'Race': 'RAGE', 'E': 'ИИ', '.E.': '', '6': '6', 'Рукстар': 'Rockstar', 'чистоты': 'частоты', 'Прошлых': 'В прошлых', 'данные': 'здания', 'отечения': 'отсечение', 'мс': 'мс'}
+for i, w in enumerate(words):
+    if w['w'] == 'это' and i + 1 < len(words) and words[i + 1]['w'] == 'отечения': w['w'] = ''
 for w in words: w['w'] = FIX.get(w['w'], w['w'])
 words = [w for w in words if w['w']]
 # ---------- видео: кадры монтажа из полного ролика (render_frames.mjs) -> 9:16 ----------

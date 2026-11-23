@@ -2,7 +2,7 @@
 //   node gta6/shorts/render_frames.mjs <workers>   (из корня репо) -> gta6/shorts/frames/f00000.jpg
 import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import { chromium } from 'playwright';
 const HERE = path.dirname(new URL(import.meta.url).pathname); const ROOT = path.resolve(HERE, '../..');
-const SEGS = [[0.0, 21.55], [242.9, 261.85]]; const FPS = 60;
+const SEGS = [[0.0, 21.55], [242.9, 280.76]]; const FPS = 60;
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.png': 'image/png', '.jpg': 'image/jpeg', '.json': 'application/json' };
 const server = http.createServer((req, res) => { const f = path.join(ROOT, decodeURIComponent(req.url.split('?')[0]));
   if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { res.writeHead(404); return res.end(); }

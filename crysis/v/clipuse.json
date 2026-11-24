@@ -1,0 +1,506 @@
+[
+{
+"key": "000_palm_sun",
+"name": "palm_sun",
+"off": 0,
+"dur": 1.82,
+"at": -0.2,
+"small": true
+},
+{
+"key": "001_c2_park_sun",
+"name": "c2_park_sun",
+"off": 0,
+"dur": 4,
+"at": 1.22,
+"small": true
+},
+{
+"key": "002_jungle_deep2",
+"name": "jungle_deep2",
+"off": 0,
+"dur": 5.85,
+"at": 9.65,
+"small": false
+},
+{
+"key": "003_jeep_fog",
+"name": "jeep_fog",
+"off": 0,
+"dur": 10.22,
+"at": 15.1,
+"small": true
+},
+{
+"key": "004_dawn_rocks",
+"name": "dawn_rocks",
+"off": 0,
+"dur": 6.14,
+"at": 29.36,
+"small": true
+},
+{
+"key": "005_fc_swim",
+"name": "fc_swim",
+"off": 0,
+"dur": 7.7,
+"at": 43.9,
+"small": true
+},
+{
+"key": "006_fc_logo",
+"name": "fc_logo",
+"off": 0,
+"dur": 2.95,
+"at": 51.45,
+"small": false
+},
+{
+"key": "007_fc_village",
+"name": "fc_village",
+"off": 0,
+"dur": 1.45,
+"at": 54.25,
+"small": false
+},
+{
+"key": "008_fc_hill_sea",
+"name": "fc_hill_sea",
+"off": 0,
+"dur": 5.55,
+"at": 55.55,
+"small": false
+},
+{
+"key": "009_fc_shore",
+"name": "fc_shore",
+"off": 0,
+"dur": 5.07,
+"at": 60.95,
+"small": false
+},
+{
+"key": "010_fc_bay",
+"name": "fc_bay",
+"off": 0,
+"dur": 4.22,
+"at": 65.62,
+"small": true
+},
+{
+"key": "011_fc_cave_exit",
+"name": "fc_cave_exit",
+"off": 0,
+"dur": 5.76,
+"at": 69.44,
+"small": true
+},
+{
+"key": "012_fc_jungle",
+"name": "fc_jungle",
+"off": 0,
+"dur": 6.22,
+"at": 79,
+"small": false
+},
+{
+"key": "013_sw_plane",
+"name": "sw_plane",
+"off": 0,
+"dur": 8.84,
+"at": 86.72,
+"small": true
+},
+{
+"key": "014_jungle_deep",
+"name": "jungle_deep",
+"off": 0,
+"dur": 2.14,
+"at": 99.16,
+"small": false
+},
+{
+"key": "015_grass_close",
+"name": "grass_close",
+"off": 0,
+"dur": 4.45,
+"at": 101.15,
+"small": false
+},
+{
+"key": "016_palms_shoot",
+"name": "palms_shoot",
+"off": 0,
+"dur": 4.05,
+"at": 105.45,
+"small": false
+},
+{
+"key": "017_hut_explode",
+"name": "hut_explode",
+"off": 0,
+"dur": 2.99,
+"at": 109.35,
+"small": false
+},
+{
+"key": "018_underwater2",
+"name": "underwater2",
+"off": 0,
+"dur": 7.1,
+"at": 112.2,
+"small": false
+},
+{
+"key": "019_dawn_bay",
+"name": "dawn_bay",
+"off": 0,
+"dur": 4.9,
+"at": 114.4,
+"small": false
+},
+{
+"key": "020_cloak_hut",
+"name": "cloak_hut",
+"off": 0,
+"dur": 4.3,
+"at": 123.5,
+"small": false
+},
+{
+"key": "021_nano_strength",
+"name": "nano_strength",
+"off": 0,
+"dur": 6.21,
+"at": 127.65,
+"small": false
+},
+{
+"key": "022_cmp_hut",
+"name": "cmp_hut",
+"off": 0,
+"dur": 4.03,
+"at": 140.25,
+"small": false
+},
+{
+"key": "023_jungle_deep",
+"name": "jungle_deep",
+"off": 3,
+"dur": 3.2,
+"at": 151.3,
+"small": false
+},
+{
+"key": "024_bush_run",
+"name": "bush_run",
+"off": 0,
+"dur": 1.2,
+"at": 153.3,
+"small": false
+},
+{
+"key": "025_river_bridge",
+"name": "river_bridge",
+"off": 0,
+"dur": 3.87,
+"at": 154.35,
+"small": false
+},
+{
+"key": "026_shore_rocks",
+"name": "shore_rocks",
+"off": 0,
+"dur": 3.02,
+"at": 155.2,
+"small": false
+},
+{
+"key": "027_palm_sun",
+"name": "palm_sun",
+"off": 1.92,
+"dur": 2.68,
+"at": 157.82,
+"small": true
+},
+{
+"key": "028_car_explode",
+"name": "car_explode",
+"off": 0,
+"dur": 4.2,
+"at": 176.9,
+"small": false
+},
+{
+"key": "029_palms_shoot",
+"name": "palms_shoot",
+"off": 4.15,
+"dur": 7.06,
+"at": 191.2,
+"small": true
+},
+{
+"key": "030_camp_attack",
+"name": "camp_attack",
+"off": 0,
+"dur": 7.24,
+"at": 219.88,
+"small": true
+},
+{
+"key": "031_c2_sunset",
+"name": "c2_sunset",
+"off": 0,
+"dur": 2.68,
+"at": 266.12,
+"small": true
+},
+{
+"key": "032_beach_sunset",
+"name": "beach_sunset",
+"off": 0,
+"dur": 2.12,
+"at": 288.38,
+"small": true
+},
+{
+"key": "033_jeep_crash",
+"name": "jeep_crash",
+"off": 0,
+"dur": 4.42,
+"at": 303.24,
+"small": true
+},
+{
+"key": "034_c2_city_up",
+"name": "c2_city_up",
+"off": 0,
+"dur": 4.74,
+"at": 310.3,
+"small": false
+},
+{
+"key": "035_c2_street",
+"name": "c2_street",
+"off": 0,
+"dur": 6.4,
+"at": 314.9,
+"small": false
+},
+{
+"key": "036_c2_avenue",
+"name": "c2_avenue",
+"off": 0,
+"dur": 6.09,
+"at": 321.15,
+"small": false
+},
+{
+"key": "037_c2_plaza",
+"name": "c2_plaza",
+"off": 0,
+"dur": 7.1,
+"at": 327.1,
+"small": false
+},
+{
+"key": "038_fc_hill_sea",
+"name": "fc_hill_sea",
+"off": 5.65,
+"dur": 2.78,
+"at": 333.8,
+"small": true
+},
+{
+"key": "039_jungle_deep2",
+"name": "jungle_deep2",
+"off": 7,
+"dur": 9.55,
+"at": 344.35,
+"small": false
+},
+{
+"key": "040_trail_hut",
+"name": "trail_hut",
+"off": 0,
+"dur": 2.94,
+"at": 369.84,
+"small": true
+},
+{
+"key": "041_cmp_jungle",
+"name": "cmp_jungle",
+"off": 0,
+"dur": 5.34,
+"at": 374.5,
+"small": false
+},
+{
+"key": "042_cmp_palms",
+"name": "cmp_palms",
+"off": 0,
+"dur": 4.98,
+"at": 379.7,
+"small": false
+},
+{
+"key": "043_cmp_rocks",
+"name": "cmp_rocks",
+"off": 0,
+"dur": 6.67,
+"at": 384.55,
+"small": false
+},
+{
+"key": "044_cmp_jeep",
+"name": "cmp_jeep",
+"off": 0,
+"dur": 4.1,
+"at": 392.9,
+"small": false
+},
+{
+"key": "045_jeep_beach",
+"name": "jeep_beach",
+"off": 0,
+"dur": 6.07,
+"at": 396.85,
+"small": false
+},
+{
+"key": "046_cmp3_bark",
+"name": "cmp3_bark",
+"off": 0,
+"dur": 3.2,
+"at": 405.3,
+"small": false
+},
+{
+"key": "047_camp_attack",
+"name": "camp_attack",
+"off": 8,
+"dur": 7.89,
+"at": 408.35,
+"small": false
+},
+{
+"key": "048_cmp_sunset",
+"name": "cmp_sunset",
+"off": 0,
+"dur": 5.6,
+"at": 416.1,
+"small": false
+},
+{
+"key": "049_cmp3_dawn",
+"name": "cmp3_dawn",
+"off": 0,
+"dur": 3.58,
+"at": 427.2,
+"small": true
+},
+{
+"key": "050_sw_dawn",
+"name": "sw_dawn",
+"off": 0,
+"dur": 2.64,
+"at": 430.38,
+"small": true
+},
+{
+"key": "051_vtol_bridge",
+"name": "vtol_bridge",
+"off": 0,
+"dur": 6.8,
+"at": 432.9,
+"small": false
+},
+{
+"key": "052_vtol_battle",
+"name": "vtol_battle",
+"off": 0,
+"dur": 4.75,
+"at": 439.55,
+"small": false
+},
+{
+"key": "053_vtol_dome",
+"name": "vtol_dome",
+"off": 0,
+"dur": 4.13,
+"at": 444.15,
+"small": false
+},
+{
+"key": "054_fc_village",
+"name": "fc_village",
+"off": 1.55,
+"dur": 8.32,
+"at": 447.88,
+"small": true
+},
+{
+"key": "055_vtol_crash",
+"name": "vtol_crash",
+"off": 0,
+"dur": 6.03,
+"at": 456.05,
+"small": false
+},
+{
+"key": "056_beach_rock",
+"name": "beach_rock",
+"off": 0,
+"dur": 1.82,
+"at": 461.68,
+"small": true
+},
+{
+"key": "057_fog_jungle",
+"name": "fog_jungle",
+"off": 0,
+"dur": 7.32,
+"at": 493.88,
+"small": true
+},
+{
+"key": "058_sw_jungle",
+"name": "sw_jungle",
+"off": 0,
+"dur": 4.26,
+"at": 510.7,
+"small": false
+},
+{
+"key": "059_sw_cloak",
+"name": "sw_cloak",
+"off": 0,
+"dur": 8.27,
+"at": 539.55,
+"small": false
+},
+{
+"key": "060_vtol_sun",
+"name": "vtol_sun",
+"off": 0,
+"dur": 8.18,
+"at": 568.1,
+"small": false
+},
+{
+"key": "061_vtol_canyon",
+"name": "vtol_canyon",
+"off": 0,
+"dur": 3.87,
+"at": 576.15,
+"small": false
+},
+{
+"key": "062_sw_palms",
+"name": "sw_palms",
+"off": 0,
+"dur": 9.5,
+"at": 625.8,
+"small": true
+}
+]

@@ -5,7 +5,10 @@
   "scripts": {
     "prepare-clips": "node prepare-clips.mjs",
     "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
-    "render": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short out/gta6_short_tiktok.mp4 --concurrency=6"
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short out/gta6_short1.mp4 --concurrency=6 && remotion render src/index.ts GTA6Short2 out/gta6_short2_police.mp4 --concurrency=6 && remotion render src/index.ts GTA6Short3 out/gta6_short3_tricks.mp4 --concurrency=6",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short out/gta6_short1.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short2 out/gta6_short2_police.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short3 out/gta6_short3_tricks.mp4 --concurrency=6"
   },
   "dependencies": {
     "@remotion/cli": "4.0.536",

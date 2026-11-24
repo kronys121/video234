@@ -1,11 +1,14 @@
 # TikTok/Shorts 1080x1920 по ролику GTA 6: голос автора (2 куска), геймплей 9:16, субтитры по словам, финал «продолжение на канале».
 #   python3 build_short.py          -> gta6_short_tiktok.mp4
 #   python3 build_short.py --data   -> tmp/audio.wav + tmp/short_data.json (для проекта Remotion)
-import json, os, subprocess, sys, numpy as np
-DATA = '--data' in sys.argv
+import json, os, subprocess, sys, argparse, numpy as np
+ap = argparse.ArgumentParser(); ap.add_argument('--data', action='store_true'); ap.add_argument('--name', default='short1')
+ap.add_argument('--segs', default='0,21.55;242.9,280.76', help='куски озвучки: a,b;c,d')
+ap.add_argument('--hook', default='GTA 6 НЕ ДОЛЖНА|БЫЛА РАБОТАТЬ НА PS5', help='крючок сверху, строки через |')
+ARGS = ap.parse_args(); DATA = ARGS.data; NAME = ARGS.name
 HERE = os.path.dirname(os.path.abspath(__file__)); G = os.path.dirname(HERE)
 SR = 48000; FPS = 60; END = 3.6
-SEGS = [(0.0, 21.55), (242.9, 280.76)]          # куски озвучки (сек оригинала)
+SEGS = [tuple(float(x) for x in p.split(',')) for p in ARGS.segs.split(';')]   # куски озвучки (сек оригинала)
 W = json.load(open(f'{G}/voice/words.json'))
 # слова на шкале шорта
 words = []; t0 = 0.0
@@ -15,10 +18,34 @@ for a, b in SEGS:
     t0 += b - a
 VO = t0; TOTAL = VO + END
 # правки распознавания
-FIX = {'Race': 'RAGE', 'E': 'ИИ', '.E.': '', '6': '6', 'Рукстар': 'Rockstar', 'чистоты': 'частоты', 'Прошлых': 'В прошлых', 'данные': 'здания', 'отечения': 'отсечение', 'мс': 'мс'}
+FIX = {'Race': 'RAGE', 'E': 'ИИ', '.E.': '', '6': '6', 'Рукстар': 'Rockstar', 'чистоты': 'частоты', 'Прошлых': 'В прошлых', 'данные': 'здания', 'отечения': 'отсечение', 'появляете': 'появлялись', 'По': 'По', 'дефки': 'девкиты', 'видеучип': 'видеочип', 'сколок': 'осколок', 'секла': 'стекла', 'схитрость': 'хитрость', 'ей': 'ИИ', 'состровами': 'с островами', 'гряясь': 'грязь,', 'под,': 'пот,', 'Весь': 'Вся', 'мс': 'мс'}
 for i, w in enumerate(words):
     if w['w'] == 'это' and i + 1 < len(words) and words[i + 1]['w'] == 'отечения': w['w'] = ''
 for w in words: w['w'] = FIX.get(w['w'], w['w'])
+words = [w for w in words if w['w']]
+# склейка «что -то», «GPS -трекеры», «рок -стар»
+mw = []
+for w in words:
+    if w['w'].startswith('-') and len(w['w']) > 1 and mw: mw[-1]['w'] += w['w']; mw[-1]['e'] = w['e']
+    else: mw.append(w)
+words = mw
+# правки по смыслу: по «ядру» слова (без знаков), знаки сохраняются
+PUN = '.,?!:;«»'
+def core(x): return x.strip(PUN).lower()
+def setc(w, new): lead = len(w['w']) - len(w['w'].lstrip(PUN)); tail = len(w['w']) - len(w['w'].rstrip(PUN)); w['w'] = w['w'][:lead] + new + (w['w'][len(w['w']) - tail:] if tail else '')
+WFIX = {'рок-стар': 'Rockstar', 'рук-стар': 'Rockstar', 'имеющим': 'имеющимся', 'добавок': 'вдобавок', 'блестяще': 'блестящее', 'анимация': 'анимаций', 'звездами': 'звёздами'}
+for i, w in enumerate(words):
+    c = core(w['w']); nx = core(words[i + 1]['w']) if i + 1 < len(words) else ''; nx2 = core(words[i + 2]['w']) if i + 2 < len(words) else ''
+    if c in WFIX: setc(w, WFIX[c])
+    if c == 'по' and nx == 'звездами': setc(w, 'Над')
+    if c == 'стоит' and nx.startswith('gps'): setc(w, 'стоят')
+    if c == 'в' and nx == 'ваше' and i and core(words[i - 1]['w']) == 'отправляют': w['w'] = ''
+    if c == 'каждая' and nx == 'осколок': setc(w, 'каждый')
+    if c == 'игры' and nx == 'не' and nx2 == 'нужно': setc(w, 'игре')
+    if c == 'и' and i and core(words[i - 1]['w']) == 'вся' and nx == 'такая': w['w'] = ''
+    if c == 'с' and i and core(words[i - 1]['w']) == 'трюк': w['w'] = ''
+    if c == 'ровно' and nx == 'и': setc(w, 'ровное')
+    if c == 'стала' and i and core(words[i - 1]['w']) == 'данным': setc(w, 'стало')
 words = [w for w in words if w['w']]
 # ---------- видео: кадры монтажа из полного ролика (render_frames.mjs) -> 9:16 ----------
 os.makedirs(f'{HERE}/tmp', exist_ok=True)
@@ -83,15 +110,15 @@ m = load(f'{G}/music/Electro Cabello.mp3'); m = m / (np.abs(m).max() + 1e-9); m 
 t = np.arange(len(m)) / SR
 g = np.where(t < VO, 10 ** (-21 / 20), 10 ** (-12 / 20)) * np.clip((TOTAL - t) / 1.2, 0, 1)
 out[:len(m)] += m * g[:, None]
-subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=9', '-ar', str(SR), '-t', f'{TOTAL:.3f}', f'{HERE}/tmp/audio.wav'],
+subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 'f32le', '-ar', str(SR), '-ac', '2', '-i', '-', '-af', 'loudnorm=I=-14:TP=-1.5:LRA=9', '-ar', str(SR), '-t', f'{TOTAL:.3f}', f'{HERE}/tmp/{NAME}_audio.wav'],
                input=out.astype(np.float32).tobytes(), check=True)
 if DATA:
-    json.dump({'segs': SEGS, 'vo': VO, 'end': END, 'total': TOTAL,
+    json.dump({'segs': SEGS, 'vo': VO, 'end': END, 'total': TOTAL, 'hook': ARGS.hook.split('|'),
                'groups': [[{'w': x['w'].upper(), 't': round(x['t'], 3), 'e': round(x['e'], 3)} for x in g] for g in groups]},
-              open(f'{HERE}/tmp/short_data.json', 'w'), ensure_ascii=False)
+              open(f'{HERE}/tmp/{NAME}_data.json', 'w'), ensure_ascii=False)
     print('data ok'); sys.exit()
 # ---------- сборка ----------
-subprocess.run(['ffmpeg', '-nostdin', '-y', '-v', 'error', '-i', f'{HERE}/tmp/bg.mp4', '-i', f'{HERE}/tmp/audio.wav',
+subprocess.run(['ffmpeg', '-nostdin', '-y', '-v', 'error', '-i', f'{HERE}/tmp/bg.mp4', '-i', f'{HERE}/tmp/{NAME}_audio.wav',
                 '-vf', f"subtitles={HERE}/tmp/subs.ass:fontsdir=/usr/share/fonts/opentype/inter", '-t', f'{TOTAL:.3f}',
                 '-c:v', 'libx264', '-preset', 'slow', '-crf', '18', '-pix_fmt', 'yuv420p', '-r', str(FPS), '-c:a', 'aac', '-b:a', '192k', '-movflags', '+faststart',
                 f'{HERE}/gta6_short_tiktok.mp4'], check=True)

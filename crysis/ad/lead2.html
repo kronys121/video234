@@ -102,14 +102,16 @@ window.renderAt = async function (t) {
   const kO = seg(t, 6.2, 6.5);
   put($('out6'), 1330 - o5 * 1500, 250, pops(kO, 2), -4, cl(kO * 3) * (1 - o5));
   // 6: «Самое время пополнить PSN» + баланс, на «ggsel» — логотип (7.42–10.3)
-  const kTi = t > 7.3 ? 1 : 0; put($('t6'), 960, 230, 1, 0, kTi); wordsIn(t6, t, 7.42, 0.22, 0.32);
+  // к слову «ggsel» всё уходит — остаётся только логотип по центру
+  const oA = E.io(seg(t, 9.3, 9.6));
+  const kTi = t > 7.3 ? 1 - oA : 0; put($('t6'), 960, 230 - oA * 60, 1, 0, kTi); wordsIn(t6, t, 7.42, 0.22, 0.32);
   $('u6').style.opacity = kTi; $('u6').style.transform = `translate(-50%,-50%) translate(960px,300px) scaleX(${E.oc(seg(t, 8.06, 8.4))})`; $('u6').style.transformOrigin = '0 50%';
-  const kB = seg(t, 7.7, 8.1), mB = E.io(seg(t, 9.45, 9.85));
-  put($('bal'), lerp(960, 600, mB), lerp(560, 640, mB), pops(kB, 1.3) * (1 - 0.2 * mB), 0, cl(kB * 3));
+  const kB = seg(t, 7.7, 8.1);
+  put($('bal'), 960, 560 + oA * 60, pops(kB, 1.3) * (1 - 0.25 * oA), 0, cl(kB * 3) * (1 - oA));
   const v = Math.round(E.oc(seg(t, 8.5, 9.6)) * 5000 / 100) * 100;
   $('balv').textContent = `${v.toLocaleString('ru-RU').replace(/\s/g, ' ')} ₽`;
   const kGg = seg(t, 9.55, 9.95);
-  put($('gg'), lerp(1500, 1360, E.oc(kGg)), 640, pops(kGg, 1.8) * 0.9, 0, cl(kGg * 3));
+  put($('gg'), 960, 540, pops(kGg, 1.8) * 1.55, 0, cl(kGg * 3));
   // камера
   $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 10.3)))})`;
   await Promise.all(pending); await new Promise(requestAnimationFrame);

@@ -2,13 +2,12 @@
 // Картинка — тот же движок монтажа, что и в полном ролике (public/site/gta6): вырезки, иконки, надписи, цифры.
 // Окно монтажа по центру с мягкими краями; для каждой сцены заранее подобраны масштаб и центр (data.cams),
 // чтобы все элементы сцены целиком помещались в вертикальный кадр. За окном — размытая копия того же кадра.
-// Сверху крючок, снизу субтитры по словам, в конце карточка «продолжение на канале @kronyscs».
+// Сверху крючок, снизу субтитры по словам, в конце карточка «продолжение на YouTube-канале KRONYS».
 import React, { useEffect, useRef, useState } from 'react';
 import { AbsoluteFill, Audio, continueRender, delayRender, interpolate, staticFile, useCurrentFrame, Easing } from 'remotion';
 
 export const FPS = 60;
 const YEL = '#FFE135';
-const CHANNEL = '@kronyscs';
 const WIN_TOP = 470;                   // зона окна монтажа: 1080 x 900, y 470…1370 (окно по высоте кадра, по центру зоны)
 
 type Wd = { w: string; t: number; e: number };
@@ -121,10 +120,10 @@ export const Short: React.FC<ShortProps> = ({ data: D, audio }) => {
       )}
       {end && (
         <>
-          <div style={{ position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center', fontFamily: 'InterBlack', fontSize: 96, lineHeight: 1.15, color: '#fff',
-            opacity: fade(st, VO + 0.05, VO + 0.2), transform: `scale(${pop(st, VO + 0.05, 0.2)})`, ...stroke(4) }}>ПРОДОЛЖЕНИЕ<br />НА КАНАЛЕ</div>
+          <div style={{ position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center', fontFamily: 'InterBlack', fontSize: 78, lineHeight: 1.18, color: '#fff',
+            opacity: fade(st, VO + 0.05, VO + 0.2), transform: `scale(${pop(st, VO + 0.05, 0.2)})`, ...stroke(4) }}>ПРОДОЛЖЕНИЕ<br />НА YOUTUBE-КАНАЛЕ</div>
           <div style={{ position: 'absolute', left: 0, right: 0, top: 1005, textAlign: 'center', fontFamily: 'InterBlack', fontSize: 120, color: YEL,
-            opacity: fade(st, VO + 0.35, VO + 0.5), transform: `scale(${pop(st, VO + 0.35, 0.22, 0.5)})`, ...stroke(5) }}>{CHANNEL}</div>
+            opacity: fade(st, VO + 0.35, VO + 0.5), transform: `scale(${pop(st, VO + 0.35, 0.22, 0.5)})`, ...stroke(5) }}>KRONYS</div>
           <div style={{ position: 'absolute', left: 0, right: 0, top: 1250, textAlign: 'center', fontFamily: 'InterBlack', fontSize: 64, color: '#fff',
             opacity: fade(st, VO + 0.7, VO + 0.85), transform: `translateY(${Math.sin(st * 6) * 8}px)`, ...stroke(3) }}>ПОЛНЫЙ РАЗБОР ↓</div>
         </>

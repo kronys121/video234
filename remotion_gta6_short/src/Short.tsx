@@ -12,7 +12,7 @@ const WIN_TOP = 470;                   // зона окна монтажа: 1080
 
 type Wd = { w: string; t: number; e: number };
 type Cam = { si: number; t0: number; t1: number; s: number; h: number; cx: number; cy: number };
-export type ShortData = { segs: number[][]; vo: number; end: number; total: number; hook: string[]; groups: Wd[][]; cams: Cam[]; win: { w: number; h: number } };
+export type ShortData = { page?: string; segs: number[][]; vo: number; end: number; total: number; hook: string[]; groups: Wd[][]; cams: Cam[]; win: { w: number; h: number } };
 export type ShortProps = { data: ShortData; audio: string };
 
 // время шорта -> время полного ролика (по кускам озвучки)
@@ -32,7 +32,7 @@ function camAt(D: ShortData, t: number) {
 }
 
 type EngineWindow = Window & { __ready?: boolean; renderAt?: (t: number) => Promise<void> };
-const Engine: React.FC<{ t: number; style: React.CSSProperties; name: string }> = ({ t, style, name }) => {
+const Engine: React.FC<{ t: number; style: React.CSSProperties; name: string; page: string }> = ({ t, style, name, page }) => {
   const ref = useRef<HTMLIFrameElement>(null);
   const [loaded] = useState(() => delayRender(`загрузка движка (${name})`, { timeoutInMilliseconds: 240000 }));
   const [ok, setOk] = useState(false);
@@ -45,7 +45,7 @@ const Engine: React.FC<{ t: number; style: React.CSSProperties; name: string }> 
     const h = delayRender(`кадр ${t.toFixed(3)} (${name})`, { timeoutInMilliseconds: 120000 });
     (ref.current!.contentWindow as EngineWindow).renderAt!(t).then(() => requestAnimationFrame(() => continueRender(h)));
   }, [ok, t, name]);
-  return <iframe ref={ref} src={staticFile('site/gta6/index.html')} style={{ position: 'absolute', width: 1920, height: 1080, border: 0, ...style }} />;
+  return <iframe ref={ref} src={staticFile(page)} style={{ position: 'absolute', width: 1920, height: 1080, border: 0, ...style }} />;
 };
 
 const useFonts = () => {
@@ -98,11 +98,11 @@ export const Short: React.FC<ShortProps> = ({ data: D, audio }) => {
     <AbsoluteFill style={{ background: '#d9d9d9', overflow: 'hidden' }}>
       {/* фон: тот же кадр, растянут на весь экран и размыт */}
       <div style={{ position: 'absolute', inset: 0, filter: `blur(60px) brightness(${0.97 - 0.27 * kEnd})`, transform: 'scale(1.1)' }}>
-        <Engine name="фон" t={t} style={{ left: (1080 - 1920 * 16 / 9) / 2, top: 0, transform: `scale(${16 / 9})`, transformOrigin: '0 0' }} />
+        <Engine name="фон" page={D.page || 'site/gta6/index.html'} t={t} style={{ left: (1080 - 1920 * 16 / 9) / 2, top: 0, transform: `scale(${16 / 9})`, transformOrigin: '0 0' }} />
       </div>
       {/* окно монтажа: масштаб и центр по сцене — все элементы целиком в кадре */}
       <div style={{ position: 'absolute', left: 0, top, width: W, height: H, overflow: 'hidden', opacity: 1 - kEnd, WebkitMaskImage: mask, maskImage: mask }}>
-        <Engine name="монтаж" t={t} style={{ left: 0, top: 0, transformOrigin: '0 0', transform: `translate(${W / 2 - cam.cx * cam.s}px, ${H / 2 - cam.cy * cam.s}px) scale(${cam.s})` }} />
+        <Engine name="монтаж" page={D.page || 'site/gta6/index.html'} t={t} style={{ left: 0, top: 0, transformOrigin: '0 0', transform: `translate(${W / 2 - cam.cx * cam.s}px, ${H / 2 - cam.cy * cam.s}px) scale(${cam.s})` }} />
       </div>
       {/* крючок сверху (0–4 с) */}
       {st < 4 && (

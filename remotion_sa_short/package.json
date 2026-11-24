@@ -1,0 +1,27 @@
+{
+  "name": "gta-sa-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort1 out/gta_sa_short1_32mb.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort2 out/gta_sa_short2_streaming.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort3 out/gta_sa_short3_fog.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort4 out/gta_sa_short4_map.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort5 out/gta_sa_short5_physics.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort6 out/gta_sa_short6_cj.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort7 out/gta_sa_short7_hotcoffee.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTASAShort1 out/gta_sa_short1_32mb.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort2 out/gta_sa_short2_streaming.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort3 out/gta_sa_short3_fog.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort4 out/gta_sa_short4_map.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort5 out/gta_sa_short5_physics.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort6 out/gta_sa_short6_cj.mp4 --concurrency=6 && remotion render src/index.ts GTASAShort7 out/gta_sa_short7_hotcoffee.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

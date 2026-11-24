@@ -5,11 +5,13 @@ import json, os, subprocess, sys, argparse, numpy as np
 ap = argparse.ArgumentParser(); ap.add_argument('--data', action='store_true'); ap.add_argument('--name', default='short1')
 ap.add_argument('--segs', default='0,21.55;242.9,280.76', help='куски озвучки: a,b;c,d')
 ap.add_argument('--hook', default='GTA 6 НЕ ДОЛЖНА|БЫЛА РАБОТАТЬ НА PS5', help='крючок сверху, строки через |')
+ap.add_argument('--voice', default=None); ap.add_argument('--words', default=None)
+ap.add_argument('--text', default=None, help='правильный текст шорта: слова сопоставляются с распознанными, тайминги — от распознавания')
 ARGS = ap.parse_args(); DATA = ARGS.data; NAME = ARGS.name
 HERE = os.path.dirname(os.path.abspath(__file__)); G = os.path.dirname(HERE)
 SR = 48000; FPS = 60; END = 3.6
 SEGS = [tuple(float(x) for x in p.split(',')) for p in ARGS.segs.split(';')]   # куски озвучки (сек оригинала)
-W = json.load(open(f'{G}/voice/words.json'))
+W = json.load(open(ARGS.words or f'{G}/voice/words.json'))
 # слова на шкале шорта
 words = []; t0 = 0.0
 for a, b in SEGS:
@@ -78,6 +80,27 @@ def apply_ctx(words):
                 break
     return [w for w in words if w['w']]
 words = apply_ctx(words)
+if ARGS.text:   # заменяем распознанные слова правильным текстом (выравнивание по похожести, тайминги — от распознавания)
+    import difflib, re
+    toks = open(ARGS.text).read().split()
+    toks = [x for x in toks if x not in ('—', '–', '-')]
+    nrm = lambda x: re.sub(r'[^0-9a-zа-я]', '', x.lower().replace('ё', 'е'))
+    A = [nrm(w['w']) for w in words]; B = [nrm(x) for x in toks]
+    sm = difflib.SequenceMatcher(None, A, B, autojunk=False)
+    new = [None] * len(toks)
+    for op, a1, a2, b1, b2 in sm.get_opcodes():
+        if op == 'equal':
+            for k in range(b2 - b1): new[b1 + k] = {'w': toks[b1 + k], 't': words[a1 + k]['t'], 'e': words[a1 + k]['e']}
+        elif op in ('replace', 'insert'):
+            t0 = words[a1 - 1]['e'] if a1 > 0 else (words[0]['t'] if words else 0)
+            t1 = words[a2]['t'] if a2 < len(words) else words[-1]['e']
+            if op == 'replace': t0, t1 = words[a1]['t'], words[a2 - 1]['e']
+            n = b2 - b1; d = max(0.05, (t1 - t0) / n)
+            for k in range(n): new[b1 + k] = {'w': toks[b1 + k], 't': t0 + k * d, 'e': t0 + (k + 1) * d}
+    words = [w for w in new if w]
+    for i in range(1, len(words)): words[i]['t'] = max(words[i]['t'], words[i - 1]['t'] + 0.04)
+    print('выравнивание: совпало', sum(b.size for b in sm.get_matching_blocks()), 'из', len(toks), 'слов')
+
 words = [w for w in words if w['w']]
 # ---------- видео: кадры монтажа из полного ролика (render_frames.mjs) -> 9:16 ----------
 os.makedirs(f'{HERE}/tmp', exist_ok=True)
@@ -104,6 +127,13 @@ ass = ['[Script Info]', 'ScriptType: v4.00+', 'PlayResX: 1080', 'PlayResY: 1920'
        'Style: Tag,Inter ExtraBold,46,&H00FFFFFF,&H00FFFFFF,&H00000000,&H64000000,0,0,0,0,100,100,0,0,1,4,2,8,60,60,90,1', '',
        '[Events]', 'Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text']
 YEL = '&H0035E1FF&'
+# пары, которые нельзя разрывать между строками субтитров (San Andreas, GTA 5, Hot Coffee, Сэмюэл Л. Джексон …)
+KEEP = {'san', 'gta', 'hot', 'л.', 'emotion', 'project', 'grand', 'red', 'game'}
+mw = []
+for w in words:
+    if mw and mw[-1]['w'].lower().strip(',.') in KEEP and not mw[-1]['w'].endswith((',', '.')): mw[-1]['w'] += '\u00a0' + w['w']; mw[-1]['e'] = w['e']
+    else: mw.append(dict(w))
+words = mw
 # группы по 3 слова; текущее слово жёлтое с «прыжком»
 groups = []; cur = []
 for w in words:
@@ -133,7 +163,7 @@ open(f'{HERE}/tmp/subs.ass', 'w').write('\n'.join(ass) + '\n')
 def load(p):
     raw = subprocess.check_output(['ffmpeg', '-v', 'error', '-i', p, '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'])
     return np.frombuffer(raw, np.float32).reshape(-1, 2).copy()
-v = load(f'{G}/voice/gta6_voice_main.mp3'); out = np.zeros((int(TOTAL * SR) + SR, 2), np.float32); pos = 0
+v = load(ARGS.voice or f'{G}/voice/gta6_voice_main.mp3'); out = np.zeros((int(TOTAL * SR) + SR, 2), np.float32); pos = 0
 for a, b in SEGS:
     s = v[int(a * SR):int(b * SR)].copy(); f = int(0.015 * SR); s[:f] *= np.linspace(0, 1, f)[:, None]; s[-f:] *= np.linspace(1, 0, f)[:, None]
     out[pos:pos + len(s)] += s; pos += len(s)

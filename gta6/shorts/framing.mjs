@@ -5,37 +5,48 @@
 import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import { chromium } from 'playwright';
 const HERE = path.dirname(new URL(import.meta.url).pathname); const ROOT = path.resolve(HERE, '../..');
 const file = process.argv[2]; const D = JSON.parse(fs.readFileSync(file, 'utf8'));
+const PAGE = process.argv[3] || '/gta6/v/index.html'; const SA = PAGE.includes('gta_sa');   // движок GTA 6 (сцены SCENES) или GTA SA (биты SA_BEATS)
 const WIN_W = 1080, WIN_H = 900, MX = 28, MY = 64, SMAX = 1.0;   // MY — с учётом мягкого затухания краёв окна сверху/снизу
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.png': 'image/png', '.jpg': 'image/jpeg' };
 const srv = http.createServer((q, r) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r); });
 await new Promise((r) => srv.listen(0, r));
 const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
 await p.route('**/clips/**', (r) => r.abort());
-await p.goto(`http://127.0.0.1:${srv.address().port}/gta6/v/index.html`);
-await p.waitForFunction(() => window.__ready === true, null, { timeout: 120000 });
+await p.goto(`http://127.0.0.1:${srv.address().port}${PAGE}`);
+await p.waitForFunction(() => window.__ready === true, null, { timeout: 240000 });
 const times = []; for (const [a, z] of D.segs) for (let t = a; t < z; t += 0.05) times.push(+t.toFixed(3));
-const samples = await p.evaluate(async (times) => {
+const samples = await p.evaluate(async ([times, SA]) => {
   const out = [];
+  const rectOf = (it) => {
+    if (it.kind === 'arrow') return it.path.getBoundingClientRect();
+    if (it.kind === 'txt' && it.words) { const ws = it.words.map((w) => w.parentNode.getBoundingClientRect()); return { left: Math.min(...ws.map((w) => w.left)), right: Math.max(...ws.map((w) => w.right)), top: Math.min(...ws.map((w) => w.top)), bottom: Math.max(...ws.map((w) => w.bottom)) }; }
+    return it.el.getBoundingClientRect();
+  };
   for (const t of times) {
     await window.renderAt(t);
     const rects = [];
-    window.SCENES.forEach((s, si) => {
-      if (s.el.style.display === 'none') return;
-      for (const it of s.items) {
-        if (!it.el || it.el.style.display === 'none' || +(it.el.style.opacity || 1) < 0.05) continue;
-        let r;
-        if (it.kind === 'arrow') r = it.path.getBoundingClientRect();
-        else if (it.kind === 'txt' && it.words) { const ws = it.words.map((w) => w.parentNode.getBoundingClientRect()); r = { left: Math.min(...ws.map((w) => w.left)), right: Math.max(...ws.map((w) => w.right)), top: Math.min(...ws.map((w) => w.top)), bottom: Math.max(...ws.map((w) => w.bottom)) }; }
-        else r = it.el.getBoundingClientRect();
-        if (r.right - r.left < 2) continue;
-        rects.push({ si, k: it.kind, n: String(it.text || it.src || it.clip || it.ch || it.kind).slice(0, 30), l: r.left, r: r.right, t: r.top, b: r.bottom, o: +(it.el.style.opacity || 1) });
+    if (SA) {
+      const B = window.SA_BEATS; let cur = 0; B.forEach((b, i) => { if (t >= b.t0) cur = i; });
+      for (const it of B[cur].items) {
+        if (!it.el) continue; const op = it.el.style.opacity === '' ? 1 : +it.el.style.opacity; if (op < 0.05) continue;
+        const r = it.el.getBoundingClientRect(); if (r.right - r.left < 2) continue;
+        rects.push({ si: cur, k: it.el.className || it.el.tagName, n: (it.el.textContent || it.el.src || '').slice(0, 30), l: r.left, r: r.right, t: r.top, b: r.bottom, o: op });
       }
-    });
+    } else {
+      window.SCENES.forEach((s, si) => {
+        if (s.el.style.display === 'none') return;
+        for (const it of s.items) {
+          if (!it.el || it.el.style.display === 'none' || +(it.el.style.opacity || 1) < 0.05) continue;
+          const r = rectOf(it); if (r.right - r.left < 2) continue;
+          rects.push({ si, k: it.kind, n: String(it.text || it.src || it.clip || it.ch || it.kind).slice(0, 30), l: r.left, r: r.right, t: r.top, b: r.bottom, o: +(it.el.style.opacity || 1) });
+        }
+      });
+    }
     out.push({ t, rects });
   }
   return out;
-}, times);
-const scenes = await p.evaluate(() => window.SCENES.map((s) => [s.t0, s.t1]));
+}, [times, SA]);
+const scenes = await p.evaluate((SA) => SA ? window.SA_BEATS.map((b, i, B) => [b.t0, i + 1 < B.length ? B[i + 1].t0 : window.DUR]) : window.SCENES.map((s) => [s.t0, s.t1]), SA);
 await b.close(); srv.close();
 // границы по сценам
 const box = {};
@@ -62,6 +73,6 @@ for (const s of samples) for (const r of s.rects) {
   const c = camOf(r.si); const X = (x) => (x - c.cx) * c.s + WIN_W / 2, Y = (y) => (y - c.cy) * c.s + c.h / 2;
   if (X(r.l) < 8 || X(r.r) > WIN_W - 8 || Y(r.t) < 22 || Y(r.b) > c.h - 22) { if (bad++ < 20) console.log('ЗА ОКНОМ', s.t, r.k, r.n, [X(r.l), Y(r.t), X(r.r), Y(r.b)].map(Math.round)); }
 }
-D.cams = cams; D.win = { w: WIN_W, h: WIN_H };
+D.cams = cams; D.win = { w: WIN_W, h: WIN_H }; D.page = SA ? 'site/gta_sa/gta_sa.html' : 'site/gta6/index.html';
 fs.writeFileSync(file, JSON.stringify(D));
 console.log(path.basename(file), 'сцен', cams.length, 'масштаб', Math.min(...cams.map((c) => c.s)).toFixed(2), '…', Math.max(...cams.map((c) => c.s)).toFixed(2), 'вне окна:', bad);

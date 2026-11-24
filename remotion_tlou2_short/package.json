@@ -1,0 +1,29 @@
+{
+  "name": "tlou2-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short1 out/tlou2_short1_ps4.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short2 out/tlou2_short2_story.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short3 out/tlou2_short3_motion.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short4 out/tlou2_short4_enemies.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short5 out/tlou2_short5_loading.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short6 out/tlou2_short6_graphics.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short7 out/tlou2_short7_sound.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short8 out/tlou2_short8_leak.mp4 --concurrency=6",
+    "render9": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short9 out/tlou2_short9_reaction.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts TLOU2Short1 out/tlou2_short1_ps4.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short2 out/tlou2_short2_story.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short3 out/tlou2_short3_motion.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short4 out/tlou2_short4_enemies.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short5 out/tlou2_short5_loading.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short6 out/tlou2_short6_graphics.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short7 out/tlou2_short7_sound.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short8 out/tlou2_short8_leak.mp4 --concurrency=6 && remotion render src/index.ts TLOU2Short9 out/tlou2_short9_reaction.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

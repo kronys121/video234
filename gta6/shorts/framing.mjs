@@ -5,7 +5,7 @@
 import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import { chromium } from 'playwright';
 const HERE = path.dirname(new URL(import.meta.url).pathname); const ROOT = path.resolve(HERE, '../..');
 const file = process.argv[2]; const D = JSON.parse(fs.readFileSync(file, 'utf8'));
-const PAGE = process.argv[3] || '/gta6/v/index.html'; const SA = PAGE.includes('gta_sa');   // движок GTA 6 (сцены SCENES) или GTA SA (биты SA_BEATS)
+const PAGE = process.argv[3] || '/gta6/v/index.html'; const SA = !PAGE.includes('/gta6/');   // движок GTA 6 (сцены SCENES) или движок v2 GTA SA / TLOU2 (биты SA_BEATS)
 const WIN_W = 1080, WIN_H = 900, MX = 28, MY = 64, SMAX = 1.0;   // MY — с учётом мягкого затухания краёв окна сверху/снизу
 const TYPES = { '.html': 'text/html', '.js': 'text/javascript', '.woff2': 'font/woff2', '.ttf': 'font/ttf', '.png': 'image/png', '.jpg': 'image/jpeg' };
 const srv = http.createServer((q, r) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); if (!f.startsWith(ROOT) || !fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'Content-Type': TYPES[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r); });
@@ -73,6 +73,6 @@ for (const s of samples) for (const r of s.rects) {
   const c = camOf(r.si); const X = (x) => (x - c.cx) * c.s + WIN_W / 2, Y = (y) => (y - c.cy) * c.s + c.h / 2;
   if (X(r.l) < 8 || X(r.r) > WIN_W - 8 || Y(r.t) < 22 || Y(r.b) > c.h - 22) { if (bad++ < 20) console.log('ЗА ОКНОМ', s.t, r.k, r.n, [X(r.l), Y(r.t), X(r.r), Y(r.b)].map(Math.round)); }
 }
-D.cams = cams; D.win = { w: WIN_W, h: WIN_H }; D.page = SA ? 'site/gta_sa/gta_sa.html' : 'site/gta6/index.html';
+D.cams = cams; D.win = { w: WIN_W, h: WIN_H }; D.page = SA ? 'site' + PAGE : 'site/gta6/index.html';
 fs.writeFileSync(file, JSON.stringify(D));
 console.log(path.basename(file), 'сцен', cams.length, 'масштаб', Math.min(...cams.map((c) => c.s)).toFixed(2), '…', Math.max(...cams.map((c) => c.s)).toFixed(2), 'вне окна:', bad);

@@ -12,6 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__)); G = os.path.dirname(HERE)
 SR = 48000; FPS = 60; END = 3.6
 SEGS = [tuple(float(x) for x in p.split(',')) for p in ARGS.segs.split(';')]   # куски озвучки (сек оригинала)
 W = json.load(open(ARGS.words or f'{G}/voice/words.json'))
+for i, w in enumerate(W):   # в некоторых файлах слов нет конца слова — берём начало следующего (не дольше 0,6 с)
+    if 'e' not in w: w['e'] = min(W[i + 1]['t'] if i + 1 < len(W) else w['t'] + 0.6, w['t'] + 0.6)
 # слова на шкале шорта
 words = []; t0 = 0.0
 for a, b in SEGS:

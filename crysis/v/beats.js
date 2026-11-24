@@ -133,10 +133,12 @@ SC(133.66, L,
   M('⚙️', 133.8, { y: 380, size: 220, enter: 'spin' }),
   T('ТЕХНОЛОГИИ, КОТОРЫХ НЕ БЫЛО НИ У КОГО', 134.7, { y: 700, size: 60 }));
 SC(138.10, L,
-  T('SSAO', 138.3, { y: 420, size: 200, color: BLUE, weight: 900, enter: 'zoom' }),
-  T('ЗАТЕНЕНИЕ В ЭКРАННОМ ПРОСТРАНСТВЕ', 138.9, { y: 640, size: 56 }));
+  PHOTO('ssao_off.jpg', 138.15, { x: 640, y: 490, w: 740, enter: 'left' }),
+  T('SSAO', 138.3, { x: 1430, y: 400, size: 170, color: BLUE, weight: 900, enter: 'zoom' }),
+  T('ЗАТЕНЕНИЕ В ЭКРАННОМ ПРОСТРАНСТВЕ', 138.9, { x: 1430, y: 600, size: 50, w: 680 }));
 SC(140.20, L,
-  C('cmp_hut', 140.25),
+  PHOTO('ssao_off.jpg', 140.25, { x: 520, y: 450, w: 800, enter: 'left' }),
+  PHOTO('ssao_on.jpg', 140.6, { x: 1400, y: 450, w: 800, enter: 'right' }),
   T('МЯГКИЕ ТЕНИ В УГЛАХ', 141.9));
 SC(144.08, L,
   I('crytek_logo.png', 144.2, { y: 350, w: 600, enter: 'zoom', float: 3 }),

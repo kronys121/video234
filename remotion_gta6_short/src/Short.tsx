@@ -112,9 +112,6 @@ export const Short: React.FC<ShortProps> = ({ data: D, audio }) => {
           {D.hook.map((l, i) => <div key={i}>{l}</div>)}
         </div>
       )}
-      {st >= 4 && !end && (
-        <div style={{ position: 'absolute', left: 0, right: 0, top: 90, textAlign: 'center', fontFamily: 'InterXB', fontSize: 46, color: '#fff', opacity: 0.8 * fade(st, 4, 4.3), ...stroke(2) }}>{CHANNEL}</div>
-      )}
       {!end && <Captions D={D} st={st} />}
       {/* под субтитрами — где смотреть полное видео */}
       {!end && (

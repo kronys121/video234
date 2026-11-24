@@ -116,6 +116,12 @@ export const Short: React.FC<ShortProps> = ({ data: D, audio }) => {
         <div style={{ position: 'absolute', left: 0, right: 0, top: 90, textAlign: 'center', fontFamily: 'InterXB', fontSize: 46, color: '#fff', opacity: 0.8 * fade(st, 4, 4.3), ...stroke(2) }}>{CHANNEL}</div>
       )}
       {!end && <Captions D={D} st={st} />}
+      {/* под субтитрами — где смотреть полное видео */}
+      {!end && (
+        <div style={{ position: 'absolute', left: 40, right: 40, top: 1575, textAlign: 'center', fontFamily: 'InterXB', fontSize: 44, lineHeight: 1.2, color: '#fff', opacity: fade(st, 0.3, 0.6), ...stroke(3) }}>
+          ПОЛНОЕ ВИДЕО<br />НА YOUTUBE-КАНАЛЕ <span style={{ color: YEL }}>KRONYS</span>
+        </div>
+      )}
       {end && (
         <>
           <div style={{ position: 'absolute', left: 0, right: 0, top: 700, textAlign: 'center', fontFamily: 'InterBlack', fontSize: 96, lineHeight: 1.15, color: '#fff',

@@ -1,0 +1,13 @@
+import http from 'node:http'; import fs from 'node:fs'; import path from 'node:path'; import { chromium } from 'playwright';
+const ROOT = '/home/user/video234'; const [PAGE, SEGS] = process.argv.slice(2);
+const T = { '.html': 'text/html', '.js': 'text/javascript', '.json': 'application/json', '.woff2': 'font/woff2', '.png': 'image/png', '.jpg': 'image/jpeg' };
+const srv = http.createServer((q, r) => { const f = path.join(ROOT, decodeURIComponent(q.url.split('?')[0])); if (!fs.existsSync(f) || fs.statSync(f).isDirectory()) { r.writeHead(404); return r.end(); } r.writeHead(200, { 'Content-Type': T[path.extname(f)] || 'application/octet-stream' }); fs.createReadStream(f).pipe(r); });
+await new Promise((r) => srv.listen(0, r));
+const b = await chromium.launch(); const p = await b.newPage({ viewport: { width: 1920, height: 1080 } });
+const req = {}; let rec = false;
+await p.route(/\/clips\/.*\.jpg/, (r) => { if (rec) { const m = r.request().url().match(/\/([^/]+\/(?:tlou\/)?clips\/[^/]+)\/(\d+)\.jpg/); if (m) req[m[1]] = Math.max(req[m[1]] || 0, +m[2]); } r.abort(); });
+await p.goto(`http://127.0.0.1:${srv.address().port}${PAGE}`); await p.waitForFunction(() => window.__ready === true, null, { timeout: 240000 });
+rec = true;
+const segs = SEGS.split(';').map((s) => s.split(',').map(Number));
+for (const [a, z] of segs) await p.evaluate(async ([a, z]) => { for (let t = a; t < z; t += 1 / 30) await window.renderAt(t); }, [a, z]);
+console.log(JSON.stringify(req)); await b.close(); srv.close();

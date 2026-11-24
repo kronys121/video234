@@ -497,6 +497,7 @@ beats.forEach((b) => {
 });
 KEYS.sort((a, b) => a[0] - b[0]);
 window.WHOOSH = beats.slice(1).map((b) => b.t0);
+window.SA_BEATS = beats;   // для кадрирования шортов (gta6/shorts/framing.mjs)
 function camAt(t) {
   let c = KEYS[0].slice(2);
   for (let i = 1; i < KEYS.length; i++) {

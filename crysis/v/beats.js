@@ -56,8 +56,9 @@ SC(44.10, BL('fc_swim'),
   T('ВЫГЛЯДЕЛО ТАК КРУТО', 46.2, { y: 760, size: 64 }),
   XMARK({ at: 50.0, x: 1221, y: 460, size: 200 }));
 SC(51.40, L,
-  C('fc_logo', 51.45, { w: 1100, y: 470 }),
-  T('FAR CRY · 2004', 52.0, { y: 900, size: 70, weight: 900 }));
+  PHOTO('farcry_cover.jpg', 51.45, { x: 640, y: 490, w: 380, rot: -4, enter: 'pop', float: 4 }),
+  T('FAR CRY', 52.0, { x: 1300, y: 420, size: 130, weight: 900 }),
+  T('2004', 53.3, { x: 1300, y: 580, size: 90, color: GREY }));
 SC(54.20, L,
   C('fc_village', 54.25),
   T('ВСЕХ ПРОСТО РАЗМАЗАЛ', 54.3));
@@ -75,9 +76,10 @@ SC(69.64, A,
   T('FAR CRY НА КОНСОЛИ?', 69.7, { y: 360, size: 80 }),
   T('СОВСЕМ ДРУГАЯ ИГРА', 72.4, { y: 560, size: 80, color: RED }));
 SC(75.00, L,
-  T('FAR CRY INSTINCTS', 75.1, { y: 320, size: 100, weight: 900 }),
-  T('ПЕРВЫЙ XBOX', 76.0, { y: 470, size: 64 }),
-  T('UBISOFT MONTREAL', 77.5, { y: 590, size: 64, color: BLUE }));
+  PHOTO('fc_instincts_xbox.jpg', 75.05, { x: 620, y: 500, w: 390, rot: 3, enter: 'pop', float: 4 }),
+  T('FAR CRY INSTINCTS', 75.1, { x: 1300, y: 370, size: 66, weight: 900 }),
+  T('ПЕРВЫЙ XBOX', 76.0, { x: 1300, y: 500, size: 60 }),
+  T('UBISOFT MONTREAL', 77.5, { x: 1300, y: 620, size: 60, color: BLUE }));
 SC(78.92, L,
   CL_('fc_jungle', 79.0),
   R('СОБРАЛИ ЗАНОВО', 79.1, 340, { size: 56 }),
@@ -156,10 +158,12 @@ SC(158.02, A,
   T('НО ВОТ ПРОБЛЕМА', 158.1, { y: 420, size: 110, color: RED, weight: 900 }),
   T('ИГРУ НЕ ТЯНУЛО НИЧЕГО', 159.0, { y: 600, size: 70 }));
 SC(160.30, L,
-  T('МАКСИМАЛЬНЫЕ НАСТРОЙКИ', 160.4, { y: 260, size: 60 }),
-  T('DIRECTX 10', 162.6, { y: 440, size: 150, color: BLUE, weight: 900, enter: 'zoom' }),
-  T('ТОЛЬКО WINDOWS VISTA', 164.1, { y: 640, size: 70 }),
-  M('😒', 166.4, { y: 820, size: 150, enter: 'pop' }));
+  T('МАКСИМАЛЬНЫЕ НАСТРОЙКИ', 160.4, { y: 200, size: 60 }),
+  I('dx10.png', 162.6, { x: 620, y: 500, w: 330, enter: 'pop' }),
+  T('ТОЛЬКО DIRECTX 10', 162.7, { x: 620, y: 780, size: 56 }),
+  I('vista.png', 164.1, { x: 1300, y: 500, w: 420, enter: 'pop' }),
+  T('ТОЛЬКО VISTA', 164.2, { x: 1300, y: 780, size: 56 }),
+  M('😒', 166.4, { x: 960, y: 500, size: 130, enter: 'pop' }));
 SC(167.42, L,
   I('gpu_8800gtx.png', 167.5, { y: 380, w: 900, enter: 'left' }),
   T('GEFORCE 8800 GTX', 169.3, { y: 700, size: 70, weight: 900 }),
@@ -196,10 +200,12 @@ SC(209.90, L,
   T('ЙЕРЛИ, 2008', 210.0, { y: 220, size: 60, color: GREY }),
   T('1. ЭКСКЛЮЗИВОВ НА ПК БОЛЬШЕ НЕ БУДЕТ', 212.3, { y: 420, size: 56 }),
   T('2. CRYSIS НА КОНСОЛИ — НЕВОЗМОЖНО', 216.4, { y: 600, size: 56, color: RED }));
-SC(220.08, DK('camp_attack'),
-  T('CRYSIS WARHEAD', 220.4, { y: 400, size: 120, color: WHITE, weight: 900, glow: true }),
-  T('2008 · ТОЛЬКО ПК', 222.1, { y: 570, size: 64, color: WHITE, glow: true }),
-  T('ТА ЖЕ ИСТОРИЯ — ДРУГОЙ БОЕЦ', 223.6, { y: 720, size: 56, color: WHITE, glow: true }));
+SC(220.08, L,
+  I('box_warhead.png', 220.2, { x: 600, y: 500, w: 380, enter: 'left' }),
+  I('warhead_logo.png', 220.4, { x: 1300, y: 370, w: 620, enter: 'zoom', float: 3 }),
+  T('2008 · ТОЛЬКО ПК', 222.1, { x: 1300, y: 540, size: 60 }),
+  T('ТА ЖЕ ИСТОРИЯ —', 223.6, { x: 1300, y: 660, size: 52 }),
+  T('ДРУГОЙ БОЕЦ', 224.6, { x: 1300, y: 740, size: 52, color: BLUE }));
 SC(226.92, L,
   T('ПРОЩАНИЕ С ПК', 227.5, { y: 200, size: 56 }),
   I('crytek_logo.png', 227.0, { y: 380, w: 560, enter: 'zoom', float: 3 }),
@@ -376,7 +382,7 @@ SC(444.10, L,
   T('КУПОЛ · ВСЁ ВЗРЫВАЕТСЯ', 444.6));
 SC(448.08, A,
   T('ДЛЯ КОНСОЛЕЙ — СЛИШКОМ', 448.2, { y: 360, size: 80 }),
-  T('DIGITAL FOUNDRY', 452.9, { y: 560, size: 70, color: BLUE }),
+  I('df_logo.png', 452.9, { y: 555, w: 300, enter: 'pop', float: 3 }),
   T('«НАСТОЛЬКО ТЯЖЁЛЫЙ»', 454.9, { y: 700, size: 66 }));
 SC(456.00, L,
   C('vtol_crash', 456.05, { w: 1000, y: 430 }),
@@ -388,7 +394,7 @@ SC(461.88, A,
   T('ЧТО В ИТОГЕ?', 462.0, { y: 500, size: 110 }));
 SC(463.30, L,
   T('ОТЗЫВЫ — СМЕШАННЫЕ, НО ТЁПЛЫЕ', 463.4, { y: 200, size: 60 }),
-  T('GAME INFORMER', 466.1, { y: 330, size: 80, color: RED, weight: 900 }),
+  I('gameinformer.png', 466.1, { y: 330, w: 600, enter: 'pop', float: 2 }),
   T('ДА, КАРТИНКА ХУЖЕ', 468.4, { y: 500, size: 56 }),
   T('ДА, ОБЪЕКТЫ ПОЯВЛЯЮТСЯ НА ГЛАЗАХ', 470.0, { y: 600, size: 56 }),
   T('ЕСТЬ БАГИ', 471.8, { y: 700, size: 56 }),
@@ -440,7 +446,7 @@ SC(530.42, L,
   T('САМАЯ СЛАБАЯ КОНСОЛЬ — ПЕРВОЙ', 532.6, { y: 760, size: 64 }));
 SC(534.20, L,
   I('saber_logo.png', 534.7, { x: 600, y: 470, w: 380, enter: 'left' }),
-  I('witcher_cover.jpg', 538.6, { x: 1300, y: 470, w: 320, enter: 'right' }),
+  I('witcher_switch.png', 538.6, { x: 1300, y: 460, w: 300, enter: 'right' }),
   T('SABER INTERACTIVE', 535.0, { y: 800, size: 60 }),
   T('ВЕДЬМАК 3 НА SWITCH', 538.6, { y: 900, size: 52, color: GREY }));
 SC(539.50, L,
@@ -454,7 +460,7 @@ SC(547.62, L,
   T('720p–900p', 552.1, { x: 1360, y: 450, size: 120, weight: 900 }),
   T('В ДОК-СТАНЦИИ', 551.3, { x: 1360, y: 620, size: 50 }));
 SC(554.40, L,
-  T('DIGITAL FOUNDRY', 555.7, { y: 200, size: 70, color: BLUE }),
+  I('df_logo.png', 555.7, { y: 200, w: 260, enter: 'pop', float: 2 }),
   I('cover_pc.jpg', 558.6, { x: 560, y: 570, w: 300, enter: 'left' }),
   XMARK({ at: 559.8, x: 560, y: 570, size: 300 }),
   I('cover_ps3.jpg', 562.3, { x: 1360, y: 570, w: 330, enter: 'right' }),
@@ -472,9 +478,8 @@ SC(576.08, L,
   C('vtol_canyon', 576.15),
   T('ЧЕРЕЗ 10 ЛЕТ', 576.4));
 SC(579.82, L,
-  T('НАСТРОЙКА ГРАФИКИ', 580.6, { y: 220, size: 56, color: GREY }),
-  T('«CAN IT RUN CRYSIS?»', 583.5, { y: 430, size: 100, color: RED, weight: 900, enter: 'zoom' }),
-  T('МЕМ → ОФИЦИАЛЬНЫЙ ПРЕСЕТ', 586.5, { y: 620, size: 64 }));
+  PHOTO('remaster_settings.jpg', 580.0, { y: 440, w: 1100, enter: 'zoom' }),
+  T('МЕМ → ОФИЦИАЛЬНЫЙ ПРЕСЕТ', 586.5, { y: 900, size: 64 }));
 SC(589.52, L,
   T('В 4K НА ЭТОМ ПРЕСЕТЕ', 592.6, { y: 300, size: 70 }),
   T('30 FPS', 593.9, { y: 480, size: 160, color: RED, weight: 900 }),

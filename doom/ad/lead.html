@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Doom · ggsel подводка</title>
+<style>
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-800-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:900;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)format('woff2')}
+@font-face{font-family:Emoji;src:url(../../gta6/v/fonts/NotoColorEmoji.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
+#stage{position:absolute;inset:0;overflow:hidden}
+.light{position:absolute;inset:-80px;background:radial-gradient(ellipse 70% 75% at 50% 44%,#ffffff 0%,#f4f4f4 38%,#dcdcdc 78%,#c9c9c9 100%)}
+.abs{position:absolute;left:0;top:0}
+.cam{position:absolute;inset:0}
+.shadow{filter:drop-shadow(0 28px 26px rgba(0,0,0,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.14))}
+.lbl{font-family:Mont,sans-serif;font-weight:800;color:#151515;white-space:nowrap}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em .06em}
+.w>span{display:inline-block}
+.emo{font-family:Emoji;line-height:1}
+.vcard{border-radius:22px;overflow:hidden;background:#222;box-shadow:0 26px 50px rgba(0,0,0,.24),0 6px 12px rgba(0,0,0,.14)}
+.vcard img{width:100%;height:100%;object-fit:cover;display:block}
+.card{background:#fff;border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.10)}
+.chip{white-space:nowrap;padding:18px 36px;border-radius:22px;background:#e1252d;color:#fff;font-family:Mont;font-weight:800;font-size:64px;box-shadow:0 20px 40px rgba(225,37,45,.35)}
+.uline{height:10px;border-radius:5px;background:#e1252d;transform-origin:0 50%}
+.boxw{filter:drop-shadow(0 30px 28px rgba(0,0,0,.28)) drop-shadow(0 8px 10px rgba(0,0,0,.16))}
+.chipb{white-space:nowrap;padding:16px 34px;border-radius:22px;background:#0070d1;color:#fff;font-family:Mont;font-weight:800;font-size:60px;box-shadow:0 20px 40px rgba(0,112,209,.35)}
+</style></head><body>
+<div id="stage"><div class="light"></div>
+  <div class="cam" id="cam">
+    <!-- 1: DOOM 2016 + 60 FPS -->
+    <img class="abs" id="dlogo" src="img/doom_logo_dark.png" style="width:480px">
+    <div class="abs vcard" id="c1" style="width:1040px;height:585px"><img id="c1i"></div>
+    <div class="abs chip" id="fps" style="font-size:88px;padding:18px 40px">60 FPS</div>
+    <!-- 2: на PlayStation: Doom и Doom Eternal -->
+    <div class="abs chipb" id="onps">на PlayStation</div>
+    <div class="abs vcard" id="c2" style="width:960px;height:540px"><img id="c2i"></div>
+    <img class="abs boxw" id="bd" src="img/box_doom.png" style="height:600px">
+    <img class="abs boxw" id="be" src="img/box_eternal.png" style="height:600px">
+    <div class="abs chip" id="f1" style="font-size:46px;padding:12px 26px;border-radius:16px">60 FPS</div>
+    <div class="abs chip" id="f2" style="font-size:46px;padding:12px 26px;border-radius:16px">60 FPS</div>
+    <!-- 3: распродажа -->
+    <img class="abs shadow" id="ps5" src="../../cyberpunk/assets/ps5.png" style="width:470px">
+    <div class="abs chip" id="sale">Распродажа обновилась</div>
+    <div class="abs emo" id="pct" style="font-size:150px">🔥</div>
+    <!-- 4: GTA VI уже вышла -->
+    <div class="abs vcard" id="g6" style="width:1100px;height:619px"><img id="g6i"></div>
+    <div class="abs" id="out6" style="padding:14px 30px;border-radius:16px;background:#151515;color:#fff;font-family:Mont;font-weight:800;font-size:56px;white-space:nowrap">GTA VI уже вышла</div>
+    <!-- 5: пополнить PSN на ggsel -->
+    <div class="abs lbl" id="t6" style="font-size:80px"></div>
+    <div class="abs uline" id="u6" style="width:620px"></div>
+    <div class="abs card" id="gg" style="width:720px;height:240px;display:flex;align-items:center;justify-content:center;gap:28px">
+      <svg width="150" height="150" viewBox="0 0 100 100"><path d="M80 30 L50 13 L19 31 V69 L50 87 L81 69 V51 H53" fill="none" stroke="#3dcd58" stroke-width="17" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <span style="font-family:Mont;font-weight:900;font-size:160px;line-height:1;color:#1b1b1e;letter-spacing:-.03em;margin-top:-18px">ggsel</span>
+    </div>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = { oc: (x) => 1 - (1 - x) ** 3, oq: (x) => 1 - (1 - x) ** 4, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x, c1 = 1.6) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; } };
+const pending = [];
+function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttribute('src', src); pending.push(img.decode().catch(() => {})); } }
+const clip = (dir, n, t, t0) => `clips/${dir}/${String(1 + cl(Math.floor((t - t0) * 30), 0, n - 1)).padStart(4, '0')}.jpg`;
+function gta6(t, off = 0) { const f = 1 + (Math.floor(Math.max(0, t + off) * 30) % 146); return `../../tlou2/clips/gta6/${String(f).padStart(4, '0')}.jpg`; }
+function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' '); return [...el.querySelectorAll('.w>span')]; }
+function wordsAt(arr, t, times, d = 0.3) { arr.forEach((s, i) => { const k = E.oq(seg(t, times[i], times[i] + d)); s.style.transform = `translateY(${((1 - k) * 105).toFixed(1)}%)`; }); }
+function put(el, x, y, s = 1, r = 0, o = 1) { el.style.opacity = o; el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${r}deg) scale(${s})`; }
+const pops = (k, c = 1.6) => (k > 0 ? 0.6 + 0.4 * E.ob(k, c) : 0.6);
+// тайминги слов (ad_words.json): Кстати 0.00 · Doom 1.50 · шестьюдесятью 2.32 · кадрами 2.76 · на PlayStation 3.62/3.74
+// Doom 4.66 · Doom Eternal 4.98/5.12 · работают 5.46 · именно так 6.00–6.48 · распродажа 6.72 · обновилась 8.12
+// а вместе с ней 8.74 · уже вышла 9.28/9.44 · GTA VI 9.72 · Самое 10.36 · время 10.64 · пополнить 11.28 · баланс 11.68
+// PlayStation 11.98 · на ggsel 12.32/12.54 · конец голоса 13.08
+window.DUR = 13.35;
+const t6 = words($('t6'), 'Самое время пополнить PSN');
+window.renderAt = async function (t) {
+  pending.length = 0;
+  // 1: логотип DOOM + геймплей, «60 FPS» на «шестьюдесятью» (0–3.6)
+  const kD = E.ob(seg(t, 0.0, 0.45), 1.2), kC = E.oc(seg(t, 0.15, 0.6)), o1 = E.io(seg(t, 3.3, 3.62));
+  put($('dlogo'), 960 - o1 * 1500, 195, 0.75 + 0.25 * kD, 0, cl(kD * 3));
+  setSrc($('c1i'), clip('d16', 120, t, 0));
+  put($('c1'), 960 - o1 * 1500, lerp(720, 650, kC), lerp(0.9, 1, kC), 0, cl(kC * 2));
+  const kF = seg(t, 2.3, 2.6);
+  put($('fps'), 1420 - o1 * 2200, 380, pops(kF, 2.2), -6, cl(kF * 3) * (1 - o1));
+  // 2: на PlayStation, Doom и Doom Eternal (3.5–6.7)
+  const kP = seg(t, 3.62, 3.95), kC2 = E.oc(seg(t, 3.5, 3.95)), o2 = E.io(seg(t, 6.42, 6.72));
+  put($('onps'), 960, 150 - o2 * 400, pops(kP, 2), -3, cl(kP * 3) * (1 - o2));
+  setSrc($('c2i'), clip('ete', 120, t, 3.5));
+  put($('c2'), 960 + (1 - kC2) * 1500, 600 - o2 * 1100, 1, 0, 1);
+  const kBd = E.oc(seg(t, 4.6, 5.0)), kBe = E.oc(seg(t, 5.06, 5.46));
+  put($('bd'), lerp(-300, 420, kBd), 640 + Math.sin(t * 1.6) * 6 - o2 * 1100, 1, lerp(-14, -5, kBd), cl(kBd * 2));
+  put($('be'), lerp(2220, 1500, kBe), 640 + Math.sin(t * 1.6 + 1) * 6 - o2 * 1100, 1, lerp(14, 5, kBe), cl(kBe * 2));
+  const kf1 = seg(t, 5.46, 5.76), kf2 = seg(t, 5.6, 5.9);
+  put($('f1'), 420, 975 - o2 * 1100, pops(kf1, 2), -4, cl(kf1 * 3));
+  put($('f2'), 1500, 975 - o2 * 1100, pops(kf2, 2), 4, cl(kf2 * 3));
+  // 3: распродажа в PlayStation (6.7–8.75)
+  const kS = seg(t, 6.7, 7.05), kQ = E.oc(seg(t, 7.2, 7.65)), o3 = E.io(seg(t, 8.5, 8.78));
+  put($('sale'), 1300 - o3 * 300, 400, pops(kS, 2) * (1 - 0.3 * o3), lerp(-12, -4, E.oc(kS)), cl(kS * 3) * (1 - o3));
+  put($('ps5'), lerp(-300, 560, kQ) - o3 * 900, 560 + Math.sin(t * 1.4) * 6, 1, lerp(-10, 0, kQ), cl(kQ * 2) * (1 - o3));
+  const kFi = seg(t, 8.12, 8.42);
+  put($('pct'), 1600 - o3 * 300, 640 + Math.sin(t * 3) * 6, pops(kFi, 2.2), 8, cl(kFi * 3) * (1 - o3));
+  // 4: GTA VI уже вышла (8.7–10.4)
+  const k5 = E.oc(seg(t, 8.66, 9.1)), o5 = E.io(seg(t, 10.12, 10.4));
+  setSrc($('g6i'), gta6(t, 0.5));
+  put($('g6'), 960 - o5 * 1500, lerp(640, 560, k5), lerp(0.85, 1, k5) * (1 - 0.1 * o5), 0, cl(k5 * 2) * (1 - o5));
+  const kO = seg(t, 9.4, 9.7);
+  put($('out6'), 1330 - o5 * 1500, 270, pops(kO, 2), -4, cl(kO * 3) * (1 - o5));
+  // 5: «Самое время пополнить PSN», с 11.9 логотип ggsel; на «ggsel» текст уходит, логотип по центру
+  const oA = E.io(seg(t, 12.4, 12.75));
+  put($('t6'), 960, 330 - oA * 80, 1, 0, t > 10.3 ? 1 - oA : 0); wordsAt(t6, t, [10.36, 10.64, 11.28, 11.98]);
+  $('u6').style.opacity = t > 10.3 ? 1 - oA : 0; $('u6').style.transform = `translate(-50%,-50%) translate(960px,${410 - oA * 80}px) scaleX(${E.oc(seg(t, 11.28, 11.7))})`; $('u6').style.transformOrigin = '0 50%';
+  const kG = seg(t, 11.85, 12.25);
+  put($('gg'), 960, lerp(680, 540, E.io(oA)), pops(kG, 1.8) * lerp(1.0, 1.55, oA), 0, cl(kG * 3));
+  $('cam').style.transform = `scale(${lerp(1.0, 1.05, E.io(seg(t, 0, 13.35)))})`;
+  await Promise.all(pending); await new Promise(requestAnimationFrame);
+};
+(async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await window.renderAt(0); window.__ready = true; })();
+</script>
+</body></html>

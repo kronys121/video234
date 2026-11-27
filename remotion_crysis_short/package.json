@@ -1,0 +1,31 @@
+{
+  "name": "crysis-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort1 out/crysis_short1_intro.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort2 out/crysis_short2_farcry.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort3 out/crysis_short3_2007.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort4 out/crysis_short4_meme.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort5 out/crysis_short5_hardware.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort6 out/crysis_short6_cryengine3.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort7 out/crysis_short7_console.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort8 out/crysis_short8_compare.mp4 --concurrency=6",
+    "render9": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort9 out/crysis_short9_ascension.mp4 --concurrency=6",
+    "render10": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort10 out/crysis_short10_switch.mp4 --concurrency=6",
+    "render11": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort11 out/crysis_short11_preset.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts CrysisShort1 out/crysis_short1_intro.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort2 out/crysis_short2_farcry.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort3 out/crysis_short3_2007.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort4 out/crysis_short4_meme.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort5 out/crysis_short5_hardware.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort6 out/crysis_short6_cryengine3.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort7 out/crysis_short7_console.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort8 out/crysis_short8_compare.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort9 out/crysis_short9_ascension.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort10 out/crysis_short10_switch.mp4 --concurrency=6 && remotion render src/index.ts CrysisShort11 out/crysis_short11_preset.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

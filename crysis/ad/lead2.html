@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>Crysis · ggsel подводка (длинная)</title>
+<style>
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-800-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:900;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)format('woff2')}
+@font-face{font-family:Emoji;src:url(../../gta6/v/fonts/NotoColorEmoji.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
+#stage{position:absolute;inset:0;overflow:hidden}
+.light{position:absolute;inset:-80px;background:radial-gradient(ellipse 70% 75% at 50% 44%,#ffffff 0%,#f4f4f4 38%,#dcdcdc 78%,#c9c9c9 100%)}
+.abs{position:absolute;left:0;top:0}
+.cam{position:absolute;inset:0}
+.shadow{filter:drop-shadow(0 28px 26px rgba(0,0,0,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.14))}
+.lbl{font-family:Mont,sans-serif;font-weight:800;color:#151515;white-space:nowrap}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em .06em}
+.w>span{display:inline-block}
+.emo{font-family:Emoji;line-height:1}
+.vcard{border-radius:22px;overflow:hidden;background:#222;box-shadow:0 26px 50px rgba(0,0,0,.24),0 6px 12px rgba(0,0,0,.14)}
+.vcard img{width:100%;height:100%;object-fit:cover;display:block}
+.card{background:#fff;border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.10)}
+.chip{white-space:nowrap;padding:18px 36px;border-radius:22px;background:#e1252d;color:#fff;font-family:Mont;font-weight:800;font-size:64px;box-shadow:0 20px 40px rgba(225,37,45,.35)}
+.uline{height:10px;border-radius:5px;background:#e1252d;transform-origin:0 50%}
+</style></head><body>
+<div id="stage"><div class="light"></div>
+  <div class="cam" id="cam">
+    <!-- 1: логотип Crysis -->
+    <img class="abs shadow" id="logo" src="crysis_logo.png" style="width:760px">
+    <!-- 2: видеокарта + «А Crysis потянет?» -->
+    <img class="abs shadow" id="gpu" src="gpu_8800gtx.png" style="width:900px">
+    <div class="abs lbl" id="q1" style="font-size:96px"></div>
+    <svg class="abs" id="x" viewBox="0 0 100 100" style="width:300px;height:300px;overflow:visible"><line x1="12" y1="12" x2="88" y2="88" stroke="#e1252d" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><line x1="88" y1="12" x2="12" y2="88" stroke="#e1252d" stroke-width="12" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+    <!-- 3: ценник + «Где купить подешевле?» -->
+    <div class="abs emo" id="tag" style="font-size:260px">🏷️</div>
+    <div class="abs lbl" id="q2" style="font-size:88px"></div>
+    <!-- 4: распродажа в PlayStation -->
+    <img class="abs shadow" id="ps5" src="../../cyberpunk/assets/ps5.png" style="width:470px">
+    <div class="abs chip" id="sale">Распродажа обновилась</div>
+    <div class="abs emo" id="pct" style="font-size:150px">🔥</div>
+    <!-- 5: GTA VI уже вышла -->
+    <div class="abs vcard" id="g6" style="width:1100px;height:619px"><img id="g6i"></div>
+    <div class="abs" id="out6" style="padding:14px 30px;border-radius:16px;background:#151515;color:#fff;font-family:Mont;font-weight:800;font-size:56px;white-space:nowrap">GTA VI уже вышла</div>
+    <!-- 6: баланс PSN + ggsel -->
+    <div class="abs lbl" id="t6" style="font-size:72px"></div>
+    <div class="abs uline" id="u6" style="width:560px"></div>
+    <div class="abs card" id="bal" style="width:800px;height:300px">
+      <div class="lbl" style="position:absolute;left:56px;top:52px;font-size:40px;color:#666">Баланс PSN</div>
+      <div class="lbl" id="balv" style="position:absolute;left:56px;top:118px;font-size:120px;letter-spacing:-2px">0 ₽</div>
+    </div>
+    <div class="abs card" id="gg" style="width:720px;height:240px;display:flex;align-items:center;justify-content:center;gap:28px">
+      <svg width="150" height="150" viewBox="0 0 100 100"><path d="M80 30 L50 13 L19 31 V69 L50 87 L81 69 V51 H53" fill="none" stroke="#3dcd58" stroke-width="17" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <span style="font-family:Mont;font-weight:900;font-size:160px;line-height:1;color:#1b1b1e;letter-spacing:-.03em;margin-top:-18px">ggsel</span>
+    </div>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = { oc: (x) => 1 - (1 - x) ** 3, oq: (x) => 1 - (1 - x) ** 4, ic: (x) => x * x * x, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x, c1 = 1.6) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; } };
+const pending = [];
+function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttribute('src', src); pending.push(img.decode().catch(() => {})); } }
+function gta6(t, off = 0) { const f = 1 + (Math.floor(Math.max(0, t + off) * 30) % 146); return `../../tlou2/clips/gta6/${String(f).padStart(4, '0')}.jpg`; }
+function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' '); return [...el.querySelectorAll('.w>span')]; }
+function wordsIn(arr, t, t0, stag = 0.06, d = 0.34, out = 0) { arr.forEach((s, i) => { const k = E.oq(seg(t, t0 + i * stag, t0 + i * stag + d)); s.style.transform = `translateY(${((1 - k) * 105 + out * 105).toFixed(1)}%)`; }); }
+function put(el, x, y, s = 1, r = 0, o = 1) { el.style.opacity = o; el.style.transform = `translate(-50%,-50%) translate(${x}px,${y}px) rotate(${r}deg) scale(${s})`; }
+const pops = (k, c = 1.6) => (k > 0 ? 0.6 + 0.4 * E.ob(k, c) : 0.6);
+// тайминги слов (ad2_words.json): Хотя 0.00 · другой 0.94 · не 1.48 · потянет 1.56 · ли 2.04 · а где 2.32 · купить 2.50 · подешевле 2.80
+// Распродажа 3.66 · PlayStation 4.18 · обновилась 4.92 · а вместе 5.54 · вышла 6.24 · GTA VI 6.58 · Самое 7.42 · время 7.78
+// выгодно 8.06 · пополнить 8.52 · баланс 8.88 · PSN 9.16 · на ggsel 9.58/9.66 · конец голоса 10.13
+window.DUR = 10.30;
+const q1 = words($('q1'), 'А Crysis потянет?');
+const q2 = words($('q2'), 'Где купить подешевле?');
+const t6 = words($('t6'), 'Самое время пополнить PSN');
+window.renderAt = async function (t) {
+  pending.length = 0;
+  // 1: логотип Crysis (0–1.5)
+  const kL = E.ob(seg(t, 0.0, 0.45), 1.2), oL = E.io(seg(t, 1.25, 1.55));
+  put($('logo'), 960, lerp(500, 220, oL), (0.7 + 0.3 * kL) * (1 - 0.35 * oL), 0, cl(kL * 3) * (1 - oL));
+  // 2: видеокарта + вопрос, крест на «ли»
+  const kG = E.oc(seg(t, 1.3, 1.7)), oG = E.io(seg(t, 2.15, 2.45));
+  put($('gpu'), lerp(-500, 960, kG) - oG * 1400, 520 + Math.sin(t * 2) * 6, 1, lerp(-8, 0, kG), cl(kG * 2) * (1 - oG));
+  put($('q1'), 960 - oG * 1400, 850, 1, 0, t > 1.3 ? 1 - oG : 0); wordsIn(q1, t, 1.45, 0.07, 0.3);
+  [...$('x').querySelectorAll('line')].forEach((ln, i) => { const q = E.oc(seg(t, 1.98 + i * 0.08, 2.12 + i * 0.08)); ln.setAttribute('stroke-dashoffset', (1 - q).toFixed(3)); });
+  put($('x'), 960 - oG * 1400, 520, 1, 0, seg(t, 1.98, 2.0) * (1 - oG));
+  // 3: ценник + «Где купить подешевле?» (2.3–3.6)
+  const kT = seg(t, 2.3, 2.7), oT = E.io(seg(t, 3.4, 3.65));
+  put($('tag'), 960 + oT * 1300, 400 + Math.sin(t * 2.5) * 8, pops(kT, 2), lerp(-25, -6, E.oc(kT)), cl(kT * 3) * (1 - oT));
+  put($('q2'), 960 + oT * 1300, 750, 1, 0, t > 2.25 ? 1 - oT : 0); wordsIn(q2, t, 2.32, 0.15, 0.32);
+  // 4: распродажа в PlayStation (3.66–5.6)
+  const kS = seg(t, 3.6, 3.95), kP = E.oc(seg(t, 4.05, 4.5)), oS = E.io(seg(t, 5.3, 5.6));
+  put($('sale'), 1300 - oS * 300, 400, pops(kS, 2) * (1 - 0.3 * oS), lerp(-12, -4, E.oc(kS)), cl(kS * 3) * (1 - oS));
+  put($('ps5'), lerp(-300, 560, kP) - oS * 900, 560 + Math.sin(t * 1.4) * 6, 1, lerp(-10, 0, kP), cl(kP * 2) * (1 - oS));
+  const kF = seg(t, 4.85, 5.15);
+  put($('pct'), 1600 - oS * 300, 640 + Math.sin(t * 3) * 6, pops(kF, 2.2), 8, cl(kF * 3) * (1 - oS));
+  // 5: GTA VI уже вышла (5.5–7.45)
+  const k5 = E.oc(seg(t, 5.45, 5.9)), o5 = E.io(seg(t, 7.2, 7.5));
+  setSrc($('g6i'), gta6(t, 0.5));
+  put($('g6'), 960 - o5 * 1500, lerp(640, 520, k5), lerp(0.85, 1, k5) * (1 - 0.1 * o5), 0, cl(k5 * 2) * (1 - o5));
+  const kO = seg(t, 6.2, 6.5);
+  put($('out6'), 1330 - o5 * 1500, 250, pops(kO, 2), -4, cl(kO * 3) * (1 - o5));
+  // 6: «Самое время пополнить PSN» + баланс, на «ggsel» — логотип (7.42–10.3)
+  // к слову «ggsel» всё уходит — остаётся только логотип по центру
+  const oA = E.io(seg(t, 9.3, 9.6));
+  const kTi = t > 7.3 ? 1 - oA : 0; put($('t6'), 960, 230 - oA * 60, 1, 0, kTi); wordsIn(t6, t, 7.42, 0.22, 0.32);
+  $('u6').style.opacity = kTi; $('u6').style.transform = `translate(-50%,-50%) translate(960px,300px) scaleX(${E.oc(seg(t, 8.06, 8.4))})`; $('u6').style.transformOrigin = '0 50%';
+  const kB = seg(t, 7.7, 8.1);
+  put($('bal'), 960, 560 + oA * 60, pops(kB, 1.3) * (1 - 0.25 * oA), 0, cl(kB * 3) * (1 - oA));
+  const v = Math.round(E.oc(seg(t, 8.5, 9.6)) * 5000 / 100) * 100;
+  $('balv').textContent = `${v.toLocaleString('ru-RU').replace(/\s/g, ' ')} ₽`;
+  const kGg = seg(t, 9.55, 9.95);
+  put($('gg'), 960, 540, pops(kGg, 1.8) * 1.55, 0, cl(kGg * 3));
+  // камера
+  $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 10.3)))})`;
+  await Promise.all(pending); await new Promise(requestAnimationFrame);
+};
+(async () => { await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {}))); await window.renderAt(0); window.__ready = true; })();
+</script>
+</body></html>

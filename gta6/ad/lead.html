@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><title>GTA 6 · ggsel подводка</title>
+<style>
+@font-face{font-family:Mont;font-weight:700;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-700-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:700;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-700-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-cyrillic-800-normal.woff2)format('woff2');unicode-range:U+0400-04FF}
+@font-face{font-family:Mont;font-weight:800;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-800-normal.woff2)format('woff2')}
+@font-face{font-family:Mont;font-weight:900;src:url(../../node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2)format('woff2')}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#e9e9e9}
+#stage{position:absolute;inset:0;overflow:hidden}
+.light{position:absolute;inset:-80px;background:radial-gradient(ellipse 70% 75% at 50% 44%,#ffffff 0%,#f4f4f4 38%,#dcdcdc 78%,#c9c9c9 100%)}
+.abs{position:absolute}
+.cam{position:absolute;left:0;top:0;width:1920px;height:1080px}
+.shadow{filter:drop-shadow(0 28px 26px rgba(0,0,0,.20)) drop-shadow(0 6px 8px rgba(0,0,0,.14))}
+.vcard{position:absolute;border-radius:22px;overflow:hidden;background:#222;box-shadow:0 26px 50px rgba(0,0,0,.24),0 6px 12px rgba(0,0,0,.14)}
+.vcard img{width:100%;height:100%;object-fit:cover;display:block}
+.lbl{font-family:Mont,sans-serif;font-weight:700;color:#151515}
+.w{display:inline-block;overflow:hidden;vertical-align:bottom;padding:0 .04em}
+.w>span{display:inline-block}
+.uline{position:absolute;height:9px;border-radius:5px;background:#e1252d;transform-origin:0 50%}
+.card{position:absolute;background:#fff;border-radius:28px;box-shadow:0 30px 60px rgba(0,0,0,.18),0 6px 12px rgba(0,0,0,.10)}
+</style></head><body>
+<div id="stage"><div class="light" id="bg"></div>
+  <div class="cam" id="cam">
+    <!-- 1: GTA VI в карточке + PS5 -->
+    <div class="vcard" id="g1" style="left:250px;top:250px;width:900px;height:506px"><img id="g1i"></div>
+    <div class="abs lbl" id="t1" style="left:250px;top:170px;font-size:52px"></div>
+    <img class="abs shadow" id="ps5" src="../../cyberpunk/assets/ps5.png" style="left:1300px;top:170px;width:440px">
+    <!-- 2: диск, перечёркнутый -->
+    <div class="abs" id="disc" style="left:1290px;top:300px;width:460px;height:460px">
+      <div class="abs shadow" style="inset:0;border-radius:50%;background:radial-gradient(circle,#e9e9e9 0 9%,#bdbdbd 9.5% 10.5%,transparent 11%),conic-gradient(from 20deg,#dfe3ea,#c6f0f2,#f4d7f5,#fdf1c4,#cde8ff,#e8e8e8,#d7f7d9,#f6d2de,#dfe3ea);"></div>
+      <div class="abs" style="inset:0;border-radius:50%;background:radial-gradient(circle,transparent 0 33%,rgba(255,255,255,.35) 33.5% 34.5%,transparent 35%)"></div>
+      <svg class="abs" viewBox="0 0 460 460" style="inset:0;overflow:visible"><line id="x1" x1="70" y1="70" x2="390" y2="390" stroke="#e1252d" stroke-width="30" stroke-linecap="round"/><line id="x2" x1="390" y1="70" x2="70" y2="390" stroke="#e1252d" stroke-width="30" stroke-linecap="round"/></svg>
+    </div>
+    <!-- 3: баланс PSN -->
+    <div class="card" id="bal" style="left:560px;top:330px;width:800px;height:300px">
+      <div class="lbl" style="position:absolute;left:56px;top:52px;font-size:40px;color:#666">Баланс PSN</div>
+      <div class="lbl" id="balv" style="position:absolute;left:56px;top:118px;font-size:120px;font-weight:800;letter-spacing:-2px">0 ₽</div>
+    </div>
+    <!-- 4: ggsel -->
+    <div class="card" id="gg" style="left:600px;top:420px;width:720px;height:240px;display:flex;align-items:center;justify-content:center;gap:28px">
+      <svg width="150" height="150" viewBox="0 0 100 100"><path d="M80 30 L50 13 L19 31 V69 L50 87 L81 69 V51 H53" fill="none" stroke="#3dcd58" stroke-width="17" stroke-linejoin="round" stroke-linecap="round"/></svg>
+      <span style="font-family:Mont;font-weight:900;font-size:160px;line-height:1;color:#1b1b1e;letter-spacing:-.03em;margin-top:-18px">ggsel</span>
+    </div>
+    <div class="abs lbl" id="t4" style="left:0;top:270px;width:1920px;text-align:center;font-size:64px;font-weight:800"></div>
+    <div class="uline" id="u4" style="left:700px;top:358px;width:520px"></div>
+    <!-- 5: распродажа -->
+    <div class="abs" id="sale" style="left:880px;top:660px;white-space:nowrap;padding:18px 34px;border-radius:22px;background:#e1252d;color:#fff;font-family:Mont;font-weight:800;font-size:56px;box-shadow:0 20px 40px rgba(225,37,45,.35)">Распродажа обновилась</div>
+    <!-- 6: GTA VI уже вышла -->
+    <div class="vcard" id="g6" style="left:1240px;top:150px;width:560px;height:315px"><img id="g6i"></div>
+    <div class="abs" id="out6" style="left:1300px;top:110px;padding:10px 22px;border-radius:14px;background:#151515;color:#fff;font-family:Mont;font-weight:800;font-size:38px">GTA VI уже вышла</div>
+  </div>
+</div>
+<script>
+const $ = (id) => document.getElementById(id);
+const cl = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const seg = (t, a, b) => cl((t - a) / (b - a));
+const lerp = (a, b, k) => a + (b - a) * k;
+const E = { oc: (x) => 1 - (1 - x) ** 3, oq: (x) => 1 - (1 - x) ** 4, ic: (x) => x * x * x, io: (x) => (x < .5 ? 4 * x * x * x : 1 - (-2 * x + 2) ** 3 / 2),
+  ob: (x, c1 = 1.25) => { const c3 = c1 + 1; return 1 + c3 * (x - 1) ** 3 + c1 * (x - 1) ** 2; }, sp: (x) => 1 - Math.exp(-7 * x) * Math.cos(10 * x) };
+const pending = [];
+function setSrc(img, src) { if (img.getAttribute('src') !== src) { img.setAttribute('src', src); pending.push(img.decode().catch(() => {})); } }
+function gta6(t, off = 0) { const f = 1 + (Math.floor(Math.max(0, t + off) * 30) % 146); return `../../tlou2/clips/gta6/${String(f).padStart(4, '0')}.jpg`; }
+function words(el, text) { el.innerHTML = text.split(' ').map((w) => `<span class="w"><span>${w}</span></span>`).join(' '); return [...el.querySelectorAll('.w>span')]; }
+function wordsIn(arr, t, t0, stag = 0.06, d = 0.38, out = 0) { arr.forEach((s, i) => { const k = E.oq(seg(t, t0 + i * stag, t0 + i * stag + d)); s.style.transform = `translateY(${(1 - k) * 105 + out * 105}%)`; }); }
+let W = null; const clean = (w) => w.toLowerCase().replace(/[.,!?]/g, '');
+const at = (p, n = 0) => W.filter((w) => clean(w.w).startsWith(p))[n].t;
+let t1w, t4w; window.DUR = 11.85;
+const pop = (el, q, c = 1.3) => { el.style.opacity = cl(q * 3); el.style.transform = `scale(${q > 0 ? 0.85 + 0.15 * E.ob(q, c) : 0.85})`; };
+window.renderAt = async function (t) {
+  pending.length = 0;
+  const tDisc = at('без'), tBal = at('все'), tGg = at('ggsel'), tSale = at('распрод'), tOut = at('а', 0) > 10 ? at('а', 0) : W.filter(w => clean(w.w) === 'а').slice(-1)[0].t;
+  // 1: GTA VI + PS5 (0 … tDisc)
+  const k1 = E.oc(seg(t, 0, 0.5)), o1 = E.io(seg(t, tBal - 0.35, tBal - 0.05));
+  setSrc($('g1i'), gta6(t, 1.2));
+  $('g1').style.opacity = cl(k1 * 2) * (1 - o1); $('g1').style.transform = `translateX(${(1 - k1) * -120 - o1 * 300}px) scale(${lerp(1, 0.9, o1)})`;
+  wordsIn(t1w, t, 0.25, 0.06, 0.4, E.ic(seg(t, tBal - 0.35, tBal - 0.15)));
+  const kp = E.oc(seg(t, 0.15, 0.7)), op = E.io(seg(t, tDisc - 0.25, tDisc + 0.05));
+  $('ps5').style.opacity = cl(kp * 2) * (1 - op); $('ps5').style.transform = `translateX(${(1 - kp) * 160 + op * 120}px) translateY(${Math.sin(t * 1.3) * 5}px)`;
+  // 2: диск вместо PS5, крест на «не купишь»
+  const kd = E.ob(seg(t, tDisc - 0.1, tDisc + 0.35), 1.1), od = E.io(seg(t, tBal - 0.35, tBal - 0.05));
+  $('disc').style.opacity = cl(kd * 3) * (1 - od); $('disc').style.transform = `rotate(${t * 40}deg) scale(${(0.7 + 0.3 * kd) * (1 - 0.2 * od)})`;
+  const tx = at('купишь'); const L = 453;
+  [['x1', tx], ['x2', tx + 0.14]].forEach(([id, a]) => { const k = E.oc(seg(t, a, a + 0.18)); $(id).setAttribute('stroke-dasharray', L); $(id).setAttribute('stroke-dashoffset', L * (1 - k)); $(id).style.opacity = k > 0 ? 1 : 0; });
+  $('x1').parentNode.style.transform = `rotate(${-t * 40}deg)`;
+  // 3: баланс PSN (tBal … tGg)
+  const kb = seg(t, tBal - 0.05, tBal + 0.4), ob = E.io(seg(t, tGg - 0.45, tGg - 0.1));
+  pop($('bal'), kb); $('bal').style.opacity = cl(kb * 3) * (1 - ob); $('bal').style.transform += ` translateY(${-ob * 120}px)`;
+  const v = Math.round(E.oc(seg(t, at('пополн'), at('пополн') + 1.1)) * 5000 / 100) * 100;
+  $('balv').textContent = `${v.toLocaleString('ru-RU').replace(/ /g, ' ')} ₽`;
+  // 4: ggsel + «выгоднее всего»
+  const kg = seg(t, tGg - 0.15, tGg + 0.3);
+  const gUp = E.io(seg(t, tOut - 0.3, tOut + 0.2));
+  pop($('gg'), kg, 1.6); $('gg').style.transform += ` translate(${-gUp * 330}px, ${gUp * 60}px) scale(${1 - 0.18 * gUp})`;
+  wordsIn(t4w, t, at('выгодн') - 0.1, 0.07, 0.4, E.ic(seg(t, tSale - 0.3, tSale - 0.1)));
+  $('u4').style.transform = `scaleX(${E.oc(seg(t, at('выгодн') + 0.2, at('выгодн') + 0.5)) * (1 - seg(t, tSale - 0.3, tSale - 0.1))})`;
+  // 5: распродажа
+  const ks = seg(t, tSale - 0.05, tSale + 0.35), os = E.io(seg(t, tOut - 0.3, tOut));
+  $('sale').style.opacity = cl(ks * 3) * (1 - os); $('sale').style.transform = `rotate(${lerp(-14, -5, E.oc(ks))}deg) scale(${ks > 0 ? 0.7 + 0.3 * E.ob(ks, 2) : 0.7})`;
+  // 6: GTA VI уже вышла
+  const k6 = seg(t, tOut - 0.1, tOut + 0.35);
+  setSrc($('g6i'), gta6(t, 3));
+  $('g6').style.opacity = cl(k6 * 3); $('g6').style.transform = `translateY(${(1 - E.ob(k6, 1.1)) * 60}px) scale(${0.88 + 0.12 * E.ob(k6, 1.1)}) rotate(2deg)`;
+  const kl = seg(t, tOut + 0.2, tOut + 0.5); $('out6').style.opacity = cl(kl * 3); $('out6').style.transform = `scale(${kl > 0 ? 0.8 + 0.2 * E.ob(kl, 2) : 0.8}) rotate(-3deg)`;
+  // камера
+  $('cam').style.transform = `scale(${lerp(1.0, 1.06, E.io(seg(t, 0, 11.85)))}) translateX(${lerp(-12, 12, seg(t, 0, 11.85))}px)`;
+  await Promise.all(pending); await new Promise(requestAnimationFrame);
+};
+(async () => {
+  W = await (await fetch('ad_words.json')).json();
+  t1w = words($('t1'), 'Только в цифре');
+  t4w = words($('t4'), 'Пополнить PSN выгоднее всего');
+  await document.fonts.ready; await Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  await window.renderAt(0); window.__ready = true;
+})();
+</script>
+</body></html>

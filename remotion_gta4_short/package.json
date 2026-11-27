@@ -1,0 +1,28 @@
+{
+  "name": "gta4-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short1 out/gta4_short1_ps3.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short2 out/gta4_short2_apple.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short3 out/gta4_short3_2fps.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short4 out/gta4_short4_memory.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short5 out/gta4_short5_freeze.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short6 out/gta4_short6_euphoria.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short7 out/gta4_short7_shadows.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short8 out/gta4_short8_cost.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTA4Short1 out/gta4_short1_ps3.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short2 out/gta4_short2_apple.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short3 out/gta4_short3_2fps.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short4 out/gta4_short4_memory.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short5 out/gta4_short5_freeze.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short6 out/gta4_short6_euphoria.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short7 out/gta4_short7_shadows.mp4 --concurrency=6 && remotion render src/index.ts GTA4Short8 out/gta4_short8_cost.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

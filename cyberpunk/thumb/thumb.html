@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#07080b;font-family:'Mont'}
+.p{position:absolute;top:0;height:1080px;width:474px;overflow:hidden}
+.bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.ch{position:absolute;filter:drop-shadow(0 20px 30px rgba(0,0,0,.6))}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,#07080b 0%,rgba(7,8,11,.85) 22%,rgba(7,8,11,0) 55%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;top:470px;font-weight:900;font-size:150px;color:#fff;letter-spacing:-.01em;line-height:1;text-shadow:-6px 0 0 rgba(0,229,255,.85),6px 0 0 rgba(255,0,60,.85),0 0 50px rgba(0,0,0,.8),0 12px 30px rgba(0,0,0,.7)}
+.t b{color:#fcee0a}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:330px;width:620px;filter:drop-shadow(0 10px 25px rgba(0,0,0,.9))}
+.x{position:absolute;left:50%;transform:translateX(-50%);top:700px}
+</style></head><body>
+<div class="p" style="left:0"><div class="bg" style="background-image:url(/cyberpunk/assets/city2.jpg);filter:blur(2px) brightness(.8)"></div><img class="ch" src="/cyberpunk/assets/johnny_cut.png" style="height:1500px;left:-110px;top:20px"></div>
+<div class="p" style="left:482px"><div class="bg" style="background-image:url(/cyberpunk/assets/cover.jpg);background-size:980px auto;background-position:-300px -160px"></div></div>
+<div class="p" style="left:964px"><div class="bg" style="background-image:url(/cyberpunk/assets/bug_float_hi.jpg);background-size:auto 1500px;background-position:-1068px -500px"></div></div>
+<div class="p" style="left:1446px"><div class="bg" style="background-image:url(/cyberpunk/assets/tpose_hi.jpg);background-size:auto 1080px;background-position:-900px 0"></div></div>
+<div class="shade"></div>
+<img class="logo" id="logo" src="/cyberpunk/assets/cp_logo.png">
+<div class="t" id="t">PS4 <b>НЕ ВЫДЕРЖАЛА</b></div>
+<img class="x" src="/rdr2/assets/ps4_front.png" style="width:1100px;top:690px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8)) saturate(.9)">
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('s'))document.getElementById('t').style.fontSize=q.get('s')+'px';if(q.get('nologo'))document.getElementById('logo').style.display='none';</script>
+</body></html>

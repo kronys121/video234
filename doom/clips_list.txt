@@ -1,0 +1,64 @@
+# name | src | start | dur | что в кадре
+d16_title_art   doom2016_ps4 1.0 11.0    заставка DOOM: демон в огне (ВСТУПЛЕНИЕ)
+d16_mars_planet doom2016_ps4 100.0 24.0  Марс из космоса, текст снизу
+d16_awake       doom2016_ps4 158.0 32.0  пробуждение: руки, первый бой с одержимыми
+d16_gore        doom2016_ps4 214.0 22.0  красный ад, глори килл, кровь
+d16_uac_fight   doom2016_ps4 340.0 30.0  станция UAC, стрельба
+d16_uac2        doom2016_ps4 384.0 56.0  станция UAC, бой, коридоры
+d16_logo_card   doom2016_ps4 496.0 8.0   титр DOOM на чёрном
+d16_mars1       doom2016_ps4 504.0 66.0  поверхность Марса, бой
+d16_glory1      doom2016_ps4 596.0 14.0  глори килл крупно
+d16_mars2       doom2016_ps4 612.0 40.0  Марс, бой, лава
+d16_glory2      doom2016_ps4 660.0 12.0  добивание
+d16_mars3       doom2016_ps4 696.0 72.0  Марс, арены, стрельба
+d16_combat4     doom2016_ps4 840.0 50.0  бой, взрывы, демоны
+d16_combat5     doom2016_ps4 904.0 36.0  бой, демон вблизи
+d16_combat6     doom2016_ps4 960.0 56.0  бой, кровь
+d16_combat7     doom2016_ps4 1048.0 37.0 бой, плазмаган
+e_city          eternal_pc 8.0 32.0      готический город, первый бой
+e_fight1        eternal_pc 40.0 24.0     бой, огонь, демоны
+e_arena1        eternal_pc 92.0 38.0     арена, город, стрельба
+e_fight2        eternal_pc 128.0 47.0    демоны вблизи, бензопила, кровь
+e_arena2        eternal_pc 176.0 12.0    коридор
+e_fight3        eternal_pc 228.0 34.0    бой, кровь, огонь
+e_fight4        eternal_pc 320.0 80.0    бой, взрывы, кровь
+e_fight5        eternal_pc 400.0 20.0    бой, плазма
+e_cathedral     eternal_pc 576.0 20.0    собор, пейзаж
+e_teal          eternal_pc 624.0 32.0    техно-уровень
+e_cutscene      eternal_pc 704.0 56.0    кат-сцена: Слеер, трон
+d93_play1       doom93 6.0 41.0          Doom 1993: первый уровень, пистолет
+d93_play2       doom93 54.0 76.0         Doom 1993: дробовик, демоны
+meme_atm        atm 0.0 5.5              Doom на банкомате
+meme_tv         atm 20.0 3.8             Doom на осциллографе
+meme_calc       atm 24.0 3.8             Doom на карманном устройстве
+meme_piano      atm 30.0 4.0             Doom на пианино
+meme_watch      atm 41.0 3.0             Doom на часах
+meme_preg       preg 0.5 13.5            Doom на тесте на беременность
+d4_city         doom4 46.0 34.0          Doom 4 прототип: город, демоны
+d4_cod          doom4 85.0 33.0          Doom 4: «Call of Duty» — люди, город в огне
+d4_env          doom4 125.0 28.0         Doom 4: окружение, разрушенный город
+snes_cart       snes 1.0 9.0             картридж Doom для SNES в руке
+snes_1995       snes 182.0 44.0          Doom на SNES (1995)
+sw16_split1     hvd 56.0 13.0            Switch: портатив | док, Марс (с подписями)
+sw16_split2     hvd 76.0 11.0            Switch: портатив | док, Палач
+sw16_split3     hvd 198.0 9.0            Switch: портатив | док, огонь
+sw16_split4     hvd 268.0 29.0           Switch: портатив | док, бой
+sw16_split5     hvd 350.0 24.0           Switch: портатив | док, Марс бой
+sw16_uac        hvd 134.0 26.0           Doom 2016 Switch: станция, Марс
+sw16_mars       hvd 160.0 36.0           Doom 2016 Switch: Марс, свет
+sw16_fight      hvd 206.0 60.0           Doom 2016 Switch: бой, демоны
+sw16_mars2      hvd 296.0 52.0           Doom 2016 Switch: Марс, бой
+c4_mars         cmp4 0.0 20.0            сравнение: Марс (одна платформа)
+c4_split1       cmp4 22.0 8.0            Switch vs ONE vs PS4 vs PC — 4 полосы
+c4_door         cmp4 60.0 22.0           сравнение: дверь, детализация
+c4_split2       cmp4 184.0 12.0          4 полосы, станция
+c4_lava         cmp4 196.0 50.0          сравнение: лава
+esw1            gyro 2.0 58.0            Doom Eternal на Switch: бой (с экрана)
+esw2            gyro 60.0 64.0           Doom Eternal на Switch: бой, огонь
+esw_gyro        gyro 264.0 32.0          гироскоп: руки с геймпадом наклоняют, на экране прицел
+esw_gyro2       gyro 143.0 22.0          гироскоп: джойкон в руке перед экраном
+esw3            gyro 328.0 22.0          Switch в руках, Doom Eternal на экране
+ag1             ag 22.0 88.0             The Ancient Gods на Switch: бой
+ag2             ag 250.0 90.0            The Ancient Gods на Switch: бой, демоны
+d64             d64 180.0 80.0           Doom 64 на Switch
+d3              d3 400.0 70.0            Doom 3 на Switch

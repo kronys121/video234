@@ -1,0 +1,30 @@
+{
+  "name": "gta5-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short1 out/gta5_short1_crazy.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short2 out/gta5_short2_map.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short3 out/gta5_short3_cell.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short4 out/gta5_short4_disc.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short5 out/gta5_short5_memory.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short6 out/gta5_short6_switch.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short7 out/gta5_short7_world.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short8 out/gta5_short8_predict.mp4 --concurrency=6",
+    "render9": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short9 out/gta5_short9_price.mp4 --concurrency=6",
+    "render10": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short10 out/gta5_short10_online.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTA5Short1 out/gta5_short1_crazy.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short2 out/gta5_short2_map.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short3 out/gta5_short3_cell.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short4 out/gta5_short4_disc.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short5 out/gta5_short5_memory.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short6 out/gta5_short6_switch.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short7 out/gta5_short7_world.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short8 out/gta5_short8_predict.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short9 out/gta5_short9_price.mp4 --concurrency=6 && remotion render src/index.ts GTA5Short10 out/gta5_short10_online.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

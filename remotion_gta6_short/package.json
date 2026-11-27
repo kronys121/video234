@@ -1,0 +1,28 @@
+{
+  "name": "gta6-short-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short out/gta6_short1.mp4 --concurrency=6 && remotion render src/index.ts GTA6Short2 out/gta6_short2_police.mp4 --concurrency=6 && remotion render src/index.ts GTA6Short3 out/gta6_short3_tricks.mp4 --concurrency=6",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short out/gta6_short1.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short2 out/gta6_short2_police.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short3 out/gta6_short3_tricks.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short4 out/gta6_short4_leaks.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short5 out/gta6_short5_13years.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short6 out/gta6_short6_physics.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short7 out/gta6_short7_digital.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts GTA6Short8 out/gta6_short8_world.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

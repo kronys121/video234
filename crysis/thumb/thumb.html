@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#000;font-family:'Mont'}
+.bg{position:absolute;inset:0;background:url(/crysis/thumb/bg_sunset.jpg) center/cover;filter:saturate(1.3) brightness(1.08) contrast(1.05)}
+.vig{position:absolute;inset:0;background:radial-gradient(ellipse 75% 80% at 62% 40%,rgba(0,0,0,0) 40%,rgba(0,0,0,.65) 100%),linear-gradient(90deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 45%)}
+.glow{position:absolute;left:-120px;bottom:-160px;width:1100px;height:700px;background:radial-gradient(ellipse at center,rgba(255,60,40,.55),rgba(255,60,40,0) 65%)}
+.suit{position:absolute;right:-90px;top:30px;height:1380px;filter:drop-shadow(0 0 30px rgba(255,170,80,.45)) drop-shadow(0 30px 50px rgba(0,0,0,.8))}
+.logo{position:absolute;left:70px;top:60px;width:760px;filter:drop-shadow(0 0 6px rgba(255,255,255,.6)) drop-shadow(0 12px 25px rgba(0,0,0,.9))}
+.t{position:absolute;left:60px;top:300px;font-weight:900;font-size:190px;line-height:.95;color:#ffd21f;letter-spacing:-.02em;-webkit-text-stroke:10px #000;paint-order:stroke fill;text-shadow:0 14px 40px rgba(0,0,0,.8)}
+.x360{position:absolute;left:30px;top:640px;width:640px;filter:drop-shadow(0 0 24px rgba(120,255,120,.45)) drop-shadow(0 30px 40px rgba(0,0,0,.85))}
+.ps3{position:absolute;left:600px;top:700px;width:700px;filter:drop-shadow(0 0 24px rgba(140,170,255,.5)) drop-shadow(0 30px 40px rgba(0,0,0,.85))}
+.tag{position:absolute;left:1000px;top:560px;padding:14px 30px;border-radius:18px;background:#e1252d;color:#fff;font-weight:900;font-size:70px;transform:rotate(-6deg);box-shadow:0 14px 30px rgba(0,0,0,.6)}
+</style></head><body>
+<div class="bg"></div><div class="vig"></div>
+<img class="suit" src="/crysis/cut/nanosuit_full.png">
+<img class="logo" src="/crysis/cut/crysis_logo.png">
+<div class="t" id="t">ПОТЯНЕТ?</div>
+<img class="x360" src="/crysis/cut/xbox360.png">
+<img class="ps3" src="/crysis/cut/ps3.png">
+<div class="tag" id="tag">512 МБ</div>
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');if(q.get('fs'))document.getElementById('t').style.fontSize=q.get('fs')+'px';if(q.get('notag'))document.getElementById('tag').style.display='none';</script>
+</body></html>

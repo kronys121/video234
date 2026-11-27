@@ -1,0 +1,18 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#1a0a05;font-family:'Mont'}
+.bg{position:absolute;inset:-30px;background:url(/rdr2/assets/horse_river.jpg) center/cover;filter:blur(3px) brightness(.75) sepia(.55) saturate(1.6) hue-rotate(-12deg)}
+.glow{position:absolute;inset:0;background:radial-gradient(circle 700px at 78% 40%,rgba(255,120,30,.45),transparent 70%),linear-gradient(90deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.25) 55%,rgba(0,0,0,.1) 100%),linear-gradient(0deg,rgba(0,0,0,.6),transparent 40%)}
+.ch{position:absolute;filter:drop-shadow(0 25px 40px rgba(0,0,0,.7))}
+.t{position:absolute;left:60px;font-weight:900;color:#fff;letter-spacing:-.02em;line-height:.95;text-shadow:0 0 40px rgba(0,0,0,.7),0 10px 0 rgba(0,0,0,.4),0 18px 40px rgba(0,0,0,.6)}
+.t b{color:#e3262b}
+</style></head><body>
+<div class="bg"></div><div class="glow"></div>
+<img class="ch" src="/rdr2/assets/arthur_bust.png" style="height:1180px;right:-40px;top:20px">
+<img class="ch" src="/rdr2/assets/rdr2_logo.png" style="width:760px;left:60px;top:50px">
+<div class="t" id="t" style="top:390px;font-size:190px">НЕВОЗ<br>МОЖНО</div>
+<img class="ch" src="/rdr2/assets/ps4.png" style="width:620px;left:120px;top:780px">
+<script>const q=new URLSearchParams(location.search);if(q.get('t')){const t=document.getElementById('t');t.innerHTML=q.get('t');if(q.get('s'))t.style.fontSize=q.get('s')+'px';if(q.get('y'))t.style.top=q.get('y')+'px';}</script>
+</body></html>

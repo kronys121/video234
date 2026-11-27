@@ -1,0 +1,38 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#12051f;font-family:'Mont'}
+.abs{position:absolute}
+/* фон: неоновый Оушен-драйв ночью, ярче и насыщеннее */
+.bg{inset:-30px;background:url(/gta6/shots_src/gta-6-screenshot-ocean-drive-1080.jpg) center/cover;filter:saturate(1.55) brightness(1.08) contrast(1.08) blur(2.5px)}
+/* розово-фиолетовое свечение и затемнение краёв, чтобы читались герои и текст */
+.glow{inset:0;background:radial-gradient(ellipse 34% 40% at 50% 74%,rgba(255,70,40,.55),rgba(255,40,120,.18) 55%,transparent 75%)}
+.vig{inset:0;background:radial-gradient(ellipse 75% 85% at 50% 50%,transparent 45%,rgba(20,0,35,.75) 100%),linear-gradient(0deg,rgba(25,0,40,.55),transparent 35%)}
+.hero{bottom:-40px;filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 22px rgba(255,80,200,.75)) drop-shadow(0 24px 30px rgba(0,0,0,.6))}
+.ps5{left:50%;bottom:18px;width:300px;transform:translateX(-50%) rotate(-4deg);filter:drop-shadow(0 0 10px #ff6a00) drop-shadow(0 0 40px rgba(255,60,0,.95)) drop-shadow(0 30px 40px rgba(0,0,0,.7))}
+.heat{left:50%;bottom:-160px;width:1000px;height:760px;transform:translateX(-50%);background:radial-gradient(ellipse at 50% 70%,rgba(255,170,40,.95),rgba(255,60,0,.65) 35%,rgba(255,0,90,.25) 60%,transparent 72%);mix-blend-mode:screen}
+.logo{left:50%;top:40px;width:330px;transform:translateX(-50%);filter:drop-shadow(0 0 4px #fff) drop-shadow(0 10px 30px rgba(0,0,0,.85))}
+.t{left:0;width:1920px;text-align:center;font-weight:900;line-height:.95;color:#fff;letter-spacing:-.02em;
+   -webkit-text-stroke:14px #12051f;paint-order:stroke fill;text-shadow:0 10px 0 #12051f,0 18px 40px rgba(0,0,0,.8)}
+.t .y{color:#ffe23d}
+.t .p{color:#ff3fb4}
+.badge{left:50%;transform:translateX(-50%) rotate(-3deg);background:#e1252d;color:#fff;font-weight:900;padding:10px 34px 14px;border-radius:18px;border:7px solid #fff;box-shadow:0 14px 30px rgba(0,0,0,.55)}
+</style></head><body>
+<div class="abs bg"></div><div class="abs glow"></div><div class="abs vig"></div>
+<img class="abs hero" id="jason" src="/gta6/cut/jason.png" style="left:-40px;height:1080px">
+<img class="abs hero" id="lucia" src="/gta6/cut/lucia.png" style="right:-30px;height:1040px">
+<div class="abs heat"></div>
+<img class="abs ps5" src="/gta6/v/img/ps5.png">
+<img class="abs logo" id="logo" src="/gta6/cut/gta6_logo.png">
+<div class="abs t" id="t" style="top:255px;font-size:190px"><span class="y">PS5</span><br>НА ПРЕДЕЛЕ</div>
+<div class="abs badge" id="b" style="top:745px;font-size:64px;display:none">30 FPS</div>
+<script>
+const q = new URLSearchParams(location.search);
+if (q.get('t')) document.getElementById('t').innerHTML = q.get('t');
+if (q.get('fs')) document.getElementById('t').style.fontSize = q.get('fs') + 'px';
+if (q.get('top')) document.getElementById('t').style.top = q.get('top') + 'px';
+if (q.get('b')) { const b = document.getElementById('b'); b.textContent = q.get('b'); b.style.display = 'block'; }
+if (q.get('nologo')) document.getElementById('logo').style.display = 'none';
+</script>
+</body></html>

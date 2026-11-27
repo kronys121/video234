@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"><style>
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-cyrillic-900-normal.woff2') format('woff2');unicode-range:U+0400-045F}
+@font-face{font-family:'Mont';font-weight:900;src:url('/node_modules/@fontsource/montserrat/files/montserrat-latin-900-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+2000-206F}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1920px;height:1080px;overflow:hidden;background:#07100a;font-family:'Mont'}
+/* 4 панели как в превью GTA San Andreas / GTA 6: общий фон, на каждой свой персонаж, тёмные разделители */
+.p{position:absolute;top:0;height:1080px;width:474px;overflow:hidden;background:#07100a}
+.bg{position:absolute;inset:0;background:url(/crysis/thumb/bg_sunset.jpg) no-repeat;background-size:1920px 1080px;filter:saturate(1.35) brightness(1.05)}
+.p img{position:absolute;left:50%;transform:translateX(-50%);-webkit-mask-image:linear-gradient(180deg,#000 72%,transparent 98%);filter:drop-shadow(0 20px 30px rgba(0,0,0,.55))}
+.shade{position:absolute;inset:0;background:linear-gradient(0deg,#07100a 0%,rgba(7,16,10,.88) 24%,rgba(7,16,10,0) 52%)}
+.t{position:absolute;left:0;width:1920px;text-align:center;top:470px;font-weight:900;font-size:205px;color:#fff;letter-spacing:-.01em;line-height:1;text-shadow:0 0 50px rgba(0,0,0,.75),0 12px 30px rgba(0,0,0,.7)}
+.logo{position:absolute;left:50%;transform:translateX(-50%);top:150px;width:440px;filter:drop-shadow(0 0 4px rgba(255,255,255,.7)) drop-shadow(0 10px 25px rgba(0,0,0,.9))}
+.cons{position:absolute;left:0;width:1920px;top:770px;display:flex;justify-content:center;align-items:flex-end;gap:30px}
+.ps3{position:absolute;left:50%;transform:translateX(-50%);top:760px;width:860px;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))}
+</style></head><body>
+<div class="p" style="left:0px"><div class="bg" style="background-position:-0px 0"></div><img id="i1" src="/crysis/cut/prophet.png" style="top:30px;width:980px;margin-left:60px"></div>
+<div class="p" style="left:482px"><div class="bg" style="background-position:-482px 0"></div><img id="i2" src="/crysis/cut/nanosuit_full.png" style="top:25px;width:500px;margin-left:0px"></div>
+<div class="p" style="left:964px"><div class="bg" style="background-position:-964px 0"></div><img id="i3" src="/crysis/cut/alcatraz.png" style="top:40px;width:720px;margin-left:10px"></div>
+<div class="p" style="left:1446px"><div class="bg" style="background-position:-1446px 0"></div><img id="i4" src="/crysis/cut/psycho.png" style="top:60px;width:900px;margin-left:20px"></div>
+<div class="shade"></div>
+<img class="logo" id="logo" src="/crysis/cut/crysis_logo.png">
+<div class="t" id="t">ПОТЯНЕТ?</div>
+<img class="ps3" src="/crysis/cut/ps3.png">
+<script>const q=new URLSearchParams(location.search);if(q.get('t'))document.getElementById('t').innerHTML=q.get('t');</script>
+</body></html>

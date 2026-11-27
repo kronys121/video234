@@ -1,0 +1,30 @@
+{
+  "name": "cyberpunk-shorts-remotion",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare-clips": "node prepare-clips.mjs",
+    "studio": "node prepare-clips.mjs && remotion studio src/index.ts",
+    "render1": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort1 out/cyberpunk_short1_removed.mp4 --concurrency=6",
+    "render2": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort2 out/cyberpunk_short2_hype.mp4 --concurrency=6",
+    "render3": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort3 out/cyberpunk_short3_delays.mp4 --concurrency=6",
+    "render4": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort4 out/cyberpunk_short4_ps4.mp4 --concurrency=6",
+    "render5": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort5 out/cyberpunk_short5_streaming.mp4 --concurrency=6",
+    "render6": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort6 out/cyberpunk_short6_fps.mp4 --concurrency=6",
+    "render7": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort7 out/cyberpunk_short7_reviews.mp4 --concurrency=6",
+    "render8": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort8 out/cyberpunk_short8_why.mp4 --concurrency=6",
+    "render9": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort9 out/cyberpunk_short9_comeback.mp4 --concurrency=6",
+    "render10": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort10 out/cyberpunk_short10_lesson.mp4 --concurrency=6",
+    "render": "node prepare-clips.mjs && remotion render src/index.ts CyberpunkShort1 out/cyberpunk_short1_removed.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort2 out/cyberpunk_short2_hype.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort3 out/cyberpunk_short3_delays.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort4 out/cyberpunk_short4_ps4.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort5 out/cyberpunk_short5_streaming.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort6 out/cyberpunk_short6_fps.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort7 out/cyberpunk_short7_reviews.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort8 out/cyberpunk_short8_why.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort9 out/cyberpunk_short9_comeback.mp4 --concurrency=6 && remotion render src/index.ts CyberpunkShort10 out/cyberpunk_short10_lesson.mp4 --concurrency=6"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.536",
+    "remotion": "4.0.536",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "@types/react": "18.3.12"
+  }
+}

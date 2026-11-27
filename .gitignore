@@ -118,3 +118,6 @@ gta6/shorts/render.log
 gta6/shorts/render2.log
 gta6/shorts/remotion_gta6_short.zip
 doom/src/
+doom/voice/*.wav
+doom/voice/voice_raw.mp3
+doom/voice/__pycache__/

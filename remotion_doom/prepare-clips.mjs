@@ -14,7 +14,7 @@ for (const f of fs.readdirSync(SRC).filter((x) => x.endsWith('.mp4'))) {
   if (fs.existsSync(path.join(d, '0001.jpg')) && fs.existsSync(stamp) && fs.readFileSync(stamp, 'utf8') === sig) continue;
   fs.rmSync(d, { recursive: true, force: true }); fs.mkdirSync(d, { recursive: true });
   console.log('кадры клипа', k);
-  execFileSync(bin, ['-y', '-v', 'error', '-i', path.join(SRC, f), '-q:v', '3', path.join(d, '%04d.jpg')], { cwd: dir, env, stdio: 'inherit' });
+  execFileSync(bin, ['-y', '-v', 'error', '-i', path.join(SRC, f), '-q:v', '2', path.join(d, '%04d.jpg')], { cwd: dir, env, stdio: 'inherit' });
   fs.writeFileSync(stamp, sig);
 }
 console.log('клипы готовы');

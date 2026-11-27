@@ -20,10 +20,11 @@ speech = np.concatenate([voice[:i0], ad, voice[i0:]])
 N = len(speech) + SR
 out = np.zeros((N, 2), np.float32); out[:len(speech)] += speech
 # --- музыка: динамичные треки подряд, перекрёстное затухание 2 с
-tracks = ['Electro Cabello.mp3', 'Cut and Run.mp3', 'Getting it Done.mp3', 'Raving Energy.mp3']
+tracks = ['Electro Cabello.mp3', 'Cut and Run.mp3', 'Raving Energy.mp3']   # с ~6:46 спокойный трек: «Getting it Done» перебивал голос
+LUFS = {'Electro Cabello.mp3': -10.8, 'Cut and Run.mp3': -10.2, 'Raving Energy.mp3': -13.8}   # измерено ebur128
 mus = np.zeros((0, 2), np.float32); XF = 2 * SR
 for tr in tracks:
-    m = load(f'{M}/{tr}'); m = m / (np.abs(m).max() + 1e-9)
+    m = load(f'{M}/{tr}') * 10 ** ((-11.0 - LUFS[tr]) / 20)   # выравнивание треков по громкости, а не по пику
     if len(mus) == 0: mus = m
     else:
         r = np.linspace(0, 1, XF)[:, None]; mus = np.concatenate([mus[:-XF], mus[-XF:] * (1 - r) + m[:XF] * r, m[XF:]])
@@ -42,6 +43,8 @@ gdb = -17 - 7 * duck                                       # -17 дБ в пау�
 g = (10 ** (gdb / 20)).astype(np.float32)
 t = np.arange(N) / SR; END = len(speech) / SR
 g *= np.clip(t / 1.0, 0, 1) * np.clip((END + 1.0 - t) / 3.0, 0, 1)
+T3 = 190.8 + 214.8 - 4.0          # начало третьего трека на шкале ролика (~6:46)
+g *= 10 ** (-3 * np.clip((t - T3 + 1.0) / 2.0, 0, 1) / 20)   # с третьего трека музыка ещё на 3 дБ тише
 # под рекламой основная музыка уходит (в рекламе своя), плавно за 0,4 с
 A0, A1 = AD_AT, AD_AT + AD
 g *= 1 - np.clip(np.minimum((t - (A0 - 0.4)) / 0.4, ((A1 + 0.4) - t) / 0.4), 0, 1)

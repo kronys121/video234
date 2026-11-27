@@ -11,7 +11,7 @@
 "key": "001_meme_calc",
 "name": "meme_calc",
 "off": 0,
-"dur": 2.35,
+"dur": 3.15,
 "at": 2.4,
 "small": false
 },
@@ -19,7 +19,7 @@
 "key": "002_meme_preg",
 "name": "meme_preg",
 "off": 0,
-"dur": 1.45,
+"dur": 2.25,
 "at": 3.3,
 "small": false
 },
@@ -27,7 +27,7 @@
 "key": "003_meme_atm",
 "name": "meme_atm",
 "off": 0,
-"dur": 1.15,
+"dur": 3.65,
 "at": 5.4,
 "small": false
 },

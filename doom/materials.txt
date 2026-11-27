@@ -1,0 +1,36 @@
+МАТЕРИАЛЫ ДЛЯ РОЛИКА «DOOM НА NINTENDO SWITCH» (озвучка voice_final.mp3, 9:37)
+
+УЖЕ ЕСТЬ
+- DOOM (2016) PS4 геймплей (doom/src/doom2016_ps4.mp4), DOOM Eternal PC геймплей (doom/src/eternal_pc.mp4)
+- Коробки PS4 Doom и Doom Eternal, логотипы DOOM и DOOM Eternal (doom/ad/img)
+- Вырезки: Switch (crysis/cut/switch.png), PS4, PS5, логотип Digital Foundry
+
+ВИДЕО — ГЛАВНОЕ (по 3–10 мин, 1080p, лучше без вебки и комментариев)
+1. DOOM (2016) на Switch — геймплей в доке (бой, арены)
+2. DOOM (2016) на Switch — портативный режим (лучше съёмка экрана консоли в руках или прямой захват)
+3. DOOM Eternal на Switch — геймплей, док и портатив
+4. Сравнение Switch vs PS4 (или vs PC) для Doom 2016 и Eternal — кадры бок о бок (Digital Foundry / ElAnalistaDeBits)
+5. Кат-сцена Doom Eternal на Switch (для 20 кадров)
+6. Прицеливание гироскопом: кто-то наклоняет Switch / Joy-Con, прицел двигается
+
+ВИДЕО — ВТОРОСТЕПЕННОЕ (по 10–30 с)
+7. Doom 1993 на ПК (оригинальный геймплей)
+8. «Doom запускается на всём»: калькулятор, тест на беременность, холодильник, банкомат (клипы или фото)
+9. Doom на Super Nintendo (геймплей)
+10. Отменённый Doom 4 («Call of Doom») — утёкшие кадры/скриншоты
+11. Презентация Nintendo Switch январь 2017 (Bethesda / Skyrim на сцене)
+12. Doom 64 / Doom 3 на Switch, дополнение The Ancient Gods — по 1 короткому клипу
+
+КАРТИНКИ (PNG без фона или фото — вырежу сам)
+13. Коробка DOOM (2016) для Switch; баннер/обложка DOOM Eternal из eShop
+14. Чип Nvidia Tegra X1; Nvidia Shield (планшет)
+15. Switch в доке и Switch в руках (если есть свои фото — ещё лучше), картридж Switch
+16. Картридж Doom для SNES и/или чип Super FX 2; сама SNES
+17. Логотипы: id Software, Bethesda, Panic Button, id Tech 6, id Tech 7, Vulkan
+18. Xbox One (вырезка)
+19. Обложки Switch-портов Panic Button: Rocket League, Warframe, Wolfenstein II, Apex Legends
+20. Skyrim для Switch (обложка)
+21. SnapMap (скриншот редактора)
+22. Манкубус и Рыцарь Ада (рендеры) — для «отстрелить пушку / броню»
+23. Обложки Doom 64, Doom 3 для Switch; арт The Ancient Gods
+24. Рендер Doom Slayer / Doomguy без фона — для превью

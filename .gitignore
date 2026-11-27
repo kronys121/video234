@@ -121,3 +121,7 @@ doom/src/
 doom/voice/*.wav
 doom/voice/voice_raw.mp3
 doom/voice/__pycache__/
+doom/clips/
+doom/v/clips/
+doom/v/mix_full.wav
+doom/v/scenes.json

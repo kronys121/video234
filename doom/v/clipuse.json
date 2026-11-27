@@ -1,0 +1,418 @@
+[
+{
+"key": "000_d93_play1",
+"name": "d93_play1",
+"off": 0,
+"dur": 2.75,
+"at": -0.2,
+"small": true
+},
+{
+"key": "001_meme_calc",
+"name": "meme_calc",
+"off": 0,
+"dur": 2.35,
+"at": 2.4,
+"small": false
+},
+{
+"key": "002_meme_preg",
+"name": "meme_preg",
+"off": 0,
+"dur": 1.45,
+"at": 3.3,
+"small": false
+},
+{
+"key": "003_meme_atm",
+"name": "meme_atm",
+"off": 0,
+"dur": 1.15,
+"at": 5.4,
+"small": false
+},
+{
+"key": "004_meme_piano",
+"name": "meme_piano",
+"off": 0,
+"dur": 2.65,
+"at": 6.4,
+"small": false
+},
+{
+"key": "005_meme_watch",
+"name": "meme_watch",
+"off": 0,
+"dur": 2.15,
+"at": 6.9,
+"small": false
+},
+{
+"key": "006_d93_play2",
+"name": "d93_play2",
+"off": 0,
+"dur": 5.25,
+"at": 8.9,
+"small": false
+},
+{
+"key": "007_d16_combat4",
+"name": "d16_combat4",
+"off": 0,
+"dur": 6.25,
+"at": 16.5,
+"small": false
+},
+{
+"key": "008_sw16_fight",
+"name": "sw16_fight",
+"off": 2,
+"dur": 3.3,
+"at": 26.75,
+"small": true
+},
+{
+"key": "009_e_fight4",
+"name": "e_fight4",
+"off": 0,
+"dur": 5.9,
+"at": 36.15,
+"small": true
+},
+{
+"key": "010_d93_play1",
+"name": "d93_play1",
+"off": 12,
+"dur": 5.45,
+"at": 44.5,
+"small": false
+},
+{
+"key": "011_snes_cart",
+"name": "snes_cart",
+"off": 0,
+"dur": 1.15,
+"at": 52.7,
+"small": false
+},
+{
+"key": "012_snes_1995",
+"name": "snes_1995",
+"off": 0,
+"dur": 4.7,
+"at": 57.9,
+"small": false
+},
+{
+"key": "013_d16_logo_card",
+"name": "d16_logo_card",
+"off": 3.6,
+"dur": 2.25,
+"at": 65.5,
+"small": false
+},
+{
+"key": "014_d16_glory1",
+"name": "d16_glory1",
+"off": 0,
+"dur": 2.35,
+"at": 69.1,
+"small": false
+},
+{
+"key": "015_d16_combat5",
+"name": "d16_combat5",
+"off": 0,
+"dur": 5.35,
+"at": 71.3,
+"small": false
+},
+{
+"key": "016_d4_city",
+"name": "d4_city",
+"off": 0,
+"dur": 4.65,
+"at": 76.5,
+"small": false
+},
+{
+"key": "017_d4_cod",
+"name": "d4_cod",
+"off": 0,
+"dur": 4.65,
+"at": 81,
+"small": false
+},
+{
+"key": "018_d4_env",
+"name": "d4_env",
+"off": 0,
+"dur": 4,
+"at": 85.25,
+"small": true
+},
+{
+"key": "019_d4_env",
+"name": "d4_env",
+"off": 9,
+"dur": 3.75,
+"at": 89.1,
+"small": false
+},
+{
+"key": "020_d16_mars3",
+"name": "d16_mars3",
+"off": 0,
+"dur": 3.1,
+"at": 95.85,
+"small": true
+},
+{
+"key": "021_d16_glory2",
+"name": "d16_glory2",
+"off": 0,
+"dur": 4.55,
+"at": 98.8,
+"small": false
+},
+{
+"key": "022_d16_combat6",
+"name": "d16_combat6",
+"off": 0,
+"dur": 2.8,
+"at": 102.95,
+"small": true
+},
+{
+"key": "023_d16_combat7",
+"name": "d16_combat7",
+"off": 0,
+"dur": 5.35,
+"at": 117,
+"small": false
+},
+{
+"key": "024_sw16_mars",
+"name": "sw16_mars",
+"off": 2,
+"dur": 5.8,
+"at": 151.45,
+"small": true
+},
+{
+"key": "025_d16_mars2",
+"name": "d16_mars2",
+"off": 0,
+"dur": 4.5,
+"at": 194.85,
+"small": true
+},
+{
+"key": "026_sw16_fight",
+"name": "sw16_fight",
+"off": 14,
+"dur": 6.8,
+"at": 232.95,
+"small": true
+},
+{
+"key": "027_sw16_mars2",
+"name": "sw16_mars2",
+"off": 0,
+"dur": 9.45,
+"at": 240.4,
+"small": false
+},
+{
+"key": "028_sw16_split5",
+"name": "sw16_split5",
+"off": 2,
+"dur": 4.45,
+"at": 256.6,
+"small": false
+},
+{
+"key": "029_sw16_uac",
+"name": "sw16_uac",
+"off": 14,
+"dur": 8.7,
+"at": 272.15,
+"small": true
+},
+{
+"key": "030_c4_door",
+"name": "c4_door",
+"off": 0,
+"dur": 4.95,
+"at": 281.3,
+"small": false
+},
+{
+"key": "031_c4_split1",
+"name": "c4_split1",
+"off": 0,
+"dur": 3.45,
+"at": 286.1,
+"small": false
+},
+{
+"key": "032_sw16_mars2",
+"name": "sw16_mars2",
+"off": 20,
+"dur": 3.2,
+"at": 294.05,
+"small": true
+},
+{
+"key": "033_sw16_fight",
+"name": "sw16_fight",
+"off": 26,
+"dur": 9.15,
+"at": 311.4,
+"small": false
+},
+{
+"key": "034_sw16_split4",
+"name": "sw16_split4",
+"off": 5,
+"dur": 8.45,
+"at": 324.3,
+"small": false
+},
+{
+"key": "035_sw16_split4",
+"name": "sw16_split4",
+"off": 15,
+"dur": 5.95,
+"at": 340.7,
+"small": false
+},
+{
+"key": "036_esw_gyro",
+"name": "esw_gyro",
+"off": 0,
+"dur": 6.35,
+"at": 346.5,
+"small": false
+},
+{
+"key": "037_esw_gyro",
+"name": "esw_gyro",
+"off": 9,
+"dur": 3.05,
+"at": 352.7,
+"small": false
+},
+{
+"key": "038_sw16_mars",
+"name": "sw16_mars",
+"off": 22,
+"dur": 4.1,
+"at": 367.85,
+"small": true
+},
+{
+"key": "039_e_fight4",
+"name": "e_fight4",
+"off": 30,
+"dur": 4.85,
+"at": 387.5,
+"small": false
+},
+{
+"key": "040_e_city",
+"name": "e_city",
+"off": 0,
+"dur": 2.9,
+"at": 408.85,
+"small": true
+},
+{
+"key": "041_e_fight2",
+"name": "e_fight2",
+"off": 0,
+"dur": 6.45,
+"at": 422.2,
+"small": false
+},
+{
+"key": "042_esw1",
+"name": "esw1",
+"off": 0,
+"dur": 3.65,
+"at": 448.3,
+"small": false
+},
+{
+"key": "043_esw2",
+"name": "esw2",
+"off": 0,
+"dur": 5.9,
+"at": 464.65,
+"small": true
+},
+{
+"key": "044_e_cutscene",
+"name": "e_cutscene",
+"off": 0,
+"dur": 5.45,
+"at": 478.7,
+"small": false
+},
+{
+"key": "045_e_cutscene",
+"name": "e_cutscene",
+"off": 12,
+"dur": 10.85,
+"at": 484,
+"small": false
+},
+{
+"key": "046_d16_combat4",
+"name": "d16_combat4",
+"off": 20,
+"dur": 3.1,
+"at": 516.35,
+"small": true
+},
+{
+"key": "047_d64",
+"name": "d64",
+"off": 0,
+"dur": 4.55,
+"at": 526.6,
+"small": false
+},
+{
+"key": "048_d3",
+"name": "d3",
+"off": 0,
+"dur": 3.25,
+"at": 527.9,
+"small": false
+},
+{
+"key": "049_esw3",
+"name": "esw3",
+"off": 0,
+"dur": 5.8,
+"at": 555.45,
+"small": true
+},
+{
+"key": "050_d93_play2",
+"name": "d93_play2",
+"off": 30,
+"dur": 6.6,
+"at": 563.35,
+"small": true
+},
+{
+"key": "051_e_cathedral",
+"name": "e_cathedral",
+"off": 0,
+"dur": 3,
+"at": 574.35,
+"small": true
+}
+]
